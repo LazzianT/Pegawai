@@ -5,5 +5,8 @@ services:
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:?set VITE_API_BASE_URL}
     ports:
-      - "3013:3013"
+      - target: 3013
+        published: 3013
+        protocol: tcp
+        mode: host
     restart: unless-stopped
