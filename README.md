@@ -23,7 +23,7 @@ Portainer Stack:
 3. Environment variable: `VITE_API_BASE_URL=https://API_HOST/api` dan opsional `FRONTEND_PORT=3013`
 4. Aktifkan GitOps update atau gunakan `Pull and redeploy`.
 
-`VITE_API_BASE_URL` adalah nilai build-time. Setelah diubah, lakukan redeploy/rebuild image. API harus bisa diakses dari browser client, bukan hanya dari container.
+Frontend memakai `/api` same-origin. Nginx meneruskan `/api/*` ke backend `10.19.25.23:47213`; browser tidak perlu mengakses backend langsung, sehingga CORS tidak menjadi hambatan. Jika alamat backend berubah, ubah `nginx.conf`, lalu rebuild dan redeploy image.
 
 ## Pemeriksaan
 
