@@ -1,6 +1,6 @@
 name: pegawai
 services:
-  frontend:
+  pegawai:
     build:
       context: .
       dockerfile: Dockerfile
