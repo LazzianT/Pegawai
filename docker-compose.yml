@@ -1,9 +1,11 @@
+name: pegawai
 services:
-  pegawai:
+  frontend:
     build:
       context: .
+      dockerfile: Dockerfile
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:?set VITE_API_BASE_URL}
     ports:
-      - "3013:3013"
+      - "127.0.0.1:3013:80"
     restart: unless-stopped

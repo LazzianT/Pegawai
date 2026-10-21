@@ -12,7 +12,7 @@ RUN npm run build
 FROM nginx:1.27-alpine AS runtime
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 3013
+EXPOSE 80
 USER nginx
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
