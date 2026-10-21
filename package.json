@@ -1,0 +1,35 @@
+{
+  "name": "bmc-online-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5174",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "node src/hr.check.mjs",
+    "video:studio": "remotion studio remotion/index.jsx",
+    "video:audio": "tsx remotion/generate-audio.mjs",
+    "video:render": "remotion render remotion/index.jsx BmcTutorial out/bmc-tutorial.mp4 --public-dir remotion/public",
+    "video:capture": "node remotion/capture-site.mjs",
+    "video:check": "node remotion/video.check.mjs"
+  },
+  "dependencies": {
+    "@fontsource/plus-jakarta-sans": "^5.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.537",
+    "@remotion/media": "^4.0.537",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "edge-tts": "^1.0.1",
+    "playwright-core": "^1.64.1",
+    "postcss": "^8.4.49",
+    "remotion": "^4.0.537",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.15",
+    "vite": "^6.0.3"
+  }
+}
