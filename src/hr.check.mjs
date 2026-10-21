@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict'
 import { buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, formatDateInput, formatPersonName, formatTimeInput, pageFromPath, pagePath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm } from './hr.js'
+import { sha1 } from './services/api.js'
+
+assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
 
 assert.deepEqual(validateLogin('', ''), {
   identifier: 'NIK wajib diisi',
