@@ -1,7 +1,11 @@
 name: pegawai
 services:
   frontend:
-    build: { context: ., dockerfile: docker/frontend.Dockerfile }
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:?VITE_API_BASE_URL is required}
     ports:
       - "3013:80"
     restart: unless-stopped
