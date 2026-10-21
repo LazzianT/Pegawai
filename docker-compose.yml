@@ -1,0 +1,9 @@
+services:
+  pegawai:
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:?set VITE_API_BASE_URL}
+    ports:
+      - "3013:3013"
+    restart: unless-stopped
