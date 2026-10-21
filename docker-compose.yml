@@ -3,5 +3,5 @@ services:
   frontend:
     build: { context: ., dockerfile: docker/frontend.Dockerfile }
     ports:
-      - "3013:80"
+      - "127.0.0.1:3013:80"
     restart: unless-stopped
