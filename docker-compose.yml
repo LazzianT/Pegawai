@@ -1,7 +1,10 @@
 name: pegawai
+
 services:
   frontend:
-    build: { context: ., dockerfile: docker/frontend.Dockerfile }
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
     ports:
-      - "127.0.0.1:3013:80"
+      - "3013:80"
     restart: unless-stopped
