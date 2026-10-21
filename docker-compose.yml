@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      API_UPSTREAM: ${API_UPSTREAM:-http://10.19.25.23:47213}
     ports:
       - "${FRONTEND_PORT:-3013}:80"
     restart: unless-stopped
