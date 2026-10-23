@@ -1,6 +1,6 @@
 export function validateLogin(identifier, password) {
   const errors = {}
-  if (!identifier.trim()) errors.identifier = 'NIK wajib diisi'
+  if (!identifier.trim()) errors.identifier = 'NIP wajib diisi'
   if (!password) errors.password = 'Password wajib diisi'
   return errors
 }

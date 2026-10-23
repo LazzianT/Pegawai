@@ -68,13 +68,13 @@ export default function LoginPage({ onLogin }) {
             <h2 id="login-title">Selamat Datang</h2>
             <p>Masuk untuk mengelola pengajuan cuti, izin, dan tugas luar Anda.</p>
             <div className="field">
-              <label htmlFor="identifier">NIK / Nomor Induk Karyawan</label>
-              <div className={`input-wrap ${errors.identifier ? 'has-error' : ''}`}><Icon>✉</Icon><input id="identifier" name="identifier" value={identifier} onChange={(e) => { setIdentifier(e.target.value); setErrors((old) => ({ ...old, identifier: '' })) }} placeholder="Masukkan NIK Anda" aria-invalid={Boolean(errors.identifier)} aria-describedby={errors.identifier ? 'identifier-error' : undefined} /></div>
+              <label htmlFor="identifier">NIP</label>
+              <div className={`input-wrap ${errors.identifier ? 'has-error' : ''}`}><Icon>✉</Icon><input id="identifier" name="identifier" value={identifier} onChange={(e) => { setIdentifier(e.target.value); setErrors((old) => ({ ...old, identifier: '' })) }} placeholder="Masukkan NIP Anda" aria-invalid={Boolean(errors.identifier)} aria-describedby={errors.identifier ? 'identifier-error' : undefined} /></div>
               {errors.identifier && <small className="field-error" id="identifier-error">{errors.identifier}</small>}
             </div>
             <div className="field">
               <label htmlFor="password">Password</label>
-              <div className={`input-wrap ${errors.password ? 'has-error' : ''}`}><Icon>♙</Icon><input id="password" name="password" type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => { setPassword(e.target.value); setErrors((old) => ({ ...old, password: '' })) }} placeholder="Masukkan password" aria-invalid={Boolean(errors.password)} aria-describedby={errors.password ? 'password-error' : undefined} /><button className="password-toggle" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}>{showPassword ? 'Sembunyikan' : 'Tampilkan'}</button></div>
+              <div className={`input-wrap ${errors.password ? 'has-error' : ''}`}><Icon>♙</Icon><input id="password" name="password" type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => { setPassword(e.target.value); setErrors((old) => ({ ...old, password: '' })) }} placeholder="Tanggal Lahir Anda (ddmmyy)" aria-invalid={Boolean(errors.password)} aria-describedby={errors.password ? 'password-error' : undefined} /><button className="password-toggle" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}>{showPassword ? 'Sembunyikan' : 'Tampilkan'}</button></div>
               {errors.password && <small className="field-error" id="password-error">{errors.password}</small>}
             </div>
             <div className="form-options"><label className="remember"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />Ingat saya</label><span aria-disabled="true">Lupa password?</span></div>
