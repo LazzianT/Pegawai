@@ -3,7 +3,7 @@ BMC Online - Script narasi tutorial
 Selamat datang di BMC Online.
 BMC Online adalah aplikasi administrasi keperluan karyawan yang digunakan untuk mengajukan, memantau, dan mengelola berbagai kebutuhan HC secara lebih mudah dan teratur.
 
-Untuk memulai, masukkan NIP pada kolom NIP. Pastikan NIP sesuai data kepegawaian Anda. Berikutnya, masukkan password. Pilih Ingat saya hanya pada perangkat pribadi. Setelah semua data terisi, klik Masuk.
+Untuk memulai, masukkan NIP pada kolom NIP. Pastikan NIP sesuai data kepegawaian Anda. Berikutnya, masukkan password sesuai hint Tanggal Lahir Anda (ddmmyy). Pilih Ingat saya hanya pada perangkat pribadi. Setelah semua data terisi, klik Masuk.
 
 Pada login pertama, aplikasi menampilkan sapaan kepada pengguna dan panduan singkat. Klik Lihat panduan untuk memulai. Pilih Lewati bila sudah memahami aplikasi. Panduan tidak tampil otomatis lagi setelah selesai atau dilewati.
 
