@@ -54,7 +54,7 @@ export default function LoginPage({ onLogin }) {
       <main id="top" className="hero-grid">
         <section className="hero-copy enter" id="about" aria-labelledby="hero-title">
           <p className="eyebrow">Lebih mudah, lebih teratur</p>
-          <h1 className="hero-title" id="hero-title">Kelola pengajuan HR <strong>dalam Satu Tempat.</strong></h1>
+          <h1 className="hero-title" id="hero-title">Kelola pengajuan HC <strong>dalam Satu Tempat.</strong></h1>
           <p className="hero-text">Ajukan, pantau, dan kelola semua permohonan kapan saja, di mana saja. Proses lebih cepat, transparan, dan mudah dipantau.</p>
           <div className="benefits" id="project">
             <div className="benefit"><div className="benefit-mark"><Icon name="calendar" /></div>Pengajuan mudah</div>

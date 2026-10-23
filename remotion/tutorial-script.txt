@@ -1,0 +1,30 @@
+BMC Online - Script narasi tutorial
+
+Selamat datang di BMC Online.
+BMC Online adalah aplikasi administrasi keperluan karyawan yang digunakan untuk mengajukan, memantau, dan mengelola berbagai kebutuhan HC secara lebih mudah dan teratur.
+
+Untuk memulai, masukkan NIK atau Nomor Induk Karyawan pada kolom NIK. Pastikan NIK sesuai data kepegawaian Anda. Berikutnya, masukkan password. Pilih Ingat saya hanya pada perangkat pribadi. Setelah semua data terisi, klik Masuk.
+
+Pada login pertama, aplikasi menampilkan sapaan kepada pengguna dan panduan singkat. Klik Lihat panduan untuk memulai. Pilih Lewati bila sudah memahami aplikasi. Panduan tidak tampil otomatis lagi setelah selesai atau dilewati.
+
+Bagian Ringkasan pengajuan menampilkan Cuti, Izin, Cuti Besar, dan Tugas Luar. Informasi ini membantu melihat jumlah pengajuan serta pengajuan yang masih menunggu persetujuan.
+
+Tombol Ajukan baru menyediakan akses cepat untuk Ajukan Cuti, Ajukan Izin, dan Ajukan Tugas Luar.
+
+Pengajuan terbaru menampilkan jenis, ID, informasi utama, tanggal, dan status. Klik baris untuk membuka detail lengkap. Status Disetujui berarti pengajuan telah disetujui, Ditolak berarti tidak disetujui, dan Menunggu berarti masih diproses.
+
+Menu samping menyediakan Dashboard, Cuti, Izin, Cuti Besar, Tugas Luar, dan My Profile. Perjalanan Dinas masih berstatus Coming soon.
+
+Pada pengajuan Cuti, periksa saldo, pilih jenis cuti, pilih tanggal, isi keterangan, dan pilih minimal satu atasan. Hari Minggu tidak dapat dipilih. Pengajuan harus dibuat minimal tujuh hari sebelum tanggal cuti. Jumlah hari juga harus sesuai saldo.
+
+Pada pengajuan Izin, pilih keperluan, isi tanggal mulai dan tanggal selesai, lalu isi jam bila diperlukan. Tanggal selesai tidak boleh lebih awal. Isi keterangan dan pilih atasan.
+
+Pada pengajuan Tugas Luar, isi tanggal keluar, jam keluar, tujuan, serta atasan. Tugas atau keperluan bersifat opsional, tetapi disarankan diisi jelas. Level persetujuan ditentukan server.
+
+Pada My Profile, pengguna dapat melihat nama, NIP, email, nomor telepon, jabatan, dan departemen. Email serta nomor telepon dapat diperbarui melalui tombol Edit. Klik Simpan untuk menerapkan perubahan atau Batal untuk mempertahankan data lama.
+
+Dropdown profil menyediakan My Profile, Panduan aplikasi, dan Keluar. Gunakan Keluar setelah selesai, terutama pada perangkat bersama.
+
+BMC Online juga mendukung layar mobile. Buka sidebar melalui tombol menu dan tutup dengan memilih halaman atau mengklik area di luar sidebar.
+
+Demikian tutorial penggunaan BMC Online. Pastikan data sudah benar sebelum mengirim pengajuan dan simpan ID pengajuan untuk pengecekan berikutnya. Terima kasih telah menggunakan BMC Online.

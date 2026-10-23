@@ -30,7 +30,11 @@ Frontend memakai `/api` same-origin. Nginx meneruskan `/api/*` ke backend `10.19
 ```bash
 npm run check
 npm run build
+npm run build:pdf
+npm run check:pdf
 docker compose config
 ```
+
+Tutorial PDF: `tutorial/index.html` + `tutorial/styles.css`. Hasil: `dist/BMC-Online-Panduan-Penggunaan.pdf`. Set `CHROME_PATH` bila Chrome berada di lokasi lain.
 
 Tidak ada secret di frontend. Password tidak disimpan. Respons sukses hanya ditampilkan setelah backend mengembalikan token dan user yang valid.
