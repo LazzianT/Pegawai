@@ -12,7 +12,10 @@
     "video:audio": "tsx remotion/generate-audio.mjs",
     "video:render": "remotion render remotion/index.jsx BmcTutorial out/bmc-tutorial.mp4 --public-dir remotion/public",
     "video:capture": "node remotion/capture-site.mjs",
-    "video:check": "node remotion/video.check.mjs"
+    "video:check": "node remotion/video.check.mjs",
+    "video:render:final": "remotion render remotion/index.jsx BmcTutorial BMC-Online-Tutorial-final.mp4 --public-dir remotion/public --port 3001",
+    "build:pdf": "node scripts/build-pdf.mjs",
+    "check:pdf": "node scripts/check-pdf.mjs"
   },
   "dependencies": {
     "@fontsource/plus-jakarta-sans": "^5.3.0",

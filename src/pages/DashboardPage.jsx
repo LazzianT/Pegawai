@@ -40,12 +40,12 @@ function normalizeRows(payload, type) {
 
 function Sidebar({ active, onSelect, user, onLogout }) {
   return <aside className="app-sidebar" data-tour="menu">
-    <a className="brand sidebar-brand" href="/dashboard" onClick={(event) => { event.preventDefault(); onSelect('Dashboard') }}><img src="/bmc-mark.png" alt="" /><span>BMC Online<small>HR Management</small></span></a>
+    <a className="brand sidebar-brand" href="/dashboard" onClick={(event) => { event.preventDefault(); onSelect('Dashboard') }}><img src="/bmc-mark.png" alt="" /><span>BMC Online<small>HC Management</small></span></a>
     <div className="sidebar-caption">Menu utama</div>
     <nav aria-label="Menu utama">
       {NAV_ITEMS.map((item) => item === 'Perjalanan Dinas' ? <div className="sidebar-link sidebar-coming-soon" key={item}><span><Icon name={icons[item]} /></span><span>{item}<small>Coming soon</small></span></div> : <a className={active === item ? 'sidebar-link active' : 'sidebar-link'} href={pagePath(item)} key={item} onClick={(event) => { event.preventDefault(); onSelect(item) }}><span><Icon name={icons[item]} /></span>{item}</a>)}
     </nav>
-    <div className="sidebar-note"><strong>Butuh bantuan?</strong>Hubungi admin HR untuk bantuan pengajuan.</div>
+    <div className="sidebar-note"><strong>Butuh bantuan?</strong>Hubungi admin HC untuk bantuan pengajuan.</div>
     <div className="sidebar-profile"><div className="avatar">{(user?.name || 'P').slice(0, 1).toUpperCase()}</div><div><strong>{user?.name || user?.id || 'Pengguna'}</strong><small>{user?.jabatan || user?.department || 'Pengguna'}</small></div><button type="button" aria-label="Keluar" onClick={onLogout}><Icon name="logout" size={16} /></button></div>
   </aside>
 }
@@ -66,7 +66,7 @@ function TourGuide({ user, onClose }) {
   const [step, setStep] = useState(-1)
   const steps = [
     { target: 'summary', title: 'Ringkasan pengajuan', text: 'Pantau jumlah pengajuan cuti, izin, dan tugas luar dari satu tempat.' },
-    { target: 'request', title: 'Ajukan kebutuhan HR', text: 'Gunakan tombol Ajukan baru untuk membuat pengajuan dengan cepat.' },
+    { target: 'request', title: 'Ajukan kebutuhan HC', text: 'Gunakan tombol Ajukan baru untuk membuat pengajuan dengan cepat.' },
     { target: 'recent', title: 'Pengajuan terbaru', text: 'Lihat status dan detail pengajuan terakhir Anda di sini.' },
     { target: 'menu', title: 'Menu dan profil', text: 'Gunakan menu samping untuk berpindah halaman. Profil serta logout tersedia di kanan atas.' },
   ]
@@ -78,7 +78,7 @@ function TourGuide({ user, onClose }) {
     return () => element?.classList.remove('tour-target')
   }, [step])
   const current = steps[step]
-  return <div className="tour-layer" role="dialog" aria-modal="true" aria-labelledby="tour-title"><div className={step === 0 ? 'tour-card tour-card-summary' : 'tour-card'}><p className="panel-kicker">BMC Online</p>{step < 0 ? <><h2 id="tour-title">Halo, {formatPersonName(user?.name) || 'Pengguna'}!</h2><p>Ini adalah aplikasi administrasi keperluan karyawan. Ajukan, pantau, dan kelola kebutuhan HR Anda dengan lebih mudah.</p><button className="primary-button" type="button" onClick={() => setStep(0)}>Lihat panduan</button></> : <><p className="tour-count">{step + 1} dari {steps.length}</p><h2 id="tour-title">{current.title}</h2><p>{current.text}</p><div className="tour-actions"><button className="secondary-button" type="button" onClick={onClose}>Lewati</button>{step < steps.length - 1 ? <button className="primary-button" type="button" onClick={() => setStep((value) => value + 1)}>Berikutnya</button> : <button className="primary-button" type="button" onClick={onClose}>Selesai</button>}</div></>}</div></div>
+  return <div className="tour-layer" role="dialog" aria-modal="true" aria-labelledby="tour-title"><div className={step === 0 ? 'tour-card tour-card-summary' : 'tour-card'}><p className="panel-kicker">BMC Online</p>{step < 0 ? <><h2 id="tour-title">Hallo, {formatPersonName(user?.name) || 'Pengguna'}!</h2><p>Ini adalah aplikasi administrasi keperluan karyawan. Ajukan, pantau, dan kelola kebutuhan HC Anda dengan lebih mudah.</p><button className="primary-button" type="button" onClick={() => setStep(0)}>Lihat panduan</button></> : <><p className="tour-count">{step + 1} dari {steps.length}</p><h2 id="tour-title">{current.title}</h2><p>{current.text}</p><div className="tour-actions"><button className="secondary-button" type="button" onClick={onClose}>Lewati</button>{step < steps.length - 1 ? <button className="primary-button" type="button" onClick={() => setStep((value) => value + 1)}>Berikutnya</button> : <button className="primary-button" type="button" onClick={onClose}>Selesai</button>}</div></>}</div></div>
 }
 
 function SummaryCard({ type, rows, onOpen }) {
