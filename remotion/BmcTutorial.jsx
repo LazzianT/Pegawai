@@ -7,8 +7,8 @@ const colors = { white: '#ffffff', navy: '#102a56', teal: '#0d9c9c', text: '#243
 
 const scenes = [
   ['BMC Online', 'Urusan kerja, lebih mudah.', 'Panduan sederhana untuk mengajukan cuti, izin, dan tugas luar.', 'site-dashboard.png', 'Mulai', 0, 240],
-  ['Sebelum mulai', 'Siapkan yang penting.', 'Siapkan nomor induk, password, tanggal, keterangan, dan nama atasan.', 'site-login.png', 'Persiapan', 240, 240],
-  ['Masuk ke aplikasi', 'Buka employee-portal.bmc.co.id.', 'Masukkan nomor induk dan password, lalu tekan Masuk.', 'site-login.png', '01', 480, 270],
+  ['Sebelum mulai', 'Siapkan yang penting.', 'Siapkan NIP, password, tanggal, keterangan, dan nama atasan.', 'site-login.png', 'Persiapan', 240, 240],
+  ['Masuk ke aplikasi', 'Buka employee-portal.bmc.co.id.', 'Masukkan NIP dan password, lalu tekan Masuk.', 'site-login.png', '01', 480, 270],
   ['Menu utama', 'Lihat pengajuan di satu tempat.', 'Gunakan menu untuk membuat pengajuan baru dan melihat pengajuan sebelumnya.', 'site-dashboard.png', '02', 750, 300],
   ['Ajukan cuti', 'Pilih tanggal cuti.', 'Periksa sisa cuti, pilih tanggal, tulis keterangan, lalu pilih atasan.', 'site-cuti.png', '03', 1050, 330],
   ['Ajukan izin', 'Jelaskan keperluannya.', 'Pilih keperluan, isi tanggal, tambahkan jam bila perlu, lalu kirim.', 'site-izin.png', '04', 1380, 330],
