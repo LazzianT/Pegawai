@@ -68,8 +68,8 @@ export default function LoginPage({ onLogin }) {
             <h2 id="login-title">Selamat Datang</h2>
             <p>Masuk untuk mengelola pengajuan cuti, izin, dan tugas luar Anda.</p>
             <div className="field">
-              <label htmlFor="identifier">NIK / Nomor Induk Karyawan</label>
-              <div className={`input-wrap ${errors.identifier ? 'has-error' : ''}`}><Icon>✉</Icon><input id="identifier" name="identifier" value={identifier} onChange={(e) => { setIdentifier(e.target.value); setErrors((old) => ({ ...old, identifier: '' })) }} placeholder="Masukkan NIK Anda" aria-invalid={Boolean(errors.identifier)} aria-describedby={errors.identifier ? 'identifier-error' : undefined} /></div>
+              <label htmlFor="identifier">NIP</label>
+              <div className={`input-wrap ${errors.identifier ? 'has-error' : ''}`}><Icon>✉</Icon><input id="identifier" name="identifier" value={identifier} onChange={(e) => { setIdentifier(e.target.value); setErrors((old) => ({ ...old, identifier: '' })) }} placeholder="Masukkan NIP Anda" aria-invalid={Boolean(errors.identifier)} aria-describedby={errors.identifier ? 'identifier-error' : undefined} /></div>
               {errors.identifier && <small className="field-error" id="identifier-error">{errors.identifier}</small>}
             </div>
             <div className="field">

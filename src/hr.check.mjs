@@ -5,7 +5,7 @@ import { sha1 } from './services/api.js'
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
 
 assert.deepEqual(validateLogin('', ''), {
-  identifier: 'NIK wajib diisi',
+  identifier: 'NIP wajib diisi',
   password: 'Password wajib diisi',
 })
 assert.deepEqual(validateLogin(' 0377 ', 'rahasia'), {})
