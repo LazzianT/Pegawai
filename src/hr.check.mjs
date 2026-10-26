@@ -11,6 +11,7 @@ assert.deepEqual(validateLogin('', ''), {
 assert.deepEqual(validateLogin(' 0377 ', 'rahasia'), {})
 assert.deepEqual(dateRange('2026-01-01', '2026-01-03'), ['2026-01-01', '2026-01-02', '2026-01-03'])
 assert.equal(addWorkingDays('2026-10-30', 1), '2026-11-02')
+assert.equal(addWorkingDays('2026-10-29', 2), '2026-11-02')
 assert.equal(addWorkingDays('2026-10-26', 5), '2026-11-02')
 assert.equal(pagePath('Cuti'), '/cuti')
 assert.equal(pageFromPath('/izin'), 'Izin')
