@@ -8,6 +8,6 @@ const pages = (text.match(/\/Type\s*\/Page\b/g) ?? []).length;
 const size = statSync(pdf).size;
 
 console.assert(size > 0, 'PDF kosong');
-console.assert(pages === 10, `Jumlah halaman ${pages}, expected 10`);
+console.assert(pages === 11, `Jumlah halaman ${pages}, expected 11`);
 console.assert(text.includes('/Font'), 'PDF tidak memuat font untuk teks selectable');
 console.log(`Pemeriksaan PDF lulus: ${pages} halaman, ${size} bytes`);

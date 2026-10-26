@@ -19,7 +19,7 @@ function Icon({ name, size = 17 }) {
   return <svg className="ui-icon" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
 }
 
-export function DatePicker({ value, onChange, error }) {
+export function DatePicker({ value, onChange, error, disabled = false }) {
   const parsed = /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? new Date(`${value}T00:00:00`) : new Date()
   const initial = Number.isNaN(parsed.getTime()) ? new Date() : parsed
   const [open, setOpen] = useState(false)
@@ -41,7 +41,7 @@ export function DatePicker({ value, onChange, error }) {
   const moveMonth = (delta) => setMonth((current) => new Date(current.getFullYear(), current.getMonth() + delta, 1))
   const choose = (date) => { onChange(dateKey(date)); setOpen(false) }
   return <div className="custom-picker" ref={ref}>
-    <div className={error ? 'picker-trigger has-error' : 'picker-trigger'}><Icon name="calendar" /><input className="picker-input" value={value} onChange={(event) => onChange(formatDateInput(event.target.value))} placeholder="YYYY-MM-DD" inputMode="numeric" maxLength="10" aria-label="Tanggal keluar" /><button className="picker-toggle" type="button" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-haspopup="dialog" aria-label="Buka kalender"><Icon name="chevron" size={15} /></button></div>
+    <div className={error ? 'picker-trigger has-error' : 'picker-trigger'}><Icon name="calendar" /><input className="picker-input" value={value} onChange={(event) => onChange(formatDateInput(event.target.value))} placeholder="YYYY-MM-DD" inputMode="numeric" maxLength="10" aria-label="Tanggal keluar" disabled={disabled} /><button className="picker-toggle" type="button" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-haspopup="dialog" aria-label="Buka kalender" disabled={disabled}><Icon name="chevron" size={15} /></button></div>
     {open && <div className="picker-popover date-popover" role="dialog" aria-label="Pilih tanggal keluar"><div className="picker-header"><button type="button" onClick={() => moveMonth(-1)} aria-label="Bulan sebelumnya"><Icon name="left" size={15} /></button><strong>{MONTHS[month.getMonth()]} {month.getFullYear()}</strong><button type="button" onClick={() => moveMonth(1)} aria-label="Bulan berikutnya"><Icon name="right" size={15} /></button></div><div className="picker-weekdays">{WEEKDAYS.map((day) => <span key={day}>{day}</span>)}</div><div className="picker-days">{days.map((date, index) => date ? <button className={value === dateKey(date) ? 'picker-day selected' : 'picker-day'} type="button" key={dateKey(date)} onClick={() => choose(date)}>{date.getDate()}</button> : <span key={`empty-${index}`} />)}</div></div>}
   </div>
 }

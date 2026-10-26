@@ -64,6 +64,18 @@ export function dateRange(start, end = start) {
   return dates
 }
 
+export function addWorkingDays(start, days) {
+  const date = new Date(`${String(start).slice(0, 10)}T00:00:00`)
+  const count = Number(days)
+  if (Number.isNaN(date.getTime()) || !Number.isInteger(count) || count < 0) return ''
+  let added = 0
+  while (added < count) {
+    date.setDate(date.getDate() + 1)
+    if (date.getDay() !== 0 && date.getDay() !== 6) added++
+  }
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+}
+
 export function monthKey(value) { return String(value || '').slice(0, 7) }
 
 const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Khusus': '/cuti-khusus', 'Tugas Luar': '/tugas-luar', 'My Profile': '/profile' }
@@ -123,7 +135,7 @@ export function buildCutiPayload(form) {
   }
 }
 
-export function validateIzinForm(form) {
+export function validateIzinForm(form, special = false) {
   const errors = {}
   const start = String(form.ProposeStartDate || '').trim()
   const end = String(form.ProposeEndDate || '').trim()
@@ -132,8 +144,8 @@ export function validateIzinForm(form) {
   if (start && end && end < start) errors.ProposeEndDate = 'Tanggal selesai tidak boleh sebelum tanggal mulai'
   if (!String(form.keperluan || '').trim()) errors.keperluan = 'Keperluan wajib dipilih'
   if (!Array.isArray(form.approvers) || form.approvers.length === 0) errors.approvers = 'Atasan wajib dipilih'
-  if (form.ProposeStartTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(form.ProposeStartTime)) errors.ProposeStartTime = 'Jam mulai harus berformat HH:MM yang valid'
-  if (form.ProposeEndTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(form.ProposeEndTime)) errors.ProposeEndTime = 'Jam selesai harus berformat HH:MM yang valid'
+  if (!special && form.ProposeStartTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(form.ProposeStartTime)) errors.ProposeStartTime = 'Jam mulai harus berformat HH:MM yang valid'
+  if (!special && form.ProposeEndTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(form.ProposeEndTime)) errors.ProposeEndTime = 'Jam selesai harus berformat HH:MM yang valid'
   return errors
 }
 
