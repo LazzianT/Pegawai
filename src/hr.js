@@ -30,6 +30,12 @@ export function formatPersonName(value) {
   return String(value || '').trim().toLocaleLowerCase('id-ID').replace(/\b\p{L}/gu, (letter) => letter.toLocaleUpperCase('id-ID'))
 }
 
+export function greeting(hour = new Date().getHours()) {
+  if (hour >= 5 && hour < 11) return 'pagi'
+  if (hour >= 11 && hour < 18) return 'siang'
+  return 'malam'
+}
+
 export function formatDate(value) {
   if (!value) return 'Tanggal belum tersedia'
   const date = new Date(`${String(value).slice(0, 10)}T00:00:00`)
@@ -60,7 +66,7 @@ export function dateRange(start, end = start) {
 
 export function monthKey(value) { return String(value || '').slice(0, 7) }
 
-const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Besar': '/cuti-besar', 'Tugas Luar': '/tugas-luar', 'My Profile': '/profile' }
+const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Khusus': '/cuti-khusus', 'Tugas Luar': '/tugas-luar', 'My Profile': '/profile' }
 
 export function pagePath(type) { return PAGE_ROUTES[type] || PAGE_ROUTES.Dashboard }
 
