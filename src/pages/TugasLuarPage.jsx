@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { buildTravelPayload, formatDate, formatDateInput, formatTimeInput, validateTravelForm } from '../hr'
 import { api } from '../services/api'
+import QRCode from 'qrcode'
 
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
 const WEEKDAYS = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
@@ -82,6 +83,7 @@ function ApproverPicker({ value, options, loading, onChange, error }) {
 export default function TugasLuarPage({ token, rows }) {
   const [form, setForm] = useState(emptyForm)
   const [atasan, setAtasan] = useState([])
+  const [qr, setQr] = useState(null)
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -98,6 +100,16 @@ export default function TugasLuarPage({ token, rows }) {
     setForm((current) => ({ ...current, [name]: value }))
     setErrors((current) => ({ ...current, [name]: '', form: '' }))
     setMessage('')
+  }
+
+  const showQr = async (row) => {
+    try {
+      const value = JSON.stringify({ travelId: String(row.id).trim() })
+      const dataUrl = await QRCode.toDataURL(value, { errorCorrectionLevel: 'M', margin: 2, width: 280 })
+      setQr({ id: row.id, tujuan: row.jenis, tanggal: row.tanggalMulai, dataUrl })
+    } catch {
+      setErrors({ form: 'QR tidak dapat dibuat. Coba lagi.' })
+    }
   }
 
   const submit = async (event) => {
@@ -132,6 +144,6 @@ export default function TugasLuarPage({ token, rows }) {
       </div>
       <button className="new-request-button request-submit" type="submit" disabled={loading || loadingAtasan}>{loading ? 'Mengirim…' : 'Kirim pengajuan'}</button>
     </form>
-    <section className="dashboard-panel request-history"><div className="panel-heading"><div><p className="panel-kicker">Riwayat</p><h2>Pengajuan tugas luar</h2></div><span>{rows.length} data</span></div>{rows.length === 0 ? <div className="empty-state">Belum ada pengajuan tugas luar.</div> : <div className="request-list">{rows.map((row) => <article className="request-row" key={row.id}><div><strong>{row.jenis || 'Tujuan belum tersedia'}</strong><small>{row.id}</small></div><div><strong>{row.alasan || 'Tugas tidak dicantumkan'}</strong><small>{formatDate(row.tanggalMulai)}{row.tanggalSelesai ? ` - ${formatDate(row.tanggalSelesai)}` : ''}{row.vehicleType ? ` · ${row.vehicleType === 'PRIVATE' ? `Pribadi${row.vehiclePlate ? ` (${row.vehiclePlate})` : ''}` : row.vehicleType === 'ONLINE' ? 'Pesan Online' : 'Kendaraan Kantor'}` : ''}</small></div><span className={`status-badge ${row.status === 'approved' ? 'approved' : row.status === 'rejected' ? 'rejected' : 'pending'}`}>{row.status === 'approved' ? 'Disetujui' : row.status === 'rejected' ? 'Ditolak' : 'Menunggu'}</span></article>)}</div>}</section>
+    <section className="dashboard-panel request-history"><div className="panel-heading"><div><p className="panel-kicker">Riwayat</p><h2>Pengajuan tugas luar</h2></div><span>{rows.length} data</span></div>{rows.length === 0 ? <div className="empty-state">Belum ada pengajuan tugas luar.</div> : <div className="request-list">{rows.map((row) => <article className="request-row" key={row.id}><div><strong>{row.jenis || 'Tujuan belum tersedia'}</strong><small>{row.id}</small></div><div><strong>{row.alasan || 'Tugas tidak dicantumkan'}</strong><small>{formatDate(row.tanggalMulai)}{row.tanggalSelesai ? ` - ${formatDate(row.tanggalSelesai)}` : ''}{row.vehicleType ? ` · ${row.vehicleType === 'PRIVATE' ? `Pribadi${row.vehiclePlate ? ` (${row.vehiclePlate})` : ''}` : row.vehicleType === 'ONLINE' ? 'Pesan Online' : 'Kendaraan Kantor'}` : ''}</small></div><span className={`status-badge ${row.status === 'approved' ? 'approved' : row.status === 'rejected' ? 'rejected' : 'pending'}`}>{row.status === 'approved' ? 'Disetujui' : row.status === 'rejected' ? 'Ditolak' : 'Menunggu'}</span>{row.status === 'approved' && <button type="button" className="secondary-button" onClick={() => showQr(row)}>Tampilkan QR</button>}</article>)}</div>}{qr && <div className="detail-layer" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setQr(null) }}><div className="detail-card qr-card" role="dialog" aria-modal="true" aria-labelledby="travel-qr-title"><div className="panel-heading"><div><p className="panel-kicker">Akses Security</p><h2 id="travel-qr-title">QR Tugas Luar</h2></div><button className="detail-close" type="button" onClick={() => setQr(null)} aria-label="Tutup QR">×</button></div><img className="travel-qr" src={qr.dataUrl} alt={`QR tugas luar ${qr.id}`} /><strong>{qr.tujuan || 'Tugas luar'}</strong><small>{qr.id} · {formatDate(qr.tanggal)}</small><p>Pindai QR ini di Security saat berangkat atau kembali.</p></div></div>}</section>
   </section>
 }
