@@ -262,8 +262,13 @@ button:disabled { cursor: not-allowed; }
 .vehicle-options { min-width: 0; padding: 0; border: 0; }
 .vehicle-options legend { padding: 0; }
 .vehicle-choice-list { display: flex; flex-wrap: wrap; gap: 9px; }
-.vehicle-choice { display: flex; align-items: center; gap: 7px; padding: 10px 12px; border: 1px solid var(--navy-12); border-radius: 9px; font-size: 12px; font-weight: 600; }
+.vehicle-choice { display: flex; align-items: center; gap: 7px; padding: 10px 12px; border: 1px solid var(--navy-12); border-radius: 9px; background: transparent; font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.vehicle-choice:hover { border-color: rgba(249,217,118,.7); transform: translateY(-1px); }
+.vehicle-choice.selected { border-color: var(--color-ivory); background: rgba(249,217,118,.16); box-shadow: 0 0 0 3px rgba(249,217,118,.14); }
 .vehicle-choice input { width: auto; margin: 0; accent-color: var(--color-navy); }
+.vehicle-choice span { transition: color .2s ease; }
+.vehicle-choice.selected span { color: var(--color-navy); }
+@media (prefers-reduced-motion: reduce) { .vehicle-choice, .vehicle-choice span { transition: none; } .vehicle-choice:hover { transform: none; } }
 .request-field input:focus, .request-field textarea:focus { border-color: var(--color-ivory); box-shadow: 0 0 0 3px rgba(249,217,118,.3); }
 .custom-picker { position: relative; width: 100%; }
 .picker-trigger { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 43px; padding: 0 12px; border: 1px solid var(--navy-12); border-radius: 9px; background: var(--color-primary); color: var(--color-navy); text-align: left; font-size: 12px; transition: border-color .2s, box-shadow .2s, transform .2s; }
