@@ -89,21 +89,27 @@ export function pageFromPath(pathname) {
 export function validateTravelForm(form) {
   const errors = {}
   const time = String(form.exitTime || '').trim()
+  const vehicleType = String(form.vehicleType || '').trim().toUpperCase()
   if (!String(form.exitDate || '').trim()) errors.exitDate = 'Tanggal keluar wajib diisi'
   if (!time) errors.exitTime = 'Jam keluar wajib diisi'
   else if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) errors.exitTime = 'Jam keluar harus berformat HH:MM yang valid'
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!String(form.atasanNIP || '').trim()) errors.atasanNIP = 'Atasan wajib dipilih'
+  if (!['PRIVATE', 'ONLINE', 'OFFICE'].includes(vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
+  if (vehicleType === 'PRIVATE' && !String(form.vehiclePlate || '').trim()) errors.vehiclePlate = 'Nomor plat wajib diisi untuk kendaraan pribadi'
   return errors
 }
 
 export function buildTravelPayload(form) {
+  const vehicleType = String(form.vehicleType || '').trim().toUpperCase()
   return {
     exitDate: String(form.exitDate || '').trim(),
     exitTime: String(form.exitTime || '').trim(),
     tujuan: String(form.tujuan || '').trim(),
     tugas: String(form.tugas || '').trim(),
     atasanNIP: String(form.atasanNIP || '').trim(),
+    vehicleType,
+    vehiclePlate: vehicleType === 'PRIVATE' ? String(form.vehiclePlate || '').trim() : '',
   }
 }
 
