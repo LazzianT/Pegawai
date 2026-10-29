@@ -96,7 +96,7 @@ export function validateTravelForm(form) {
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!String(form.atasanNIP || '').trim()) errors.atasanNIP = 'Atasan wajib dipilih'
   if (!['PRIVATE', 'ONLINE', 'OFFICE'].includes(vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
-  if (vehicleType === 'PRIVATE' && !String(form.vehiclePlate || '').trim()) errors.vehiclePlate = 'Nomor plat wajib diisi untuk kendaraan pribadi'
+  if (['PRIVATE', 'OFFICE'].includes(vehicleType) && !String(form.vehiclePlate || '').trim()) errors.vehiclePlate = 'Nomor plat wajib diisi untuk kendaraan yang dipilih'
   return errors
 }
 
@@ -109,7 +109,7 @@ export function buildTravelPayload(form) {
     tugas: String(form.tugas || '').trim(),
     atasanNIP: String(form.atasanNIP || '').trim(),
     vehicleType,
-    vehiclePlate: vehicleType === 'PRIVATE' ? String(form.vehiclePlate || '').trim() : '',
+    vehiclePlate: ['PRIVATE', 'OFFICE'].includes(vehicleType) ? String(form.vehiclePlate || '').trim() : '',
   }
 }
 

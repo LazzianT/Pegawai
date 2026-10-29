@@ -35,6 +35,7 @@ assert.deepEqual(validateIzinForm({ ProposeStartDate: '2026-01-20', ProposeEndDa
 assert.deepEqual(buildIzinPayload({ ProposeStartDate: '2026-01-20', ProposeEndDate: '2026-01-20', ProposeStartTime: '', ProposeEndTime: '', description: ' Izin ', keperluan: '2', fileName: '', approvers: [' 123 '] }), { ProposeStartDate: '2026-01-20', ProposeEndDate: '2026-01-20', ProposeStartTime: '', ProposeEndTime: '', description: 'Izin', keperluan: '2', fileName: '', approvers: ['123'] })
 assert.equal(Number({ idSubGroup: 2, numDays: 14 }.numDays), 14)
 assert.deepEqual(buildTravelPayload({ exitDate: ' 2026-01-01 ', exitTime: '08:00', tujuan: ' Kantor ', tugas: '', atasanNIP: ' 123 ', vehicleType: ' private ', vehiclePlate: ' B 1234 ABC ' }), { exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'PRIVATE', vehiclePlate: 'B 1234 ABC' })
-assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'PRIVATE', vehiclePlate: '' }).vehiclePlate, 'Nomor plat wajib diisi untuk kendaraan pribadi')
+assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'OFFICE', vehiclePlate: '' }).vehiclePlate, 'Nomor plat wajib diisi untuk kendaraan yang dipilih')
+assert.deepEqual(buildTravelPayload({ exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'OFFICE', vehiclePlate: ' B 5678 XYZ ' }).vehiclePlate, 'B 5678 XYZ')
 assert.deepEqual(buildTravelPayload({ exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'ONLINE', vehiclePlate: 'B 1234 ABC' }).vehiclePlate, '')
 console.log('hr self-check passed')
