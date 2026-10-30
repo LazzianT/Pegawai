@@ -123,6 +123,7 @@ export default function TugasLuarPage({ token, rows }) {
       const result = await api('/travel/submit', token, { method: 'POST', body: JSON.stringify(buildTravelPayload(form)) })
       setForm(emptyForm())
       setMessage(`Pengajuan berhasil dikirim dengan ID ${result?.id || 'tidak tersedia'}.`)
+      window.setTimeout(() => setMessage(''), 4500)
     } catch (error) {
       setErrors({ form: error.message || 'Pengajuan gagal dikirim.' })
     } finally { setLoading(false) }
@@ -132,7 +133,7 @@ export default function TugasLuarPage({ token, rows }) {
     <div className="request-page-heading"><div><p className="panel-kicker">Pengajuan</p><h1 id="travel-title">Tugas Luar</h1><p>Isi detail tugas luar untuk dikirim kepada atasan.</p></div></div>
     <form className="request-form dashboard-panel" onSubmit={submit} noValidate>
       {errors.form && <div className="dashboard-alert" role="alert">{errors.form}</div>}
-      {message && <div className="request-success" role="status">{message}</div>}
+      {message && <div className="toast success" role="status">{message}</div>}
       <div className="request-form-grid">
         <label className="request-field">Tanggal keluar<DatePicker value={form.exitDate} onChange={(value) => update('exitDate', value)} error={errors.exitDate} />{errors.exitDate && <small>{errors.exitDate}</small>}</label>
         <label className="request-field">Jam keluar<TimePicker value={form.exitTime} onChange={(value) => update('exitTime', value)} error={errors.exitTime} />{errors.exitTime && <small>{errors.exitTime}</small>}</label>
