@@ -25,7 +25,7 @@ export default function App() {
   const [session, setSession] = useState(readSession)
   const [showTour, setShowTour] = useState(() => localStorage.getItem(TOUR_KEY) !== '1')
   const closeTour = () => { localStorage.setItem(TOUR_KEY, '1'); setShowTour(false) }
-  if (approval?.role === 'atasan') return <TravelApprovalLinkPage token={approval.token} />
+  if (approval?.role === 'atasan') return <TravelApprovalLinkPage token={approval.token} queue={approval.queue} />
   if (approval?.role === 'kendaraan') return <VehicleApprovalLinkPage token={approval.token} />
   if (qr) return <TravelQrPage travelId={qr.travelId} token={qr.token} />
   if (!session) return <LoginPage onLogin={(nextSession) => { setSession(nextSession); setShowTour(localStorage.getItem(TOUR_KEY) !== '1') }} />
