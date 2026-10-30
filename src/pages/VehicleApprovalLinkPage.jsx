@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { publicApi } from '../services/api'
 import { approvalStatus, filterTravelApprovals, formatDate, OPERATIONAL_PLATES, VEHICLE_OPTIONS } from '../hr'
 
-export default function VehicleApprovalLinkPage({ token }) {
+export default function VehicleApprovalLinkPage({ token, queue = false }) {
   const [data, setData] = useState(null)
   const [type, setType] = useState('')
   const [plate, setPlate] = useState('')
@@ -11,7 +11,7 @@ export default function VehicleApprovalLinkPage({ token }) {
   const [processing, setProcessing] = useState(false)
   const [toast, setToast] = useState('')
   const [tab, setTab] = useState('pending')
-  const path = `/travel/approval/kendaraan/${encodeURIComponent(token)}`
+  const path = queue ? `/travel/approval/kendaraan/queue/${encodeURIComponent(token)}` : `/travel/approval/kendaraan/${encodeURIComponent(token)}`
 
   const load = () => publicApi(path).then((response) => {
     setData(response.data)
@@ -22,14 +22,14 @@ export default function VehicleApprovalLinkPage({ token }) {
 
   useEffect(() => { load() }, [path])
 
-  const rows = useMemo(() => data ? [data] : [], [data])
+  const rows = useMemo(() => queue ? (Array.isArray(data) ? data : []) : data ? [data] : [], [data, queue])
   const visible = useMemo(() => filterTravelApprovals(rows, tab), [rows, tab])
   const tabCount = (value) => filterTravelApprovals(rows, value).length
   const submit = async (action) => {
     setError('')
     setProcessing(true)
     try {
-      await publicApi(path, { method: 'POST', body: JSON.stringify({ action, vehicleType: type, vehiclePlate: plate }) })
+      await publicApi(path, { method: 'POST', body: JSON.stringify({ action, vehicleType: type, vehiclePlate: plate, ...(queue ? { travelId: data.id } : {}) }) })
       setToast(action === 'approve' ? 'Pengajuan kendaraan berhasil disetujui.' : 'Pengajuan kendaraan berhasil ditolak.')
       setTab(action === 'approve' ? 'approved' : 'rejected')
       await load()
