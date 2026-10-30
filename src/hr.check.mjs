@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict'
-import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm } from './hr.js'
+import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, travelQrFromPath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm } from './hr.js'
 import { sha1 } from './services/api.js'
 
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
+assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'), { travelId: 'T.0377.1', token: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef' })
+assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)
 
 assert.deepEqual(validateLogin('', ''), {
   identifier: 'NIP wajib diisi',

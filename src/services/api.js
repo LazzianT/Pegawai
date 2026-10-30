@@ -33,6 +33,13 @@ export class ApiError extends Error {
   constructor(message, status = 0) { super(message); this.status = status }
 }
 
+export async function publicApi(path) {
+  const response = await fetch(`${API_BASE_URL}${path}`)
+  const data = await response.json().catch(() => null)
+  if (!response.ok) throw new ApiError(data?.error || 'Data tidak dapat dimuat.', response.status)
+  return data
+}
+
 export async function api(path, token, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,

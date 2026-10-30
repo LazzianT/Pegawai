@@ -86,6 +86,17 @@ export function pageFromPath(pathname) {
   return Object.entries(PAGE_ROUTES).find(([, path]) => path === pathname)?.[0] || 'Dashboard'
 }
 
+export function travelQrFromPath(pathname) {
+  const match = String(pathname || '').match(/^\/travel\/qr\/([^/]+)\/([a-f0-9]{48})$/i)
+  if (!match) return null
+  try {
+    const travelId = decodeURIComponent(match[1])
+    return /^[A-Za-z0-9._-]{1,100}$/.test(travelId) ? { travelId, token: match[2] } : null
+  } catch {
+    return null
+  }
+}
+
 export function filterVehicleApprovals(rows, query, from, to) {
   const needle = String(query || '').trim().toLowerCase()
   const validRange = /^\d{4}-\d{2}-\d{2}$/.test(from) && /^\d{4}-\d{2}-\d{2}$/.test(to) && from <= to
