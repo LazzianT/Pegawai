@@ -86,6 +86,16 @@ export function pageFromPath(pathname) {
   return Object.entries(PAGE_ROUTES).find(([, path]) => path === pathname)?.[0] || 'Dashboard'
 }
 
+export function filterVehicleApprovals(rows, query, from, to) {
+  const needle = String(query || '').trim().toLowerCase()
+  const validRange = /^\d{4}-\d{2}-\d{2}$/.test(from) && /^\d{4}-\d{2}-\d{2}$/.test(to) && from <= to
+  return rows.filter((row) => {
+    const text = [row.id, row.nip, row.nama, row.tujuan, row.alasan, row.vehicleType, row.vehiclePlate].join(' ').toLowerCase()
+    const date = String(row.tanggalMulai || '').slice(0, 10)
+    return (!needle || text.includes(needle)) && (!validRange || (date >= from && date <= to))
+  })
+}
+
 export function validateTravelForm(form) {
   const errors = {}
   const time = String(form.exitTime || '').trim()

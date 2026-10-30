@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm } from './hr.js'
+import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm } from './hr.js'
 import { sha1 } from './services/api.js'
 
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
@@ -19,6 +19,7 @@ assert.equal(pageFromPath('/cuti-khusus'), 'Cuti Khusus')
 assert.equal(pagePath('Perjalanan Dinas'), '/dashboard')
 assert.equal(pagePath('Approval Kendaraan'), '/approval/kendaraan')
 assert.equal(pageFromPath('/approval/kendaraan'), 'Approval Kendaraan')
+assert.deepEqual(filterVehicleApprovals([{ id: 'T.1', nama: 'Budi', tujuan: 'Kantor', tanggalMulai: '2026-10-30T00:00:00.000Z' }, { id: 'T.2', nama: 'Sari', tujuan: 'Pabrik', tanggalMulai: '2026-11-10' }], 'budi', '2026-10-30', '2026-11-06').map((row) => row.id), ['T.1'])
 assert.equal(formatDateInput('20260120abc'), '2026-01-20')
 assert.equal(formatPersonName('bUDI santoso'), 'Budi Santoso')
 assert.equal(greeting(6), 'pagi')
