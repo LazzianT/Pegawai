@@ -36,6 +36,16 @@ export function statusClass(status) {
   return 'pending'
 }
 
+export function approvalStatus(statusId) {
+  const value = Number(statusId)
+  return value === 3 ? 'approved' : value === 4 ? 'rejected' : 'pending'
+}
+
+export function filterTravelApprovals(rows, tab = 'pending') {
+  const items = Array.isArray(rows) ? rows : []
+  return tab === 'all' ? items : items.filter((item) => approvalStatus(item.statusId) === tab)
+}
+
 export function formatPersonName(value) {
   return String(value || '').trim().toLocaleLowerCase('id-ID').replace(/\b\p{L}/gu, (letter) => letter.toLocaleUpperCase('id-ID'))
 }

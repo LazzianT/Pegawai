@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, travelApprovalFromPath, travelQrFromPath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm, vehicleLabel } from './hr.js'
+import { addWorkingDays, approvalStatus, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterTravelApprovals, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, travelApprovalFromPath, travelQrFromPath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm, vehicleLabel } from './hr.js'
 import { sha1 } from './services/api.js'
 
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
@@ -47,6 +47,9 @@ assert.equal(vehicleLabel('OFFICE'), 'Mobil Operasional')
 assert.equal(vehicleLabel('ONLINE'), 'PesanOnline')
 assert.equal(vehicleLabel('PRIVATE'), 'Lain Lain')
 assert.equal(vehicleLabel('MOTOR'), 'Motor Operasional')
+assert.equal(approvalStatus(3), 'approved')
+assert.equal(approvalStatus(4), 'rejected')
+assert.deepEqual(filterTravelApprovals([{ id: 'T.1', statusId: 1 }, { id: 'T.2', statusId: 3 }, { id: 'T.3', statusId: 4 }], 'approved').map((row) => row.id), ['T.2'])
 assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'MOTOR', vehiclePlate: 'B 3054 KSS' }).vehiclePlate, undefined)
 assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'MOTOR', vehiclePlate: 'B 9999 XXX' }).vehiclePlate, 'Nomor plat kendaraan wajib dipilih')
 assert.deepEqual(buildTravelPayload({ exitDate: ' 2026-01-01 ', exitTime: '08:00', tujuan: ' Kantor ', tugas: '', atasanNIP: ' 123 ', vehicleType: ' private ', vehiclePlate: ' B 1234 ABC ' }), { exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'PRIVATE', vehiclePlate: '' })
