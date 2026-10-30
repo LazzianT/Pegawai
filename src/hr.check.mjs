@@ -7,6 +7,7 @@ assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefa
 assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)
 assert.deepEqual(travelApprovalFromPath('/approval/kendaraan/abcDEF_12345678901234567890'), { role: 'kendaraan', queue: false, token: 'abcDEF_12345678901234567890' })
 assert.deepEqual(travelApprovalFromPath('/approval/kendaraan/queue/abcDEF_12345678901234567890'), { role: 'kendaraan', queue: true, token: 'abcDEF_12345678901234567890' })
+assert.equal(filterTravelApprovals([{ statusId: 1 }, { statusId: 3 }, { statusId: 4 }], 'all').length, 3)
 assert.deepEqual(travelApprovalFromPath('/approval/atasan/abcDEF_12345678901234567890'), { role: 'atasan', queue: false, token: 'abcDEF_12345678901234567890' })
 assert.deepEqual(travelApprovalFromPath('/approval/atasan/queue/abcDEF_12345678901234567890'), { role: 'atasan', queue: true, token: 'abcDEF_12345678901234567890' })
 assert.equal(travelApprovalFromPath('/approval/kendaraan/no'), null)
