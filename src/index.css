@@ -207,6 +207,8 @@ button:disabled { cursor: not-allowed; }
 .detail-layer-closing { animation: detail-layer-out .18s ease-in both; }
 .detail-card { width: min(100%, 480px); max-height: min(90vh, 620px); overflow-y: auto; padding: 22px; border: 1px solid var(--navy-08); border-radius: 16px; background: var(--color-primary); box-shadow: 0 20px 50px rgba(15,39,73,.2); animation: detail-card-in .22s ease-out both; }
 .qr-card { display: grid; justify-items: center; text-align: center; gap: 8px; }
+.public-qr-page { display: grid; place-items: center; min-height: 100vh; padding: 20px; background: var(--color-primary); }
+.public-qr-page .qr-card { width: min(100%, 480px); padding: 28px; }
 .qr-card .panel-heading { width: 100%; text-align: left; }
 .travel-qr { width: min(280px, 100%); height: auto; padding: 10px; background: #fff; border-radius: 10px; }
 .detail-layer-closing .detail-card { animation: detail-card-out .18s ease-in both; }
@@ -265,10 +267,15 @@ button:disabled { cursor: not-allowed; }
 .vehicle-options { min-width: 0; padding: 0; border: 0; }
 .vehicle-options legend { padding: 0; }
 .vehicle-choice-list { display: flex; flex-wrap: wrap; gap: 9px; }
-.vehicle-choice { display: flex; align-items: center; gap: 7px; padding: 10px 12px; border: 1px solid var(--navy-12); border-radius: 9px; background: transparent; font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.vehicle-choice { display: flex; align-items: center; gap: 9px; padding: 11px 13px; border: 1px solid var(--navy-12); border-radius: 12px; background: transparent; font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease; }
 .vehicle-choice:hover { border-color: rgba(249,217,118,.7); transform: translateY(-1px); }
 .vehicle-choice.selected { border-color: var(--color-ivory); background: rgba(249,217,118,.16); box-shadow: 0 0 0 3px rgba(249,217,118,.14); }
-.vehicle-choice input { width: auto; margin: 0; accent-color: var(--color-navy); }
+.vehicle-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.vehicle-choice::before { content: ''; width: 31px; height: 17px; flex: 0 0 auto; border-radius: 999px; background: var(--navy-12); box-shadow: inset 0 0 0 1px var(--navy-20); transition: background-color .2s ease, box-shadow .2s ease; }
+.vehicle-choice::after { content: ''; width: 13px; height: 13px; flex: 0 0 auto; margin-left: -29px; border-radius: 50%; background: var(--color-primary); box-shadow: 0 1px 3px rgba(15,39,73,.25); transition: transform .2s ease; }
+.vehicle-choice.selected::before { background: var(--color-ivory); box-shadow: inset 0 0 0 1px var(--color-ivory); }
+.vehicle-choice.selected::after { transform: translateX(14px); }
+.vehicle-choice input:focus-visible + span::before { content: ''; position: absolute; }
 .vehicle-choice span { transition: color .2s ease; }
 .vehicle-choice.selected span { color: var(--color-navy); }
 @media (prefers-reduced-motion: reduce) { .vehicle-choice, .vehicle-choice span { transition: none; } .vehicle-choice:hover { transform: none; } }
