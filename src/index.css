@@ -260,7 +260,7 @@ button:disabled { cursor: not-allowed; }
 .request-page-heading p:not(.panel-kicker) { margin: 10px 0 0; color: var(--navy-70); font-size: 13px; }
 .request-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; margin-top: 18px; }
 .request-field { display: grid; gap: 7px; color: var(--color-navy); font-size: 12px; font-weight: 700; }
-.request-field input, .request-field textarea { width: 100%; padding: 12px; border: 1px solid var(--navy-12); border-radius: 9px; outline: 0; background: var(--color-primary); color: var(--color-navy); font-size: 12px; transition: border-color .2s, box-shadow .2s; }
+.request-field input, .request-field textarea, .request-field select { width: 100%; padding: 12px; border: 1px solid var(--navy-12); border-radius: 9px; outline: 0; background: var(--color-primary); color: var(--color-navy); font-size: 12px; transition: border-color .2s, box-shadow .2s; }
 .request-field textarea { resize: vertical; }
 .vehicle-options { min-width: 0; padding: 0; border: 0; }
 .vehicle-options legend { padding: 0; }
@@ -272,7 +272,7 @@ button:disabled { cursor: not-allowed; }
 .vehicle-choice span { transition: color .2s ease; }
 .vehicle-choice.selected span { color: var(--color-navy); }
 @media (prefers-reduced-motion: reduce) { .vehicle-choice, .vehicle-choice span { transition: none; } .vehicle-choice:hover { transform: none; } }
-.request-field input:focus, .request-field textarea:focus { border-color: var(--color-ivory); box-shadow: 0 0 0 3px rgba(249,217,118,.3); }
+.request-field input:focus, .request-field textarea:focus, .request-field select:focus { border-color: var(--color-ivory); box-shadow: 0 0 0 3px rgba(249,217,118,.3); }
 .custom-picker { position: relative; width: 100%; }
 .picker-trigger { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 43px; padding: 0 12px; border: 1px solid var(--navy-12); border-radius: 9px; background: var(--color-primary); color: var(--color-navy); text-align: left; font-size: 12px; transition: border-color .2s, box-shadow .2s, transform .2s; }
 .picker-trigger span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -308,6 +308,8 @@ button:disabled { cursor: not-allowed; }
 .leave-balance-card strong { font-size: 28px; line-height: 1.1; }
 .leave-balance-card small { color: var(--navy-70); font-size: 11px; }
 .request-success { padding: 12px 14px; border: 1px solid rgba(249,217,118,.9); border-radius: 9px; background: rgba(249,217,118,.18); color: var(--color-navy); font-size: 12px; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.form-actions .new-request-button { width: auto; }
 .request-history { min-width: 0; margin-bottom: 35px; }
 .request-history .request-list { max-height: 360px; overflow-y: auto; padding-right: 6px; }
 .request-history .request-list::-webkit-scrollbar { width: 6px; }
