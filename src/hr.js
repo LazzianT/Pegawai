@@ -78,7 +78,7 @@ export function addWorkingDays(start, days) {
 
 export function monthKey(value) { return String(value || '').slice(0, 7) }
 
-const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Khusus': '/cuti-khusus', 'Tugas Luar': '/tugas-luar', 'My Profile': '/profile' }
+const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Khusus': '/cuti-khusus', 'Tugas Luar': '/tugas-luar', 'Approval Kendaraan': '/approval/kendaraan', 'My Profile': '/profile' }
 
 export function pagePath(type) { return PAGE_ROUTES[type] || PAGE_ROUTES.Dashboard }
 
