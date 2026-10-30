@@ -31,6 +31,7 @@ assert.deepEqual(filterVehicleApprovals([{ id: 'T.1', nama: 'Budi', tujuan: 'Kan
 assert.equal(qrTravelStatus({}), 'approved')
 assert.equal(qrTravelStatus({ departureAt: '2026-10-30T08:00:00Z' }), 'departed')
 assert.equal(qrTravelStatus({ tanggalKembali: '2026-10-30', jamKembali: '09:00' }), 'returned')
+assert.equal(formatScanTime('08:15:00'), '08:15')
 assert.equal(formatScanTime('2026-10-30T08:00:00Z').length > 0, true)
 assert.equal(formatDateInput('20260120abc'), '2026-01-20')
 assert.equal(formatPersonName('bUDI santoso'), 'Budi Santoso')

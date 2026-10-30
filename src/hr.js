@@ -70,8 +70,10 @@ export function qrTravelStatus(travel) {
 
 export function formatScanTime(value) {
   if (!value) return 'Belum tercatat'
+  const text = String(value)
+  if (/^([01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/.test(text)) return text.slice(0, 5)
   const date = new Date(value)
-  return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+  return Number.isNaN(date.getTime()) ? text : date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
 }
 
 export function formatDateInput(value) {
