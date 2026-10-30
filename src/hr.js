@@ -62,6 +62,18 @@ export function formatDate(value) {
   return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
+export function qrTravelStatus(travel) {
+  if (travel?.tanggalKembali || travel?.jamKembali) return 'returned'
+  if (travel?.departureAt) return 'departed'
+  return 'approved'
+}
+
+export function formatScanTime(value) {
+  if (!value) return 'Belum tercatat'
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+}
+
 export function formatDateInput(value) {
   const digits = String(value || '').replace(/\D/g, '').slice(0, 8)
   if (digits.length > 6) return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`

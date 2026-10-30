@@ -220,6 +220,7 @@ button:disabled { cursor: not-allowed; }
 .qr-card-status { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .qr-active-label { display: inline-flex; align-items: center; gap: 6px; color: var(--navy-70); font-size: 10px; font-weight: 600; }
 .qr-active-label i { width: 7px; height: 7px; border-radius: 50%; background: var(--color-navy); }
+.qr-page-card .status-badge.rejected { color: #78342f; background: rgba(141,62,56,.08); border-color: rgba(141,62,56,.2); }
 .qr-frame { display: grid; place-items: center; padding: 20px; border: 1px solid var(--navy-08); border-radius: 14px; background: #fff; }
 .qr-page-card .travel-qr { width: min(100%, 320px); padding: 0; border-radius: 0; }
 .qr-code-caption { display: grid; gap: 5px; text-align: center; }
