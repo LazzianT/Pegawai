@@ -69,7 +69,7 @@ export function qrTravelStatus(travel) {
 }
 
 export function qrTravelCopy(status) {
-  if (status === 'returned') return { title: 'Terima kasih sudah kembali ke rumah.', message: 'Perjalanan Anda sudah selesai.' }
+  if (status === 'returned') return { title: 'Tugas luar telah selesai.', message: 'Selamat kembali ke kantor.' }
   if (status === 'departed') return { title: 'Silakan melanjutkan tugas luar.', message: 'Hati-hati di jalan.' }
   return { title: 'Segera ke Security untuk proses scan.', message: 'Tunjukkan QR ini saat keberangkatan.' }
 }
