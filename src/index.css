@@ -209,6 +209,28 @@ button:disabled { cursor: not-allowed; }
 .qr-card { display: grid; justify-items: center; text-align: center; gap: 8px; }
 .public-qr-page { display: grid; place-items: center; min-height: 100vh; padding: 20px; background: var(--color-primary); }
 .public-qr-page .qr-card { width: min(100%, 480px); padding: 28px; }
+.public-approval-page { min-height: 100vh; background: linear-gradient(135deg, rgba(249,217,118,.18), transparent 34%), var(--color-primary); color: var(--color-navy); }
+.approval-shell { width: min(100%, 980px); margin: auto; padding: 0 24px 56px; }
+.public-approval-nav { display: flex; align-items: center; justify-content: space-between; min-height: 74px; border-bottom: 1px solid var(--navy-08); }
+.public-approval-nav .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--color-navy); text-decoration: none; font-size: 13px; font-weight: 700; }
+.public-approval-nav .brand img { width: 28px; height: 28px; }
+.public-approval-nav .brand small { display: block; margin-top: 2px; color: var(--navy-70); font-size: 9px; font-weight: 500; }
+.public-nav-label { color: var(--navy-70); font-size: 11px; }
+.approval-hero { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding: 52px 0 30px; }
+.approval-hero h1 { max-width: 620px; margin: 0; font-size: clamp(28px, 5vw, 46px); letter-spacing: -.06em; line-height: 1.05; }
+.approval-hero p:not(.panel-kicker) { margin: 12px 0 0; color: var(--navy-70); font-size: 13px; }
+.approval-count { display: grid; justify-items: end; color: var(--color-navy); font-size: 42px; line-height: .9; letter-spacing: -.06em; }
+.approval-count small { margin-top: 8px; color: var(--navy-70); font-size: 10px; font-weight: 600; letter-spacing: 0; }
+.pending-travel-list { display: grid; gap: 14px; }
+.pending-travel-card { padding: 22px; border: 1px solid var(--navy-08); border-radius: 17px; background: var(--color-primary); box-shadow: 0 8px 26px rgba(15,39,73,.06); }
+.pending-travel-card-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+.pending-travel-card-head h2 { margin: 0; font-size: 19px; letter-spacing: -.03em; }
+.pending-travel-card .detail-list { margin-top: 12px; }
+.pending-travel-card .form-actions { justify-content: flex-start; }
+.approval-empty { padding: 52px 24px; border: 1px dashed var(--navy-12); border-radius: 17px; background: rgba(255,255,255,.45); text-align: center; }
+.approval-empty h2 { margin: 0; font-size: 18px; }
+.approval-empty p { margin: 9px 0 0; color: var(--navy-70); font-size: 12px; }
+@media (max-width: 560px) { .approval-shell { padding: 0 16px 36px; } .approval-hero { align-items: start; padding-top: 34px; } .approval-count { font-size: 32px; } .public-nav-label { display: none; } .pending-travel-card { padding: 17px; } .pending-travel-card .form-actions { flex-direction: column-reverse; } .pending-travel-card .form-actions button { width: 100%; } }
 .qr-card .panel-heading { width: 100%; text-align: left; }
 .travel-qr { width: min(280px, 100%); height: auto; padding: 10px; background: #fff; border-radius: 10px; }
 .detail-layer-closing .detail-card { animation: detail-card-out .18s ease-in both; }
