@@ -97,8 +97,8 @@ export function pageFromPath(pathname) {
 }
 
 export function travelApprovalFromPath(pathname) {
-  const match = String(pathname || '').match(/^\/approval\/kendaraan\/([^/]+)$/)
-  return match && /^[A-Za-z0-9_.-]{20,1000}$/.test(match[1]) ? { token: match[1] } : null
+  const match = String(pathname || '').match(/^\/approval\/(atasan|kendaraan)\/([^/]+)$/)
+  return match && /^[A-Za-z0-9_.-]{20,1000}$/.test(match[2]) ? { role: match[1], token: match[2] } : null
 }
 
 export function travelQrFromPath(pathname) {
