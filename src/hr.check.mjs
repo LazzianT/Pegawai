@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict'
-import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, travelQrFromPath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm } from './hr.js'
+import { addWorkingDays, buildCutiPayload, buildIzinPayload, buildTravelPayload, dateRange, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, greeting, pageFromPath, pagePath, travelApprovalFromPath, travelQrFromPath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm, vehicleLabel } from './hr.js'
 import { sha1 } from './services/api.js'
 
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
 assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'), { travelId: 'T.0377.1', token: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef' })
 assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)
+assert.deepEqual(travelApprovalFromPath('/approval/kendaraan/abcDEF_12345678901234567890'), { token: 'abcDEF_12345678901234567890' })
+assert.equal(travelApprovalFromPath('/approval/kendaraan/no'), null)
 
 assert.deepEqual(validateLogin('', ''), {
   identifier: 'NIP wajib diisi',
@@ -39,8 +41,14 @@ assert.equal(validateIzinForm({ ProposeStartDate: '2026-01-20', ProposeEndDate: 
 assert.deepEqual(validateIzinForm({ ProposeStartDate: '2026-01-20', ProposeEndDate: '2026-01-20', ProposeStartTime: '25:00', ProposeEndTime: '25:00', keperluan: '2', approvers: ['123'] }, true), {})
 assert.deepEqual(buildIzinPayload({ ProposeStartDate: '2026-01-20', ProposeEndDate: '2026-01-20', ProposeStartTime: '', ProposeEndTime: '', description: ' Izin ', keperluan: '2', fileName: '', approvers: [' 123 '] }), { ProposeStartDate: '2026-01-20', ProposeEndDate: '2026-01-20', ProposeStartTime: '', ProposeEndTime: '', description: 'Izin', keperluan: '2', fileName: '', approvers: ['123'] })
 assert.equal(Number({ idSubGroup: 2, numDays: 14 }.numDays), 14)
-assert.deepEqual(buildTravelPayload({ exitDate: ' 2026-01-01 ', exitTime: '08:00', tujuan: ' Kantor ', tugas: '', atasanNIP: ' 123 ', vehicleType: ' private ', vehiclePlate: ' B 1234 ABC ' }), { exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'PRIVATE', vehiclePlate: 'B 1234 ABC' })
-assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'OFFICE', vehiclePlate: '' }).vehiclePlate, 'Nomor plat wajib diisi untuk kendaraan yang dipilih')
-assert.deepEqual(buildTravelPayload({ exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'OFFICE', vehiclePlate: ' B 5678 XYZ ' }).vehiclePlate, 'B 5678 XYZ')
+assert.equal(vehicleLabel('OFFICE'), 'Mobil Operasional')
+assert.equal(vehicleLabel('ONLINE'), 'PesanOnline')
+assert.equal(vehicleLabel('PRIVATE'), 'Lain Lain')
+assert.equal(vehicleLabel('MOTOR'), 'Motor Operasional')
+assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'MOTOR', vehiclePlate: 'B 3054 KSS' }).vehiclePlate, undefined)
+assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'MOTOR', vehiclePlate: 'B 9999 XXX' }).vehiclePlate, 'Nomor plat kendaraan wajib dipilih')
+assert.deepEqual(buildTravelPayload({ exitDate: ' 2026-01-01 ', exitTime: '08:00', tujuan: ' Kantor ', tugas: '', atasanNIP: ' 123 ', vehicleType: ' private ', vehiclePlate: ' B 1234 ABC ' }), { exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'PRIVATE', vehiclePlate: '' })
+assert.equal(validateTravelForm({ exitDate: '2026-01-20', exitTime: '08:00', tujuan: 'Kantor', atasanNIP: '123', vehicleType: 'OFFICE', vehiclePlate: '' }).vehiclePlate, 'Nomor plat kendaraan wajib dipilih')
+assert.deepEqual(buildTravelPayload({ exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'OFFICE', vehiclePlate: ' B 2405 KRM ' }).vehiclePlate, 'B 2405 KRM')
 assert.deepEqual(buildTravelPayload({ exitDate: '2026-01-01', exitTime: '08:00', tujuan: 'Kantor', tugas: '', atasanNIP: '123', vehicleType: 'ONLINE', vehiclePlate: 'B 1234 ABC' }).vehiclePlate, '')
 console.log('hr self-check passed')

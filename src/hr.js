@@ -1,3 +1,13 @@
+export const VEHICLE_OPTIONS = [['PRIVATE', 'Lain Lain'], ['ONLINE', 'PesanOnline'], ['OFFICE', 'Mobil Operasional'], ['MOTOR', 'Motor Operasional']]
+export const OPERATIONAL_PLATES = {
+  OFFICE: ['B 2405 KRM', 'B 2902 KRL', 'B 2096 KHF', 'B 1456 KIT'],
+  MOTOR: ['B 3054 KSS', 'B 3064 KGI'],
+}
+
+export function vehicleLabel(value) {
+  return VEHICLE_OPTIONS.find(([type]) => type === String(value || '').trim().toUpperCase())?.[1] || String(value || '').trim()
+}
+
 export function validateLogin(identifier, password) {
   const errors = {}
   if (!identifier.trim()) errors.identifier = 'NIP wajib diisi'
@@ -86,6 +96,11 @@ export function pageFromPath(pathname) {
   return Object.entries(PAGE_ROUTES).find(([, path]) => path === pathname)?.[0] || 'Dashboard'
 }
 
+export function travelApprovalFromPath(pathname) {
+  const match = String(pathname || '').match(/^\/approval\/kendaraan\/([^/]+)$/)
+  return match && /^[A-Za-z0-9_.-]{20,1000}$/.test(match[1]) ? { token: match[1] } : null
+}
+
 export function travelQrFromPath(pathname) {
   const match = String(pathname || '').match(/^\/travel\/qr\/([^/]+)\/([a-f0-9]{48})$/i)
   if (!match) return null
@@ -116,8 +131,8 @@ export function validateTravelForm(form) {
   else if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) errors.exitTime = 'Jam keluar harus berformat HH:MM yang valid'
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!String(form.atasanNIP || '').trim()) errors.atasanNIP = 'Atasan wajib dipilih'
-  if (!['PRIVATE', 'ONLINE', 'OFFICE'].includes(vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
-  if (['PRIVATE', 'OFFICE'].includes(vehicleType) && !String(form.vehiclePlate || '').trim()) errors.vehiclePlate = 'Nomor plat wajib diisi untuk kendaraan yang dipilih'
+  if (!VEHICLE_OPTIONS.some(([type]) => type === vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
+  if (['OFFICE', 'MOTOR'].includes(vehicleType) && !OPERATIONAL_PLATES[vehicleType].includes(String(form.vehiclePlate || '').trim().toUpperCase())) errors.vehiclePlate = 'Nomor plat kendaraan wajib dipilih'
   return errors
 }
 
@@ -130,7 +145,7 @@ export function buildTravelPayload(form) {
     tugas: String(form.tugas || '').trim(),
     atasanNIP: String(form.atasanNIP || '').trim(),
     vehicleType,
-    vehiclePlate: ['PRIVATE', 'OFFICE'].includes(vehicleType) ? String(form.vehiclePlate || '').trim() : '',
+    vehiclePlate: ['OFFICE', 'MOTOR'].includes(vehicleType) ? String(form.vehiclePlate || '').trim().toUpperCase() : '',
   }
 }
 
