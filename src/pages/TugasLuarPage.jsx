@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { buildTravelPayload, formatDate, formatDateInput, formatTimeInput, OPERATIONAL_PLATES, VEHICLE_OPTIONS, validateTravelForm, vehicleLabel } from '../hr'
+import { buildTravelPayload, formatDate, formatDateInput, formatTimeInput, VEHICLE_OPTIONS, validateTravelForm, vehicleLabel } from '../hr'
 import { api } from '../services/api'
 import QRCode from 'qrcode'
 
@@ -20,7 +20,7 @@ function Icon({ name, size = 17 }) {
   return <svg className="ui-icon" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
 }
 
-export function DatePicker({ value, onChange, error, disabled = false }) {
+export function DatePicker({ value, onChange, error, readOnly = false }) {
   const parsed = /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? new Date(`${value}T00:00:00`) : new Date()
   const initial = Number.isNaN(parsed.getTime()) ? new Date() : parsed
   const [open, setOpen] = useState(false)
@@ -42,7 +42,7 @@ export function DatePicker({ value, onChange, error, disabled = false }) {
   const moveMonth = (delta) => setMonth((current) => new Date(current.getFullYear(), current.getMonth() + delta, 1))
   const choose = (date) => { onChange(dateKey(date)); setOpen(false) }
   return <div className="custom-picker" ref={ref}>
-    <div className={error ? 'picker-trigger has-error' : 'picker-trigger'}><Icon name="calendar" /><input className="picker-input" value={value} onChange={(event) => onChange(formatDateInput(event.target.value))} placeholder="YYYY-MM-DD" inputMode="numeric" maxLength="10" aria-label="Tanggal keluar" disabled={disabled} /><button className="picker-toggle" type="button" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-haspopup="dialog" aria-label="Buka kalender" disabled={disabled}><Icon name="chevron" size={15} /></button></div>
+    <div className={error ? 'picker-trigger has-error' : 'picker-trigger'}><Icon name="calendar" /><input className="picker-input" value={value} onChange={(event) => onChange(formatDateInput(event.target.value))} placeholder="YYYY-MM-DD" inputMode="numeric" maxLength="10" aria-label="Tanggal keluar" readOnly={readOnly} />{!readOnly && <button className="picker-toggle" type="button" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-haspopup="dialog" aria-label="Buka kalender"><Icon name="chevron" size={15} /></button>}</div>
     {open && <div className="picker-popover date-popover" role="dialog" aria-label="Pilih tanggal keluar"><div className="picker-header"><button type="button" onClick={() => moveMonth(-1)} aria-label="Bulan sebelumnya"><Icon name="left" size={15} /></button><strong>{MONTHS[month.getMonth()]} {month.getFullYear()}</strong><button type="button" onClick={() => moveMonth(1)} aria-label="Bulan berikutnya"><Icon name="right" size={15} /></button></div><div className="picker-weekdays">{WEEKDAYS.map((day) => <span key={day}>{day}</span>)}</div><div className="picker-days">{days.map((date, index) => date ? <button className={value === dateKey(date) ? 'picker-day selected' : 'picker-day'} type="button" key={dateKey(date)} onClick={() => choose(date)}>{date.getDate()}</button> : <span key={`empty-${index}`} />)}</div></div>}
   </div>
 }
@@ -104,7 +104,9 @@ export default function TugasLuarPage({ token, rows }) {
 
   const showQr = async (row) => {
     try {
-      const value = JSON.stringify({ travelId: String(row.id).trim() })
+      const qrToken = typeof row.qrToken === 'string' ? row.qrToken.trim() : ''
+      if (!/^[a-f0-9]{48}$/i.test(qrToken)) throw new Error('QR tidak valid')
+      const value = JSON.stringify({ id: String(row.id).trim(), token: qrToken })
       const dataUrl = await QRCode.toDataURL(value, { errorCorrectionLevel: 'M', margin: 2, width: 280 })
       setQr({ id: row.id, tujuan: row.jenis, tanggal: row.tanggalMulai, dataUrl })
     } catch {
@@ -135,12 +137,11 @@ export default function TugasLuarPage({ token, rows }) {
       {errors.form && <div className="dashboard-alert" role="alert">{errors.form}</div>}
       {message && <div className="toast success" role="status">{message}</div>}
       <div className="request-form-grid">
-        <label className="request-field">Tanggal keluar<DatePicker value={form.exitDate} onChange={(value) => update('exitDate', value)} error={errors.exitDate} />{errors.exitDate && <small>{errors.exitDate}</small>}</label>
+        <label className="request-field">Tanggal keluar<DatePicker value={form.exitDate} onChange={(value) => update('exitDate', value)} error={errors.exitDate} readOnly />{errors.exitDate && <small>{errors.exitDate}</small>}</label>
         <label className="request-field">Jam keluar<TimePicker value={form.exitTime} onChange={(value) => update('exitTime', value)} error={errors.exitTime} />{errors.exitTime && <small>{errors.exitTime}</small>}</label>
         <label className="request-field request-field-full">Tujuan<input name="tujuan" value={form.tujuan} onChange={(event) => update('tujuan', event.target.value)} placeholder="Contoh: Kunjungan kantor cabang" aria-invalid={Boolean(errors.tujuan)} />{errors.tujuan && <small>{errors.tujuan}</small>}</label>
         <label className="request-field request-field-full">Tugas / keperluan<textarea name="tugas" value={form.tugas} onChange={(event) => update('tugas', event.target.value)} rows="4" placeholder="Jelaskan tugas yang dilakukan" /></label>
         <fieldset className="request-field request-field-full vehicle-options"><legend>Kendaraan</legend><div className="vehicle-choice-list">{VEHICLE_OPTIONS.map(([value, label]) => <label className={form.vehicleType === value ? 'vehicle-choice selected' : 'vehicle-choice'} key={value}><input type="radio" name="vehicleType" value={value} checked={form.vehicleType === value} onChange={(event) => update('vehicleType', event.target.value)} /><span>{label}</span></label>)}</div>{errors.vehicleType && <small>{errors.vehicleType}</small>}</fieldset>
-        {['OFFICE', 'MOTOR'].includes(form.vehicleType) && <label className="request-field request-field-full">Nomor plat kendaraan<select name="vehiclePlate" value={form.vehiclePlate} onChange={(event) => update('vehiclePlate', event.target.value)} aria-invalid={Boolean(errors.vehiclePlate)}><option value="">Pilih nomor plat</option>{OPERATIONAL_PLATES[form.vehicleType].map((plate) => <option value={plate} key={plate}>{plate}{plate === 'B 1456 KIT' ? ' (Mobil Koperasi)' : ''}</option>)}</select>{errors.vehiclePlate && <small>{errors.vehiclePlate}</small>}</label>}
         <label className="request-field request-field-full">Atasan<ApproverPicker value={form.atasanNIP} options={atasan} loading={loadingAtasan} onChange={(value) => update('atasanNIP', value)} error={errors.atasanNIP} />{errors.atasanNIP && <small>{errors.atasanNIP}</small>}</label>
       </div>
       <button className="new-request-button request-submit" type="submit" disabled={loading || loadingAtasan}>{loading ? 'Mengirim…' : 'Kirim pengajuan'}</button>

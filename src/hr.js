@@ -156,13 +156,15 @@ export function validateTravelForm(form) {
   const errors = {}
   const time = String(form.exitTime || '').trim()
   const vehicleType = String(form.vehicleType || '').trim().toUpperCase()
+  const today = new Date()
+  const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
   if (!String(form.exitDate || '').trim()) errors.exitDate = 'Tanggal keluar wajib diisi'
+  else if (String(form.exitDate).trim() !== todayKey) errors.exitDate = 'Tanggal keluar harus hari ini'
   if (!time) errors.exitTime = 'Jam keluar wajib diisi'
   else if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) errors.exitTime = 'Jam keluar harus berformat HH:MM yang valid'
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!String(form.atasanNIP || '').trim()) errors.atasanNIP = 'Atasan wajib dipilih'
   if (!VEHICLE_OPTIONS.some(([type]) => type === vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
-  if (['OFFICE', 'MOTOR'].includes(vehicleType) && !OPERATIONAL_PLATES[vehicleType].includes(String(form.vehiclePlate || '').trim().toUpperCase())) errors.vehiclePlate = 'Nomor plat kendaraan wajib dipilih'
   return errors
 }
 
@@ -175,7 +177,7 @@ export function buildTravelPayload(form) {
     tugas: String(form.tugas || '').trim(),
     atasanNIP: String(form.atasanNIP || '').trim(),
     vehicleType,
-    vehiclePlate: ['OFFICE', 'MOTOR'].includes(vehicleType) ? String(form.vehiclePlate || '').trim().toUpperCase() : '',
+    vehiclePlate: '',
   }
 }
 
