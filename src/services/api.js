@@ -1,4 +1,4 @@
-const API_BASE_URL = (import.meta.env?.VITE_API_BASE_URL || '/api').replace(/\/$/, '')
+const API_BASE_URL = (import.meta.env?.VITE_API_URL || '/api').replace(/\/$/, '')
 
 export async function sha1(value) {
   const bytes = new TextEncoder().encode(value)

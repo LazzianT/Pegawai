@@ -68,6 +68,10 @@ export function qrTravelStatus(travel) {
   return 'approved'
 }
 
+export function canShowTravelQr(travel) {
+  return !travel?.departureAt && !travel?.tanggalKembali && !travel?.jamKembali
+}
+
 export function qrTravelCopy(status) {
   if (status === 'returned') return { title: 'Tugas luar telah selesai.', message: 'Selamat kembali ke kantor.' }
   if (status === 'departed') return { title: 'Silakan melanjutkan tugas luar.', message: 'Hati-hati di jalan.' }
@@ -118,7 +122,7 @@ export function addWorkingDays(start, days) {
 
 export function monthKey(value) { return String(value || '').slice(0, 7) }
 
-const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Khusus': '/cuti-khusus', 'Tugas Luar': '/tugas-luar', 'Approval Kendaraan': '/approval/kendaraan', 'My Profile': '/profile' }
+const PAGE_ROUTES = { Dashboard: '/dashboard', Cuti: '/cuti', Izin: '/izin', 'Cuti Khusus': '/cuti-khusus', 'Tugas Luar': '/tugas-luar', 'Approval Kendaraan': '/approval/kendaraan', 'Approval Group': '/approval/group', 'My Profile': '/profile' }
 
 export function pagePath(type) { return PAGE_ROUTES[type] || PAGE_ROUTES.Dashboard }
 
@@ -179,6 +183,33 @@ export function buildTravelPayload(form) {
     vehicleType,
     vehiclePlate: '',
   }
+}
+
+export function validateTravelGroupForm(form) {
+  const errors = {}
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(form.exitDate || '').trim())) errors.exitDate = 'Tanggal keluar wajib diisi'
+  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(String(form.exitTime || '').trim())) errors.exitTime = 'Jam keluar wajib diisi'
+  if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
+  if (!Array.isArray(form.members) || !form.members.some((value) => String(value || '').trim())) errors.members = 'Minimal 1 anggota group wajib dipilih'
+  return errors
+}
+
+export function buildTravelGroupPayload(form, members) {
+  return {
+    exitDate: String(form.exitDate || '').trim(),
+    exitTime: String(form.exitTime || '').trim(),
+    tujuan: String(form.tujuan || '').trim(),
+    tugas: String(form.tugas || '').trim(),
+    members: [...new Set((Array.isArray(members) ? members : []).map((value) => String(value || '').trim()).filter(Boolean))],
+  }
+}
+
+export function groupStatusLabel(status) {
+  const value = String(status || '').trim().toUpperCase()
+  if (value === 'REVISION') return 'Ditolak - Revisi'
+  if (value === 'VEHICLE_PENDING') return 'Menunggu Approval Kendaraan'
+  if (value === 'APPROVED') return 'Disetujui'
+  return 'Menunggu Approval Atasan'
 }
 
 export function validateCutiForm(form, saldo) {

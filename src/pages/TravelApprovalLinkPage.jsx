@@ -17,7 +17,7 @@ export default function TravelApprovalLinkPage({ token, queue = false }) {
   const [tab, setTab] = useState('pending')
   const path = queue ? `/travel/approval/atasan/queue/${encodeURIComponent(token)}` : `/travel/approval/atasan/${encodeURIComponent(token)}`
   const load = () => publicApi(path).then((response) => { setData(response.data || (queue ? [] : null)); setState('ready') }).catch((cause) => { setError(cause.message || 'Daftar approval tidak dapat dimuat.'); setState('error') })
-  useEffect(load, [path])
+  useEffect(() => { load() }, [path])
   const pending = useMemo(() => queue ? (Array.isArray(data) ? data : []) : data ? [data] : [], [data, queue])
   const visible = useMemo(() => filterTravelApprovals(pending, tab), [pending, tab])
   const tabCount = (value) => filterTravelApprovals(pending, value).length

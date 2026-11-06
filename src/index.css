@@ -317,6 +317,12 @@ button:disabled { cursor: not-allowed; }
 .request-page-heading h1 { margin: 0; font-size: clamp(27px, 3vw, 38px); letter-spacing: -.055em; }
 .request-page-heading p:not(.panel-kicker) { margin: 10px 0 0; color: var(--navy-70); font-size: 13px; }
 .request-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; margin-top: 18px; }
+.travel-mode { display: flex; gap: 18px; align-items: center; }
+.travel-mode legend { width: 100%; }
+.group-panel { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--canvas); }
+.group-detail { display: grid; gap: 8px; }
+.group-member { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: white; }
+.group-member small { color: var(--ink-soft); }
 .request-field { display: grid; gap: 7px; color: var(--color-navy); font-size: 12px; font-weight: 700; }
 .request-field input, .request-field textarea, .request-field select { width: 100%; padding: 12px; border: 1px solid var(--navy-12); border-radius: 9px; outline: 0; background: var(--color-primary); color: var(--color-navy); font-size: 12px; transition: border-color .2s, box-shadow .2s; }
 .request-field textarea { resize: vertical; }
