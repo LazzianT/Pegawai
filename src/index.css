@@ -317,8 +317,18 @@ button:disabled { cursor: not-allowed; }
 .request-page-heading h1 { margin: 0; font-size: clamp(27px, 3vw, 38px); letter-spacing: -.055em; }
 .request-page-heading p:not(.panel-kicker) { margin: 10px 0 0; color: var(--navy-70); font-size: 13px; }
 .request-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; margin-top: 18px; }
-.travel-mode { display: flex; gap: 18px; align-items: center; }
+.travel-mode { display: grid; gap: 10px; }
 .travel-mode legend { width: 100%; }
+.travel-mode-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.travel-mode-choice { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; min-height: 48px; padding: 13px 14px; border: 1px solid var(--navy-12); border-radius: 12px; background: var(--color-primary); color: var(--color-navy); font-size: 12px; font-weight: 600; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.travel-mode-choice:hover { border-color: var(--color-ivory); transform: translateY(-1px); }
+.travel-mode-choice.selected { border-color: var(--color-navy); background: var(--color-navy); color: var(--color-primary); box-shadow: 0 5px 14px rgba(15,39,73,.16); }
+.travel-mode-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.travel-mode-choice::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--navy-70); border-radius: 50%; background: var(--color-primary); box-shadow: inset 0 0 0 3px var(--color-primary); }
+.travel-mode-choice.selected::before { border-color: var(--color-ivory); background: var(--color-ivory); }
+.travel-mode-choice:focus-within { outline: 3px solid rgba(249,217,118,.38); outline-offset: 2px; }
+.travel-mode-choice span { line-height: 1.35; }
+@media (prefers-reduced-motion: reduce) { .travel-mode-choice { transition: none; } .travel-mode-choice:hover { transform: none; } }
 .group-panel { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--canvas); }
 .group-detail { display: grid; gap: 8px; }
 .group-member { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: white; }

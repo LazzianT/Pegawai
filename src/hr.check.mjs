@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { addWorkingDays, approvalStatus, buildCutiPayload, buildIzinPayload, buildTravelGroupPayload, buildTravelPayload, canShowTravelQr, dateRange, filterTravelApprovals, filterVehicleApprovals, formatDateInput, formatPersonName, formatTimeInput, formatScanTime, groupStatusLabel, greeting, pageFromPath, pagePath, qrTravelCopy, qrTravelStatus, travelApprovalFromPath, travelQrFromPath, validateCutiForm, validateIzinForm, validateLogin, validateTravelForm, validateTravelGroupForm, vehicleLabel } from './hr.js'
 import { sha1 } from './services/api.js'
 
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
+assert.match(readFileSync(new URL('./pages/TugasLuarPage.jsx', import.meta.url), 'utf8'), /travel-mode-choice/)
 assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'), { travelId: 'T.0377.1', token: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef' })
 assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)
 assert.deepEqual(travelApprovalFromPath('/approval/kendaraan/abcDEF_12345678901234567890'), { role: 'kendaraan', queue: false, token: 'abcDEF_12345678901234567890' })
