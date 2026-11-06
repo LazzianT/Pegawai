@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { buildTravelPayload, formatDate, formatDateInput, formatTimeInput, VEHICLE_OPTIONS, validateTravelForm, vehicleLabel } from '../hr'
+import { buildTravelPayload, canShowTravelQr, formatDate, formatDateInput, formatTimeInput, groupStatusLabel, VEHICLE_OPTIONS, validateTravelForm, validateTravelGroupForm, vehicleLabel } from '../hr'
 import { api } from '../services/api'
 import QRCode from 'qrcode'
 
@@ -88,6 +88,19 @@ export default function TugasLuarPage({ token, rows }) {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [loadingAtasan, setLoadingAtasan] = useState(true)
+  const [travelMode, setTravelMode] = useState('mandiri')
+  const [groupCode, setGroupCode] = useState('')
+  const [groupCodeInput, setGroupCodeInput] = useState('')
+  const [group, setGroup] = useState(null)
+  const [groupMemberNIP, setGroupMemberNIP] = useState('')
+  const [groupDraftMembers, setGroupDraftMembers] = useState([])
+  const [groupLoading, setGroupLoading] = useState(false)
+  const [groupError, setGroupError] = useState('')
+  const [groupDraftInitialized, setGroupDraftInitialized] = useState(false)
+
+  useEffect(() => {
+    if (qr && rows.some((row) => row.id === qr.id && !canShowTravelQr(row))) setQr(null)
+  }, [rows, qr])
 
   useEffect(() => {
     api('/travel/atasan', token)
@@ -114,8 +127,93 @@ export default function TugasLuarPage({ token, rows }) {
     }
   }
 
+  const showGroupQr = async () => {
+    try {
+      const qrToken = String(group?.qrToken || '').trim()
+      const version = Number(group?.version)
+      if (!/^TL-[A-Z0-9]{6}$/.test(group?.groupCode || '') || !Number.isInteger(version) || !/^[a-f0-9]{48}$/i.test(qrToken) || group?.status !== 'APPROVED' || group?.departureAt) throw new Error('QR group tidak tersedia')
+      const dataUrl = await QRCode.toDataURL(JSON.stringify({ id: `G.${group.groupCode}.${version}`, token: qrToken }), { errorCorrectionLevel: 'M', margin: 2, width: 280 })
+      setQr({ id: group.groupCode, tujuan: group.tujuan, tanggal: group.exitDate, dataUrl })
+    } catch {
+      setGroupError('QR group tidak tersedia.')
+    }
+  }
+
+  const groupRequest = async (path, options = {}) => {
+    setGroupLoading(true)
+    setGroupError('')
+    try { return await api(path, token, options) } catch (error) { setGroupError(error.message || 'Group tidak dapat diproses.'); throw error } finally { setGroupLoading(false) }
+  }
+
+  const loadGroup = async (code) => {
+    const result = await groupRequest(`/travel/groups/${encodeURIComponent(code)}`)
+    setGroup(result?.data || null)
+    setGroupCode(code)
+  }
+
+  const createGroup = async () => {
+    const validation = validateTravelGroupForm({ ...form, members: ['current'] })
+    if (Object.keys(validation).some((key) => key !== 'members')) { setErrors(validation); return }
+    const result = await groupRequest('/travel/groups', { method: 'POST', body: JSON.stringify({ exitDate: form.exitDate, exitTime: form.exitTime, tujuan: form.tujuan, tugas: form.tugas }) })
+    setGroupCode(result.groupCode)
+    await loadGroup(result.groupCode)
+    setMessage(`Group dibuat: ${result.groupCode}`)
+  }
+
+  const joinGroup = async () => {
+    const code = groupCodeInput.trim().toUpperCase()
+    if (!/^TL-[A-Z0-9]{6}$/.test(code)) { setGroupError('Group code tidak valid'); return }
+    await groupRequest(`/travel/groups/${encodeURIComponent(code)}/join`, { method: 'POST' })
+    setGroupCode(code)
+    setGroupError('Permintaan join dikirim. Konfirmasi join untuk menjadi anggota aktif.')
+  }
+
+  const confirmGroup = async () => {
+    await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/join/confirm`, { method: 'POST' })
+    await loadGroup(groupCode)
+  }
+
+  const addGroupMember = async () => {
+    const nip = groupMemberNIP.trim()
+    if (!/^\d{1,50}$/.test(nip)) { setGroupError('NIP anggota tidak valid'); return }
+    if (group?.status === 'REVISION') {
+      setGroupDraftMembers((current) => [...new Set([...current, nip])])
+      setGroupMemberNIP('')
+      setGroupError('')
+      return
+    }
+    await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/members`, { method: 'POST', body: JSON.stringify({ nip }) })
+    setGroupMemberNIP('')
+    await loadGroup(groupCode)
+  }
+
+  const submitGroup = async () => {
+    await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/submit`, { method: 'POST' })
+    await loadGroup(groupCode)
+    setMessage(`Pengajuan group ${groupCode} berhasil dikirim.`)
+  }
+
+  const removeGroupMember = async (nip) => {
+    if (group?.status === 'REVISION') {
+      setGroupDraftMembers((current) => current.filter((value) => value !== nip))
+      return
+    }
+    await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/members/${encodeURIComponent(nip)}`, { method: 'DELETE' })
+    await loadGroup(groupCode)
+  }
+
+  const reviseGroup = async () => {
+    const members = groupDraftMembers.map((value) => String(value).trim()).filter(Boolean)
+    const validation = validateTravelGroupForm({ ...form, members })
+    if (validation.members) { setGroupError(validation.members); return }
+    await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/revise`, { method: 'POST', body: JSON.stringify({ members }) })
+    setGroupDraftMembers([])
+    await loadGroup(groupCode)
+  }
+
   const submit = async (event) => {
     event.preventDefault()
+    if (travelMode === 'group') { if (group?.status === 'REVISION') return reviseGroup(); if (group?.status === 'DRAFT') return submitGroup(); return createGroup() }
     const validation = validateTravelForm(form)
     if (Object.keys(validation).length) { setErrors(validation); return }
     setLoading(true)
@@ -136,6 +234,8 @@ export default function TugasLuarPage({ token, rows }) {
     <form className="request-form dashboard-panel" onSubmit={submit} noValidate>
       {errors.form && <div className="dashboard-alert" role="alert">{errors.form}</div>}
       {message && <div className="toast success" role="status">{message}</div>}
+      <fieldset className="request-field request-field-full travel-mode"><legend>Jenis Tugas Luar</legend><label><input type="radio" name="travelMode" value="mandiri" checked={travelMode === 'mandiri'} onChange={() => { setTravelMode('mandiri'); setGroup(null); setGroupCode('') }} /> Mandiri</label><label><input type="radio" name="travelMode" value="group" checked={travelMode === 'group'} onChange={() => setTravelMode('group')} /> Group</label></fieldset>
+      {travelMode === 'group' && <div className="group-panel request-field-full"><label className="request-field">Group code untuk join<input value={groupCodeInput} onChange={(event) => setGroupCodeInput(event.target.value.toUpperCase())} placeholder="TL-ABC123" /></label><div className="form-actions"><button className="secondary-button" type="button" disabled={groupLoading} onClick={joinGroup}>Join Group</button>{groupCode && <button className="secondary-button" type="button" disabled={groupLoading} onClick={confirmGroup}>Konfirmasi Join Group</button>}</div>{groupError && <small>{groupError}</small>}{group && <div className="group-detail"><strong>Group {group.groupCode}</strong><span>Status: {groupStatusLabel(group.status)}</span>{group.status === 'REVISION' ? groupDraftMembers.map((nip) => <div className="group-member" key={nip}><span>Anggota pilihan</span><small>{nip}</small><button className="secondary-button" type="button" disabled={groupLoading} onClick={() => removeGroupMember(nip)}>Hapus</button></div>) : group.members.map((member) => <div className="group-member" key={member.nip}><span>{member.name || member.nip}</span><small>{member.nip}</small><button className="secondary-button" type="button" disabled={groupLoading || group.status !== 'REVISION'} onClick={() => removeGroupMember(member.nip)}>Hapus</button></div>)}<label className="request-field">Undang anggota berdasarkan NIP<input value={groupMemberNIP} onChange={(event) => setGroupMemberNIP(event.target.value)} placeholder="NIP anggota" /></label><button className="secondary-button" type="button" disabled={groupLoading || (group.status !== 'REVISION' && !group.joinOpen)} onClick={addGroupMember}>Undang anggota</button>{group.status === 'APPROVED' && !group.departureAt && <button className="secondary-button" type="button" disabled={groupLoading} onClick={showGroupQr}>Tampilkan QR Group</button>}</div>}</div>}
       <div className="request-form-grid">
         <label className="request-field">Tanggal keluar<DatePicker value={form.exitDate} onChange={(value) => update('exitDate', value)} error={errors.exitDate} readOnly />{errors.exitDate && <small>{errors.exitDate}</small>}</label>
         <label className="request-field">Jam keluar<TimePicker value={form.exitTime} onChange={(value) => update('exitTime', value)} error={errors.exitTime} />{errors.exitTime && <small>{errors.exitTime}</small>}</label>
@@ -144,8 +244,8 @@ export default function TugasLuarPage({ token, rows }) {
         <fieldset className="request-field request-field-full vehicle-options"><legend>Kendaraan</legend><div className="vehicle-choice-list">{VEHICLE_OPTIONS.map(([value, label]) => <label className={form.vehicleType === value ? 'vehicle-choice selected' : 'vehicle-choice'} key={value}><input type="radio" name="vehicleType" value={value} checked={form.vehicleType === value} onChange={(event) => update('vehicleType', event.target.value)} /><span>{label}</span></label>)}</div>{errors.vehicleType && <small>{errors.vehicleType}</small>}</fieldset>
         <label className="request-field request-field-full">Atasan<ApproverPicker value={form.atasanNIP} options={atasan} loading={loadingAtasan} onChange={(value) => update('atasanNIP', value)} error={errors.atasanNIP} />{errors.atasanNIP && <small>{errors.atasanNIP}</small>}</label>
       </div>
-      <button className="new-request-button request-submit" type="submit" disabled={loading || loadingAtasan}>{loading ? 'Mengirim…' : 'Kirim pengajuan'}</button>
+      <button className="new-request-button request-submit" type="submit" disabled={loading || loadingAtasan || groupLoading || (travelMode === 'group' && groupCode && !group)}>{loading || groupLoading ? 'Mengirim…' : travelMode === 'group' ? (group?.status === 'REVISION' ? 'Kirim revisi group' : 'Kirim pengajuan group') : 'Kirim pengajuan'}</button>
     </form>
-    <section className="dashboard-panel request-history"><div className="panel-heading"><div><p className="panel-kicker">Riwayat</p><h2>Pengajuan tugas luar</h2></div><span>{rows.length} data</span></div>{rows.length === 0 ? <div className="empty-state">Belum ada pengajuan tugas luar.</div> : <div className="request-list">{rows.map((row) => <article className="request-row" key={row.id}><div><strong>{row.jenis || 'Tujuan belum tersedia'}</strong><small>{row.id}</small></div><div><strong>{row.alasan || 'Tugas tidak dicantumkan'}</strong><small>{formatDate(row.tanggalMulai)}{row.tanggalSelesai ? ` - ${formatDate(row.tanggalSelesai)}` : ''}{row.vehicleType ? ` · ${vehicleLabel(row.vehicleType)}${row.vehiclePlate ? ` (${row.vehiclePlate})` : ''}` : ''}</small></div><span className={`status-badge ${row.status === 'approved' ? 'approved' : row.status === 'rejected' ? 'rejected' : 'pending'}`}>{row.status === 'approved' ? 'Disetujui' : row.status === 'rejected' ? 'Ditolak' : 'Menunggu'}</span>{row.status === 'approved' && Number(row.currentLevel) >= 3 && <button type="button" className="secondary-button" onClick={() => showQr(row)}>Tampilkan QR</button>}</article>)}</div>}{qr && <div className="detail-layer" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setQr(null) }}><div className="detail-card qr-card" role="dialog" aria-modal="true" aria-labelledby="travel-qr-title"><div className="panel-heading"><div><p className="panel-kicker">Akses Security</p><h2 id="travel-qr-title">QR Tugas Luar</h2></div><button className="detail-close" type="button" onClick={() => setQr(null)} aria-label="Tutup QR">×</button></div><img className="travel-qr" src={qr.dataUrl} alt={`QR tugas luar ${qr.id}`} /><strong>{qr.tujuan || 'Tugas luar'}</strong><small>{qr.id} · {formatDate(qr.tanggal)}</small><p>Pindai QR ini di Security saat berangkat atau kembali.</p></div></div>}</section>
+    <section className="dashboard-panel request-history"><div className="panel-heading"><div><p className="panel-kicker">Riwayat</p><h2>Pengajuan tugas luar</h2></div><span>{rows.length} data</span></div>{rows.length === 0 ? <div className="empty-state">Belum ada pengajuan tugas luar.</div> : <div className="request-list">{rows.map((row) => <article className="request-row" key={row.id}><div><strong>{row.jenis || 'Tujuan belum tersedia'}</strong><small>{row.id}</small></div><div><strong>{row.alasan || 'Tugas tidak dicantumkan'}</strong><small>{formatDate(row.tanggalMulai)}{row.tanggalSelesai ? ` - ${formatDate(row.tanggalSelesai)}` : ''}{row.vehicleType ? ` · ${vehicleLabel(row.vehicleType)}${row.vehiclePlate ? ` (${row.vehiclePlate})` : ''}` : ''}</small></div><span className={`status-badge ${row.status === 'approved' ? 'approved' : row.status === 'rejected' ? 'rejected' : 'pending'}`}>{row.status === 'approved' ? 'Disetujui' : row.status === 'rejected' ? 'Ditolak' : 'Menunggu'}</span>{row.status === 'approved' && Number(row.currentLevel) >= 3 && canShowTravelQr(row) && <button type="button" className="secondary-button" onClick={() => showQr(row)}>Tampilkan QR</button>}</article>)}</div>}{qr && <div className="detail-layer" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setQr(null) }}><div className="detail-card qr-card" role="dialog" aria-modal="true" aria-labelledby="travel-qr-title"><div className="panel-heading"><div><p className="panel-kicker">Akses Security</p><h2 id="travel-qr-title">QR Tugas Luar</h2></div><button className="detail-close" type="button" onClick={() => setQr(null)} aria-label="Tutup QR">×</button></div><img className="travel-qr" src={qr.dataUrl} alt={`QR tugas luar ${qr.id}`} /><strong>{qr.tujuan || 'Tugas luar'}</strong><small>{qr.id} · {formatDate(qr.tanggal)}</small><p>Pindai QR ini di Security saat berangkat.</p></div></div>}</section>
   </section>
 }
