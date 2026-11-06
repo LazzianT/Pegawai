@@ -335,6 +335,10 @@ button:disabled { cursor: not-allowed; }
 .group-action-choice:hover, .group-action-choice:focus-visible { border-color: var(--color-ivory); }
 .group-action-choice.selected { border-color: var(--color-navy); background: var(--color-navy); color: var(--color-primary); box-shadow: 0 5px 14px rgba(15,39,73,.16); }
 .group-action-panel { display: grid; gap: 12px; padding-top: 4px; }
+.group-member-draft { display: grid; gap: 10px; }
+.group-member-draft-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.group-member-draft-item { display: inline-flex; align-items: center; gap: 6px; padding: 7px 9px; border: 1px solid var(--navy-12); border-radius: 9px; background: var(--color-primary); color: var(--color-navy); font-size: 11px; font-weight: 700; }
+.group-member-draft-item button { border: 0; background: transparent; color: inherit; cursor: pointer; font-size: 16px; line-height: 1; }
 @media (max-width: 560px) { .group-action-options { grid-template-columns: 1fr; } }
 .group-detail { display: grid; gap: 8px; }
 .group-member { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: white; }

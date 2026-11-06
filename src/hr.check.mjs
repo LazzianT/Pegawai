@@ -8,6 +8,8 @@ const tugasLuarSource = readFileSync(new URL('./pages/TugasLuarPage.jsx', import
 assert.match(tugasLuarSource, /travel-mode-choice/)
 assert.match(tugasLuarSource, /Buat Group/)
 assert.match(tugasLuarSource, /Join Group/)
+assert.match(tugasLuarSource, /members\/direct/)
+assert.match(tugasLuarSource, /groupMemberNIPs/)
 assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'), { travelId: 'T.0377.1', token: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef' })
 assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)
 assert.deepEqual(travelApprovalFromPath('/approval/kendaraan/abcDEF_12345678901234567890'), { role: 'kendaraan', queue: false, token: 'abcDEF_12345678901234567890' })

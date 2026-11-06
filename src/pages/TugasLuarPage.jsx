@@ -94,6 +94,7 @@ export default function TugasLuarPage({ token, rows }) {
   const [groupCodeInput, setGroupCodeInput] = useState('')
   const [group, setGroup] = useState(null)
   const [groupMemberNIP, setGroupMemberNIP] = useState('')
+  const [groupMemberNIPs, setGroupMemberNIPs] = useState([])
   const [groupDraftMembers, setGroupDraftMembers] = useState([])
   const [groupLoading, setGroupLoading] = useState(false)
   const [groupError, setGroupError] = useState('')
@@ -155,10 +156,17 @@ export default function TugasLuarPage({ token, rows }) {
   const createGroup = async () => {
     const validation = validateTravelGroupForm({ ...form, members: ['current'] })
     if (Object.keys(validation).some((key) => key !== 'members')) { setErrors(validation); return }
-    const result = await groupRequest('/travel/groups', { method: 'POST', body: JSON.stringify({ exitDate: form.exitDate, exitTime: form.exitTime, tujuan: form.tujuan, tugas: form.tugas }) })
-    setGroupCode(result.groupCode)
-    await loadGroup(result.groupCode)
-    setMessage(`Group dibuat: ${result.groupCode}`)
+    if (!groupMemberNIPs.length && !groupCode) { setGroupError('Minimal 1 NIP anggota wajib ditambahkan'); return }
+    const code = groupCode || (await groupRequest('/travel/groups', { method: 'POST', body: JSON.stringify({ exitDate: form.exitDate, exitTime: form.exitTime, tujuan: form.tujuan, tugas: form.tugas }) })).groupCode
+    setGroupCode(code)
+    const failed = []
+    for (const nip of groupMemberNIPs) {
+      try { await groupRequest(`/travel/groups/${encodeURIComponent(code)}/members/direct`, { method: 'POST', body: JSON.stringify({ nip }) }) } catch { failed.push(nip) }
+    }
+    setGroupMemberNIPs(failed)
+    await loadGroup(code)
+    setGroupError(failed.length ? `NIP belum berhasil ditambahkan: ${failed.join(', ')}` : '')
+    setMessage(failed.length ? `Group dibuat: ${code}. Coba tambah ulang NIP yang gagal.` : `Group dibuat: ${code}`)
   }
 
   const joinGroup = async () => {
@@ -183,7 +191,13 @@ export default function TugasLuarPage({ token, rows }) {
       setGroupError('')
       return
     }
-    await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/members`, { method: 'POST', body: JSON.stringify({ nip }) })
+    if (!group) {
+      setGroupMemberNIPs((current) => [...new Set([...current, nip])])
+      setGroupMemberNIP('')
+      setGroupError('')
+      return
+    }
+    await api(`/travel/groups/${encodeURIComponent(groupCode)}/members/direct`, token, { method: 'POST', body: JSON.stringify({ nip }) })
     setGroupMemberNIP('')
     await loadGroup(groupCode)
   }
@@ -236,7 +250,7 @@ export default function TugasLuarPage({ token, rows }) {
       {errors.form && <div className="dashboard-alert" role="alert">{errors.form}</div>}
       {message && <div className="toast success" role="status">{message}</div>}
       <fieldset className="request-field request-field-full travel-mode"><legend>Jenis Tugas Luar</legend><div className="travel-mode-options"><label className={travelMode === 'mandiri' ? 'travel-mode-choice selected' : 'travel-mode-choice'}><input type="radio" name="travelMode" value="mandiri" checked={travelMode === 'mandiri'} onChange={() => { setTravelMode('mandiri'); setGroup(null); setGroupCode('') }} /><span>Mandiri</span></label><label className={travelMode === 'group' ? 'travel-mode-choice selected' : 'travel-mode-choice'}><input type="radio" name="travelMode" value="group" checked={travelMode === 'group'} onChange={() => setTravelMode('group')} /><span>Group</span></label></div></fieldset>
-       {travelMode === 'group' && <div className="group-panel request-field-full"><div className="group-action-options"><button className={groupAction === 'create' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('create')}>Buat Group</button><button className={groupAction === 'join' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('join')}>Join Group</button></div>{groupAction === 'join' && <div className="group-action-panel"><label className="request-field">Group code untuk join<input value={groupCodeInput} onChange={(event) => setGroupCodeInput(event.target.value.toUpperCase())} placeholder="TL-ABC123" /></label><div className="form-actions"><button className="secondary-button" type="button" disabled={groupLoading} onClick={joinGroup}>Join Group</button>{groupCode && <button className="secondary-button" type="button" disabled={groupLoading} onClick={confirmGroup}>Konfirmasi Join Group</button>}</div></div>}{groupAction === 'create' && !group && <button className="secondary-button" type="button" disabled={groupLoading} onClick={createGroup}>Buat Group</button>}{groupError && <small>{groupError}</small>}{group && <div className="group-detail"><strong>Group {group.groupCode}</strong><span>Status: {groupStatusLabel(group.status)}</span>{group.status === 'REVISION' ? groupDraftMembers.map((nip) => <div className="group-member" key={nip}><span>Anggota pilihan</span><small>{nip}</small><button className="secondary-button" type="button" disabled={groupLoading} onClick={() => removeGroupMember(nip)}>Hapus</button></div>) : group.members.map((member) => <div className="group-member" key={member.nip}><span>{member.name || member.nip}</span><small>{member.nip}</small><button className="secondary-button" type="button" disabled={groupLoading || group.status !== 'REVISION'} onClick={() => removeGroupMember(member.nip)}>Hapus</button></div>)}<label className="request-field">Undang anggota berdasarkan NIP<input value={groupMemberNIP} onChange={(event) => setGroupMemberNIP(event.target.value)} placeholder="NIP anggota" /></label><button className="secondary-button" type="button" disabled={groupLoading || (group.status !== 'REVISION' && !group.joinOpen)} onClick={addGroupMember}>Undang anggota</button>{group.status === 'APPROVED' && !group.departureAt && <button className="secondary-button" type="button" disabled={groupLoading} onClick={showGroupQr}>Tampilkan QR Group</button>}</div>}</div>}
+       {travelMode === 'group' && <div className="group-panel request-field-full"><div className="group-action-options"><button className={groupAction === 'create' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('create')}>Buat Group</button><button className={groupAction === 'join' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('join')}>Join Group</button></div>{groupAction === 'join' && <div className="group-action-panel"><label className="request-field">Group code untuk join<input value={groupCodeInput} onChange={(event) => setGroupCodeInput(event.target.value.toUpperCase())} placeholder="TL-ABC123" /></label><div className="form-actions"><button className="secondary-button" type="button" disabled={groupLoading} onClick={joinGroup}>Join Group</button>{groupCode && <button className="secondary-button" type="button" disabled={groupLoading} onClick={confirmGroup}>Konfirmasi Join Group</button>}</div></div>}{groupAction === 'create' && !group && <div className="group-member-draft"><label className="request-field">Tambah anggota berdasarkan NIP<input value={groupMemberNIP} onChange={(event) => setGroupMemberNIP(event.target.value)} placeholder="NIP anggota" /></label><button className="secondary-button" type="button" disabled={groupLoading} onClick={addGroupMember}>Tambah anggota</button>{groupMemberNIPs.length > 0 && <div className="group-member-draft-list">{groupMemberNIPs.map((nip) => <span className="group-member-draft-item" key={nip}>{nip}<button type="button" aria-label={`Hapus NIP ${nip}`} onClick={() => setGroupMemberNIPs((current) => current.filter((value) => value !== nip))}>×</button></span>)}</div>}<button className="secondary-button" type="button" disabled={groupLoading} onClick={createGroup}>Buat Group</button></div>}{groupError && <small>{groupError}</small>}{group && <div className="group-detail"><strong>Group {group.groupCode}</strong><span>Status: {groupStatusLabel(group.status)}</span>{group.status === 'REVISION' ? groupDraftMembers.map((nip) => <div className="group-member" key={nip}><span>Anggota pilihan</span><small>{nip}</small><button className="secondary-button" type="button" disabled={groupLoading} onClick={() => removeGroupMember(nip)}>Hapus</button></div>) : group.members.map((member) => <div className="group-member" key={member.nip}><span>{member.name || member.nip}</span><small>{member.nip}</small><button className="secondary-button" type="button" disabled={groupLoading || group.status !== 'REVISION'} onClick={() => removeGroupMember(member.nip)}>Hapus</button></div>)}<label className="request-field">Undang anggota berdasarkan NIP<input value={groupMemberNIP} onChange={(event) => setGroupMemberNIP(event.target.value)} placeholder="NIP anggota" /></label><button className="secondary-button" type="button" disabled={groupLoading || (group.status !== 'REVISION' && !group.joinOpen)} onClick={addGroupMember}>Undang anggota</button>{group.status === 'APPROVED' && !group.departureAt && <button className="secondary-button" type="button" disabled={groupLoading} onClick={showGroupQr}>Tampilkan QR Group</button>}</div>}</div>}
       <div className="request-form-grid">
         <label className="request-field">Tanggal keluar<DatePicker value={form.exitDate} onChange={(value) => update('exitDate', value)} error={errors.exitDate} readOnly />{errors.exitDate && <small>{errors.exitDate}</small>}</label>
         <label className="request-field">Jam keluar<TimePicker value={form.exitTime} onChange={(value) => update('exitTime', value)} error={errors.exitTime} />{errors.exitTime && <small>{errors.exitTime}</small>}</label>
