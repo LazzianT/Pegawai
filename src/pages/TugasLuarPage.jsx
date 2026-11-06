@@ -93,7 +93,6 @@ export default function TugasLuarPage({ token, rows }) {
   const [groupCode, setGroupCode] = useState('')
   const [groupCodeInput, setGroupCodeInput] = useState('')
   const [group, setGroup] = useState(null)
-  const [groupMemberNIP, setGroupMemberNIP] = useState('')
   const [employeeQuery, setEmployeeQuery] = useState('')
   const [employeeResults, setEmployeeResults] = useState([])
   const [employeeLoading, setEmployeeLoading] = useState(false)
@@ -208,33 +207,29 @@ export default function TugasLuarPage({ token, rows }) {
     await loadGroup(groupCode)
   }
 
-  const selectEmployee = (employee) => {
+  const selectEmployee = async (employee) => {
     const nip = String(employee?.nip || '').trim()
     if (!/^\d{1,50}$/.test(nip)) return
-    setGroupMemberNIPs((current) => [...new Set([...current, nip])])
-    setEmployeeQuery('')
-    setEmployeeResults([])
-    setEmployeeError('')
-  }
-
-  const addGroupMember = async () => {
-    const nip = groupMemberNIP.trim()
-    if (!/^\d{1,50}$/.test(nip)) { setGroupError('NIP anggota tidak valid'); return }
-    if (group?.status === 'REVISION') {
-      setGroupDraftMembers((current) => [...new Set([...current, nip])])
-      setGroupMemberNIP('')
-      setGroupError('')
-      return
-    }
     if (!group) {
       setGroupMemberNIPs((current) => [...new Set([...current, nip])])
-      setGroupMemberNIP('')
-      setGroupError('')
+      setEmployeeQuery('')
+      setEmployeeResults([])
+      setEmployeeError('')
       return
     }
-    await api(`/travel/groups/${encodeURIComponent(groupCode)}/members/direct`, token, { method: 'POST', body: JSON.stringify({ nip }) })
-    setGroupMemberNIP('')
-    await loadGroup(groupCode)
+    if (group.status === 'REVISION') {
+      setGroupDraftMembers((current) => [...new Set([...current, nip])])
+      setEmployeeQuery('')
+      setEmployeeResults([])
+      setEmployeeError('')
+      return
+    }
+    try {
+      await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/members/direct`, { method: 'POST', body: JSON.stringify({ nip }) })
+      setEmployeeQuery('')
+      setEmployeeResults([])
+      await loadGroup(groupCode)
+    } catch {}
   }
 
   const submitGroup = async () => {
@@ -285,7 +280,7 @@ export default function TugasLuarPage({ token, rows }) {
       {errors.form && <div className="dashboard-alert" role="alert">{errors.form}</div>}
       {message && <div className="toast success" role="status">{message}</div>}
       <fieldset className="request-field request-field-full travel-mode"><legend>Jenis Tugas Luar</legend><div className="travel-mode-options"><label className={travelMode === 'mandiri' ? 'travel-mode-choice selected' : 'travel-mode-choice'}><input type="radio" name="travelMode" value="mandiri" checked={travelMode === 'mandiri'} onChange={() => { setTravelMode('mandiri'); setGroup(null); setGroupCode('') }} /><span>Mandiri</span></label><label className={travelMode === 'group' ? 'travel-mode-choice selected' : 'travel-mode-choice'}><input type="radio" name="travelMode" value="group" checked={travelMode === 'group'} onChange={() => setTravelMode('group')} /><span>Group</span></label></div></fieldset>
-       {travelMode === 'group' && <div className="group-panel request-field-full"><div className="group-action-options"><button className={groupAction === 'create' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('create')}>Buat Group</button><button className={groupAction === 'join' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('join')}>Join Group</button></div>{groupAction === 'join' && <div className="group-action-panel"><label className="request-field">Group code untuk join<input value={groupCodeInput} onChange={(event) => setGroupCodeInput(event.target.value.toUpperCase())} placeholder="TL-ABC123" /></label><div className="form-actions"><button className="secondary-button" type="button" disabled={groupLoading} onClick={joinGroup}>Join Group</button>{groupCode && <button className="secondary-button" type="button" disabled={groupLoading} onClick={confirmGroup}>Konfirmasi Join Group</button>}</div></div>}{groupAction === 'create' && !group && <div className="group-member-draft"><label className="request-field">Cari anggota berdasarkan nama atau NIP<input value={employeeQuery} onChange={(event) => setEmployeeQuery(event.target.value)} placeholder="Ketik minimal 2 karakter" aria-expanded={employeeQuery.trim().length >= 2} aria-controls="employee-results" autoComplete="off" /></label>{employeeQuery.trim().length >= 2 && <div className="employee-results" id="employee-results" role="listbox">{employeeLoading ? <p className="picker-empty">Mencari karyawan…</p> : employeeError ? <p className="picker-empty">{employeeError}</p> : employeeResults.length ? employeeResults.map((employee) => <button className="employee-result" type="button" role="option" key={employee.nip} onClick={() => selectEmployee(employee)}><strong>{employee.name}</strong><small>{employee.nip}</small></button>) : <p className="picker-empty">Karyawan tidak ditemukan.</p>}</div>}<label className="request-field">Tambah NIP manual<input value={groupMemberNIP} onChange={(event) => setGroupMemberNIP(event.target.value)} placeholder="NIP anggota" /></label><div className="form-actions"><button className="secondary-button" type="button" disabled={groupLoading} onClick={addGroupMember}>Tambah anggota</button><button className="secondary-button" type="button" disabled={groupLoading} onClick={createGroup}>Buat Group</button></div>{groupMemberNIPs.length > 0 && <div className="group-member-draft-list">{groupMemberNIPs.map((nip) => <span className="group-member-draft-item" key={nip}>{nip}<button type="button" aria-label={`Hapus NIP ${nip}`} onClick={() => setGroupMemberNIPs((current) => current.filter((value) => value !== nip))}>×</button></span>)}</div>}</div>}{groupError && <small>{groupError}</small>}{group && <div className="group-detail"><strong>Group {group.groupCode}</strong><span>Status: {groupStatusLabel(group.status)}</span>{group.status === 'REVISION' ? groupDraftMembers.map((nip) => <div className="group-member" key={nip}><span>Anggota pilihan</span><small>{nip}</small><button className="secondary-button" type="button" disabled={groupLoading} onClick={() => removeGroupMember(nip)}>Hapus</button></div>) : group.members.map((member) => <div className="group-member" key={member.nip}><span>{member.name || member.nip}</span><small>{member.nip}</small><button className="secondary-button" type="button" disabled={groupLoading || group.status !== 'REVISION'} onClick={() => removeGroupMember(member.nip)}>Hapus</button></div>)}<label className="request-field">Undang anggota berdasarkan NIP<input value={groupMemberNIP} onChange={(event) => setGroupMemberNIP(event.target.value)} placeholder="NIP anggota" /></label><button className="secondary-button" type="button" disabled={groupLoading || (group.status !== 'REVISION' && !group.joinOpen)} onClick={addGroupMember}>Undang anggota</button>{group.status === 'APPROVED' && !group.departureAt && <button className="secondary-button" type="button" disabled={groupLoading} onClick={showGroupQr}>Tampilkan QR Group</button>}</div>}</div>}
+       {travelMode === 'group' && <div className="group-panel request-field-full"><div className="group-action-options"><button className={groupAction === 'create' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('create')}>Buat Group</button><button className={groupAction === 'join' ? 'group-action-choice selected' : 'group-action-choice'} type="button" onClick={() => setGroupAction('join')}>Join Group</button></div>{groupAction === 'join' && <div className="group-action-panel"><label className="request-field">Group code untuk join<input value={groupCodeInput} onChange={(event) => setGroupCodeInput(event.target.value.toUpperCase())} placeholder="TL-ABC123" /></label><div className="form-actions"><button className="secondary-button" type="button" disabled={groupLoading} onClick={joinGroup}>Join Group</button>{groupCode && <button className="secondary-button" type="button" disabled={groupLoading} onClick={confirmGroup}>Konfirmasi Join Group</button>}</div></div>}{groupAction === 'create' && !group && <div className="group-member-draft"><label className="request-field">Cari anggota berdasarkan nama atau NIP<input value={employeeQuery} onChange={(event) => setEmployeeQuery(event.target.value)} placeholder="Ketik minimal 2 karakter" aria-expanded={employeeQuery.trim().length >= 2} aria-controls="employee-results" autoComplete="off" /></label>{employeeQuery.trim().length >= 2 && <div className="employee-results" id="employee-results" role="listbox">{employeeLoading ? <p className="picker-empty">Mencari karyawan…</p> : employeeError ? <p className="picker-empty">{employeeError}</p> : employeeResults.length ? employeeResults.map((employee) => <button className="employee-result" type="button" role="option" key={employee.nip} onClick={() => selectEmployee(employee)}><strong>{employee.name}</strong><small>{employee.nip}</small></button>) : <p className="picker-empty">Karyawan tidak ditemukan.</p>}</div>}<button className="secondary-button" type="button" disabled={groupLoading || !groupMemberNIPs.length} onClick={createGroup}>Buat Group</button>{groupMemberNIPs.length > 0 && <div className="group-member-draft-list">{groupMemberNIPs.map((nip) => <span className="group-member-draft-item" key={nip}>{nip}<button type="button" aria-label={`Hapus NIP ${nip}`} onClick={() => setGroupMemberNIPs((current) => current.filter((value) => value !== nip))}>×</button></span>)}</div>}</div>}{groupError && <small>{groupError}</small>}{group && <div className="group-detail"><strong>Group {group.groupCode}</strong><span>Status: {groupStatusLabel(group.status)}</span>{group.status === 'REVISION' ? groupDraftMembers.map((nip) => <div className="group-member" key={nip}><span>Anggota pilihan</span><small>{nip}</small><button className="secondary-button" type="button" disabled={groupLoading} onClick={() => removeGroupMember(nip)}>Hapus</button></div>) : group.members.map((member) => <div className="group-member" key={member.nip}><span>{member.name || member.nip}</span><small>{member.nip}</small><button className="secondary-button" type="button" disabled={groupLoading || group.status !== 'REVISION'} onClick={() => removeGroupMember(member.nip)}>Hapus</button></div>)}<label className="request-field">Cari anggota berdasarkan nama atau NIP<input value={employeeQuery} onChange={(event) => setEmployeeQuery(event.target.value)} placeholder="Ketik minimal 2 karakter" aria-expanded={employeeQuery.trim().length >= 2} aria-controls="employee-results-active" autoComplete="off" /></label>{employeeQuery.trim().length >= 2 && <div className="employee-results" id="employee-results-active" role="listbox">{employeeLoading ? <p className="picker-empty">Mencari karyawan…</p> : employeeError ? <p className="picker-empty">{employeeError}</p> : employeeResults.length ? employeeResults.map((employee) => <button className="employee-result" type="button" role="option" key={employee.nip} onClick={() => selectEmployee(employee)}><strong>{employee.name}</strong><small>{employee.nip}</small></button>) : <p className="picker-empty">Karyawan tidak ditemukan.</p>}</div>}{group.status === 'APPROVED' && !group.departureAt && <button className="secondary-button" type="button" disabled={groupLoading} onClick={showGroupQr}>Tampilkan QR Group</button>}</div>}</div>}
       <div className="request-form-grid">
         <label className="request-field">Tanggal keluar<DatePicker value={form.exitDate} onChange={(value) => update('exitDate', value)} error={errors.exitDate} readOnly />{errors.exitDate && <small>{errors.exitDate}</small>}</label>
         <label className="request-field">Jam keluar<TimePicker value={form.exitTime} onChange={(value) => update('exitTime', value)} error={errors.exitTime} />{errors.exitTime && <small>{errors.exitTime}</small>}</label>
