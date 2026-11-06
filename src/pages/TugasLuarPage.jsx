@@ -86,6 +86,7 @@ export default function TugasLuarPage({ token, rows }) {
   const [qr, setQr] = useState(null)
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
+  const [groupSuccess, setGroupSuccess] = useState('')
   const [loading, setLoading] = useState(false)
   const [loadingAtasan, setLoadingAtasan] = useState(true)
   const [travelMode, setTravelMode] = useState('mandiri')
@@ -235,7 +236,7 @@ export default function TugasLuarPage({ token, rows }) {
   const submitGroup = async () => {
     await groupRequest(`/travel/groups/${encodeURIComponent(groupCode)}/submit`, { method: 'POST' })
     await loadGroup(groupCode)
-    setMessage(`Pengajuan group ${groupCode} berhasil dikirim.`)
+    setGroupSuccess(groupCode)
   }
 
   const removeGroupMember = async (nip) => {
@@ -291,6 +292,7 @@ export default function TugasLuarPage({ token, rows }) {
       </div>
       <button className="new-request-button request-submit" type="submit" disabled={loading || loadingAtasan || groupLoading || (travelMode === 'group' && groupCode && !group)}>{loading || groupLoading ? 'Mengirim…' : travelMode === 'group' ? (group?.status === 'REVISION' ? 'Kirim revisi group' : 'Kirim pengajuan group') : 'Kirim pengajuan'}</button>
     </form>
+    {groupSuccess && <div className="detail-layer" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setGroupSuccess('') }}><div className="detail-card group-success-card" role="dialog" aria-modal="true" aria-labelledby="group-success-title"><div className="panel-heading"><div><p className="panel-kicker">Pengajuan group</p><h2 id="group-success-title">Berhasil dikirim</h2></div><button className="detail-close" type="button" onClick={() => setGroupSuccess('')} aria-label="Tutup pesan sukses">×</button></div><p>Pengajuan group <strong>{groupSuccess}</strong> sudah dikirim dan menunggu persetujuan atasan.</p><button className="new-request-button" type="button" onClick={() => setGroupSuccess('')}>Tutup</button></div></div>}
     <section className="dashboard-panel request-history"><div className="panel-heading"><div><p className="panel-kicker">Riwayat</p><h2>Pengajuan tugas luar</h2></div><span>{rows.length} data</span></div>{rows.length === 0 ? <div className="empty-state">Belum ada pengajuan tugas luar.</div> : <div className="request-list">{rows.map((row) => <article className="request-row" key={row.id}><div><strong>{row.jenis || 'Tujuan belum tersedia'}</strong><small>{row.id}</small></div><div><strong>{row.alasan || 'Tugas tidak dicantumkan'}</strong><small>{formatDate(row.tanggalMulai)}{row.tanggalSelesai ? ` - ${formatDate(row.tanggalSelesai)}` : ''}{row.vehicleType ? ` · ${vehicleLabel(row.vehicleType)}${row.vehiclePlate ? ` (${row.vehiclePlate})` : ''}` : ''}</small></div><span className={`status-badge ${row.status === 'approved' ? 'approved' : row.status === 'rejected' ? 'rejected' : 'pending'}`}>{row.status === 'approved' ? 'Disetujui' : row.status === 'rejected' ? 'Ditolak' : 'Menunggu'}</span>{row.status === 'approved' && Number(row.currentLevel) >= 3 && canShowTravelQr(row) && <button type="button" className="secondary-button" onClick={() => showQr(row)}>Tampilkan QR</button>}</article>)}</div>}{qr && <div className="detail-layer" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setQr(null) }}><div className="detail-card qr-card" role="dialog" aria-modal="true" aria-labelledby="travel-qr-title"><div className="panel-heading"><div><p className="panel-kicker">Akses Security</p><h2 id="travel-qr-title">QR Tugas Luar</h2></div><button className="detail-close" type="button" onClick={() => setQr(null)} aria-label="Tutup QR">×</button></div><img className="travel-qr" src={qr.dataUrl} alt={`QR tugas luar ${qr.id}`} /><strong>{qr.tujuan || 'Tugas luar'}</strong><small>{qr.id} · {formatDate(qr.tanggal)}</small><p>Pindai QR ini di Security saat berangkat.</p></div></div>}</section>
   </section>
 }
