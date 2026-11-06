@@ -4,7 +4,10 @@ import { addWorkingDays, approvalStatus, buildCutiPayload, buildIzinPayload, bui
 import { sha1 } from './services/api.js'
 
 assert.equal(await sha1('abc'), 'a9993e364706816aba3e25717850c26c9cd0d89d')
-assert.match(readFileSync(new URL('./pages/TugasLuarPage.jsx', import.meta.url), 'utf8'), /travel-mode-choice/)
+const tugasLuarSource = readFileSync(new URL('./pages/TugasLuarPage.jsx', import.meta.url), 'utf8')
+assert.match(tugasLuarSource, /travel-mode-choice/)
+assert.match(tugasLuarSource, /Buat Group/)
+assert.match(tugasLuarSource, /Join Group/)
 assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'), { travelId: 'T.0377.1', token: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef' })
 assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)
 assert.deepEqual(travelApprovalFromPath('/approval/kendaraan/abcDEF_12345678901234567890'), { role: 'kendaraan', queue: false, token: 'abcDEF_12345678901234567890' })

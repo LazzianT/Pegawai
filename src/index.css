@@ -330,6 +330,12 @@ button:disabled { cursor: not-allowed; }
 .travel-mode-choice span { line-height: 1.35; }
 @media (prefers-reduced-motion: reduce) { .travel-mode-choice { transition: none; } .travel-mode-choice:hover { transform: none; } }
 .group-panel { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--canvas); }
+.group-action-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.group-action-choice { min-height: 44px; padding: 10px 12px; border: 1px solid var(--navy-12); border-radius: 10px; background: var(--color-primary); color: var(--color-navy); font-size: 11px; font-weight: 700; }
+.group-action-choice:hover, .group-action-choice:focus-visible { border-color: var(--color-ivory); }
+.group-action-choice.selected { border-color: var(--color-navy); background: var(--color-navy); color: var(--color-primary); box-shadow: 0 5px 14px rgba(15,39,73,.16); }
+.group-action-panel { display: grid; gap: 12px; padding-top: 4px; }
+@media (max-width: 560px) { .group-action-options { grid-template-columns: 1fr; } }
 .group-detail { display: grid; gap: 8px; }
 .group-member { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: white; }
 .group-member small { color: var(--ink-soft); }
