@@ -260,11 +260,16 @@ button:disabled { cursor: not-allowed; }
 .pending-travel-card-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
 .pending-travel-card-head h2 { margin: 0; font-size: 19px; letter-spacing: -.03em; }
 .pending-travel-card .detail-list { margin-top: 12px; }
+.approval-members { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 11px 0; border-top: 1px solid var(--navy-08); }
+.approval-members dt { color: var(--navy-70); font-size: 10px; }
+.approval-members dd { margin: 0; }
+.approval-member-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.approval-member-list li { padding: 5px 8px; border: 1px solid var(--navy-08); border-radius: 8px; background: var(--navy-05); color: var(--color-navy); font-size: 10px; font-weight: 600; line-height: 1.35; }
 .pending-travel-card .form-actions { justify-content: flex-start; }
 .approval-empty { padding: 52px 24px; border: 1px dashed var(--navy-12); border-radius: 17px; background: rgba(255,255,255,.45); text-align: center; }
 .approval-empty h2 { margin: 0; font-size: 18px; }
 .approval-empty p { margin: 9px 0 0; color: var(--navy-70); font-size: 12px; }
-@media (max-width: 560px) { .approval-shell { padding: 0 16px 36px; } .approval-hero { align-items: start; padding-top: 34px; } .approval-count { font-size: 32px; } .public-nav-label { display: none; } .pending-travel-card { padding: 17px; } .pending-travel-card .form-actions { flex-direction: column-reverse; } .pending-travel-card .form-actions button { width: 100%; } }
+@media (max-width: 560px) { .approval-shell { padding: 0 16px 36px; } .approval-hero { align-items: start; padding-top: 34px; } .approval-count { font-size: 32px; } .public-nav-label { display: none; } .pending-travel-card { padding: 17px; } .approval-members { grid-template-columns: 1fr; gap: 6px; } .pending-travel-card .form-actions { flex-direction: column-reverse; } .pending-travel-card .form-actions button { width: 100%; } }
 .qr-card .panel-heading { width: 100%; text-align: left; }
 .travel-qr { width: min(280px, 100%); height: auto; padding: 10px; background: #fff; border-radius: 10px; }
 .detail-layer-closing .detail-card { animation: detail-card-out .18s ease-in both; }
@@ -340,9 +345,11 @@ button:disabled { cursor: not-allowed; }
 .employee-result { display: grid; gap: 2px; padding: 9px 10px; border: 0; border-radius: 7px; background: transparent; color: var(--color-navy); text-align: left; cursor: pointer; }
 .employee-result:hover, .employee-result:focus-visible { background: var(--navy-08); }
 .employee-result small { color: var(--navy-70); }
-.group-member-draft-list { display: flex; flex-wrap: wrap; gap: 7px; }
-.group-member-draft-item { display: inline-flex; align-items: center; gap: 6px; padding: 7px 9px; border: 1px solid var(--navy-12); border-radius: 9px; background: var(--color-primary); color: var(--color-navy); font-size: 11px; font-weight: 700; }
-.group-member-draft-item button { border: 0; background: transparent; color: inherit; cursor: pointer; font-size: 16px; line-height: 1; }
+.group-member-draft-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.group-member-draft-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 12px; min-width: 190px; padding: 9px 10px 9px 12px; border: 1px solid var(--navy-12); border-radius: 9px; background: var(--color-primary); color: var(--color-navy); }
+.group-member-draft-item strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+.group-member-draft-item small { grid-column: 1; color: var(--ink-soft); font-size: 11px; }
+.group-member-draft-item button { grid-column: 2; grid-row: 1 / span 2; border: 0; background: transparent; color: inherit; cursor: pointer; font-size: 16px; line-height: 1; }
 @media (max-width: 560px) { .group-action-options { grid-template-columns: 1fr; } }
 .group-detail { display: grid; gap: 8px; }
 .group-member { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: white; }

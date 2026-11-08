@@ -160,6 +160,7 @@ export function validateTravelForm(form) {
   const errors = {}
   const time = String(form.exitTime || '').trim()
   const vehicleType = String(form.vehicleType || '').trim().toUpperCase()
+  const driverMode = String(form.driverMode || '').trim().toUpperCase()
   const today = new Date()
   const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
   if (!String(form.exitDate || '').trim()) errors.exitDate = 'Tanggal keluar wajib diisi'
@@ -169,6 +170,8 @@ export function validateTravelForm(form) {
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!String(form.atasanNIP || '').trim()) errors.atasanNIP = 'Atasan wajib dipilih'
   if (!VEHICLE_OPTIONS.some(([type]) => type === vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
+  if (['OFFICE', 'MOTOR'].includes(vehicleType) && !['SELF', 'DRIVER'].includes(driverMode)) errors.driverMode = 'Pilih cara berkendara'
+  if (['OFFICE', 'MOTOR'].includes(vehicleType) && driverMode === 'SELF' && form.driverNIP !== undefined && !String(form.driverNIP || '').trim()) errors.driverNIP = 'Pengemudi wajib dipilih'
   return errors
 }
 
@@ -182,25 +185,35 @@ export function buildTravelPayload(form) {
     atasanNIP: String(form.atasanNIP || '').trim(),
     vehicleType,
     vehiclePlate: '',
+    driverMode: ['OFFICE', 'MOTOR'].includes(vehicleType) ? String(form.driverMode || '').trim().toUpperCase() : '',
+    driverNIP: ['OFFICE', 'MOTOR'].includes(vehicleType) && String(form.driverMode || '').trim().toUpperCase() === 'SELF' ? String(form.driverNIP || '').trim() : '',
   }
 }
 
 export function validateTravelGroupForm(form) {
   const errors = {}
+  const vehicleType = String(form.vehicleType || '').trim().toUpperCase()
+  const driverMode = String(form.driverMode || '').trim().toUpperCase()
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(form.exitDate || '').trim())) errors.exitDate = 'Tanggal keluar wajib diisi'
   if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(String(form.exitTime || '').trim())) errors.exitTime = 'Jam keluar wajib diisi'
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!Array.isArray(form.members) || !form.members.some((value) => String(value || '').trim())) errors.members = 'Minimal 1 anggota group wajib dipilih'
+  if (['OFFICE', 'MOTOR'].includes(vehicleType) && !['SELF', 'DRIVER'].includes(driverMode)) errors.driverMode = 'Pilih cara berkendara'
+  if (['OFFICE', 'MOTOR'].includes(vehicleType) && driverMode === 'SELF' && form.driverNIP !== undefined && !String(form.driverNIP || '').trim()) errors.driverNIP = 'Pengemudi wajib dipilih'
   return errors
 }
 
 export function buildTravelGroupPayload(form, members) {
+  const vehicleType = String(form.vehicleType || '').trim().toUpperCase()
   return {
     exitDate: String(form.exitDate || '').trim(),
     exitTime: String(form.exitTime || '').trim(),
     tujuan: String(form.tujuan || '').trim(),
     tugas: String(form.tugas || '').trim(),
     members: [...new Set((Array.isArray(members) ? members : []).map((value) => String(value || '').trim()).filter(Boolean))],
+    vehicleType,
+    driverMode: ['OFFICE', 'MOTOR'].includes(vehicleType) ? String(form.driverMode || '').trim().toUpperCase() : '',
+    driverName: String(form.driverName || '').trim(),
   }
 }
 
@@ -209,6 +222,7 @@ export function groupStatusLabel(status) {
   if (value === 'REVISION') return 'Ditolak - Revisi'
   if (value === 'VEHICLE_PENDING') return 'Menunggu Approval Kendaraan'
   if (value === 'APPROVED') return 'Disetujui'
+  if (value === 'AUTO_CLOSED') return 'Ditutup otomatis'
   return 'Menunggu Approval Atasan'
 }
 
