@@ -32,7 +32,10 @@ assert.match(message, /Yang berangkat:/)
 assert.match(message, /Nama Karyawan \(0377\)/)
 assert.match(message, /Tujuan: Kantor pusat/)
 assert.match(message, /Keperluan: Rapat/)
-assert.match(message, /Kendaraan yang digunakan: MOTOR/)
+assert.match(message, /Kendaraan yang digunakan: Motor Operasional/)
+for (const [vehicle, label] of [['OFFICE', 'Mobil Operasional'], ['ONLINE', 'PesanOnline'], ['PRIVATE', 'Lain Lain']]) {
+  assert.match(formatTravelApprovalMessage({ vehicle, approverName: '', members: [], tujuan: '', keperluan: '', driver: '', approvalLink: '' }), new RegExp(`Kendaraan yang digunakan: ${label}`))
+}
 assert.match(message, /Sopir: Budi Supir/)
 assert.match(message, /https:\/\/portal\.test\/approval/)
 

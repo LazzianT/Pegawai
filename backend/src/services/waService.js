@@ -6,6 +6,7 @@ const TEST_PHONE = process.env.WA_TEST_PHONE;
 const VEHICLE_MANAGER_NIPS = [...new Set(String(process.env.WA_VEHICLE_MANAGER_NIPS || '').split(',').map((value) => value.trim()).filter(Boolean))];
 const EMPLOYEE_PORTAL_URL = String(process.env.EMPLOYEE_PORTAL_URL || '').trim().replace(/\/$/, '');
 const SECURITY_QR_BASE_URL = String(process.env.SECURITY_QR_BASE_URL || '').trim().replace(/\/$/, '');
+const VEHICLE_LABELS = { PRIVATE: 'Lain Lain', ONLINE: 'PesanOnline', OFFICE: 'Mobil Operasional', MOTOR: 'Motor Operasional' };
 
 function travelRecipient(NIP, fallback) {
   const qaPhone = process.env.NODE_ENV === 'production' ? '' : String(process.env.WA_TRAVEL_QA_PHONE || '').trim();
@@ -19,7 +20,8 @@ function formatTravelApprovalMessage({ approverName, members, tujuan, keperluan,
   const value = (input) => String(input || '').trim() || '-';
   const people = (Array.isArray(members) ? members : []).map((member, index) => `${index + 1}. ${value(member?.name ?? member?.Name)} (${value(member?.nip ?? member?.NIP)})`).join('\n') || '1. -';
   const link = String(approvalLink || '').trim();
-  return `*Employee Portal BMC*\n\nDear *${value(approverName)}*,\n\nTerdapat permintaan approval Tugas Luar dengan detail berikut:\n\nYang berangkat:\n${people}\n\nTujuan: ${value(tujuan)}\nKeperluan: ${value(keperluan)}\nKendaraan yang digunakan: ${value(vehicle)}\nSopir: ${value(driver)}${link ? `\n\nMohon lakukan persetujuan melalui link berikut:\n${link}` : ''}`;
+  const vehicleLabel = VEHICLE_LABELS[String(vehicle || '').trim().toUpperCase()] || vehicle;
+  return `*Employee Portal BMC*\n\nDear *${value(approverName)}*,\n\nTerdapat permintaan approval Tugas Luar dengan detail berikut:\n\nYang berangkat:\n${people}\n\nTujuan: ${value(tujuan)}\nKeperluan: ${value(keperluan)}\nKendaraan yang digunakan: ${value(vehicleLabel)}\nSopir: ${value(driver)}${link ? `\n\nMohon lakukan persetujuan melalui link berikut:\n${link}` : ''}`;
 }
 
 function needsVehicleManagerApproval(vehicleType) {
