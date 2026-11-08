@@ -34,6 +34,7 @@ const dashboardSource = readFileSync(new URL('./pages/DashboardPage.jsx', import
 assert.match(dashboardSource, /onSubmitted=/)
 assert.match(dashboardSource, /refreshKey/)
 assert.match(tugasLuarSource, /createGroup\(true\)/)
+assert.match(tugasLuarSource, /if \(submitAfterCreate\) \{ await groupRequest\([^;]+body: JSON\.stringify\(\{ vehicleType: form\.vehicleType, driverMode: form\.driverMode, driverNIP:/)
 assert.doesNotMatch(tugasLuarSource, />Buat Group</)
 assert.deepEqual(travelQrFromPath('/travel/qr/T.0377.1/abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'), { travelId: 'T.0377.1', token: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef' })
 assert.equal(travelQrFromPath('/travel/qr/T.0377.1/not-a-token'), null)

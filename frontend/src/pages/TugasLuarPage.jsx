@@ -191,7 +191,7 @@ export default function TugasLuarPage({ token, user, rows, onSubmitted }) {
     setGroupMemberNIPs(failed)
     await loadGroup(code)
     if (failed.length) { setGroupError(`NIP belum berhasil ditambahkan: ${failed.join(', ')}`); setMessage(`Group dibuat: ${code}. Coba tambah ulang NIP yang gagal.`); return }
-    if (submitAfterCreate) { await groupRequest(`/travel/groups/${encodeURIComponent(code)}/submit`, { method: 'POST' }); await loadGroup(code); setGroupSuccess(code); return }
+    if (submitAfterCreate) { await groupRequest(`/travel/groups/${encodeURIComponent(code)}/submit`, { method: 'POST', body: JSON.stringify({ vehicleType: form.vehicleType, driverMode: form.driverMode, driverNIP: form.driverMode === 'SELF' ? form.driverNIP : '' }) }); await loadGroup(code); setGroupSuccess(code); return }
     setGroupError('')
     setMessage(`Group dibuat: ${code}`)
   }
