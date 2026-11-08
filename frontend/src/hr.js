@@ -171,7 +171,6 @@ export function validateTravelForm(form) {
   if (!String(form.atasanNIP || '').trim()) errors.atasanNIP = 'Atasan wajib dipilih'
   if (!VEHICLE_OPTIONS.some(([type]) => type === vehicleType)) errors.vehicleType = 'Jenis kendaraan wajib dipilih'
   if (['OFFICE', 'MOTOR'].includes(vehicleType) && !['SELF', 'DRIVER'].includes(driverMode)) errors.driverMode = 'Pilih cara berkendara'
-  if (['OFFICE', 'MOTOR'].includes(vehicleType) && driverMode === 'SELF' && form.driverNIP !== undefined && !String(form.driverNIP || '').trim()) errors.driverNIP = 'Pengemudi wajib dipilih'
   return errors
 }
 
@@ -199,7 +198,6 @@ export function validateTravelGroupForm(form) {
   if (!String(form.tujuan || '').trim()) errors.tujuan = 'Tujuan wajib diisi'
   if (!Array.isArray(form.members) || !form.members.some((value) => String(value || '').trim())) errors.members = 'Minimal 1 anggota group wajib dipilih'
   if (['OFFICE', 'MOTOR'].includes(vehicleType) && !['SELF', 'DRIVER'].includes(driverMode)) errors.driverMode = 'Pilih cara berkendara'
-  if (['OFFICE', 'MOTOR'].includes(vehicleType) && driverMode === 'SELF' && form.driverNIP !== undefined && !String(form.driverNIP || '').trim()) errors.driverNIP = 'Pengemudi wajib dipilih'
   return errors
 }
 
