@@ -6,7 +6,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "${FRONTEND_PORT:-3013}:80"
+      - "${FRONTEND_PORT:-3021}:80"
     depends_on:
       - backend
     restart: unless-stopped
@@ -26,10 +26,6 @@ services:
       JWT_SECRET: ${JWT_SECRET:-}
       JWT_EXPIRES: ${JWT_EXPIRES:-0}
       WA_API_URL: ${WA_API_URL:-}
-      WA_TEST_PHONE: ${WA_TEST_PHONE:-}
-      WA_TRAVEL_QA_PHONE: ${WA_TRAVEL_QA_PHONE:-}
-      WA_TRAVEL_TEST_NIP: ${WA_TRAVEL_TEST_NIP:-}
-      WA_TRAVEL_TEST_PHONE: ${WA_TRAVEL_TEST_PHONE:-}
       WA_VEHICLE_MANAGER_PHONE: ${WA_VEHICLE_MANAGER_PHONE:-}
       WA_VEHICLE_MANAGER_NIPS: ${WA_VEHICLE_MANAGER_NIPS:-}
       EMPLOYEE_PORTAL_URL: ${EMPLOYEE_PORTAL_URL:-}

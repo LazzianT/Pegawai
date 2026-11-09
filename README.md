@@ -15,14 +15,14 @@ Vite berjalan di `http://localhost:5174`. Atur `VITE_API_BASE_URL` ke base API b
 
 ## Docker + Portainer
 
-Compose menjalankan Nginx pada port container `80`, lalu mem-publish ke host `FRONTEND_PORT` (default `3013`). Jangan memakai IP container; akses memakai IP/hostname Docker host dan port host, misalnya `http://HOST_IP:3013`.
+Compose menjalankan Nginx pada port container `80`, lalu mem-publish ke host `FRONTEND_PORT` (default `3021`). Jangan memakai IP container; akses memakai IP/hostname Docker host dan port host, misalnya `http://HOST_IP:3021`.
 
 Portainer Stack:
 
 1. Repository: `https://github.com/LazzianT/Pegawai.git`
 2. Compose path: `docker-compose.yml`
-3. Environment variable frontend: `FRONTEND_PORT=3013`
-4. Environment variable backend wajib di Portainer: `DB_SERVER`, `DB_DATABASE`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`; isi variable backend lain sesuai kebutuhan. Untuk sementara arahkan WhatsApp Tugas Luar ke QA dengan `WA_TRAVEL_QA_PHONE=081977785748`.
+3. Environment variable frontend: `FRONTEND_PORT=3021`
+4. Environment variable backend wajib di Portainer: `DB_SERVER`, `DB_DATABASE`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`; isi variable backend lain sesuai kebutuhan.
 5. Jangan commit `backend/.env`; gunakan environment Portainer
 4. Aktifkan GitOps update atau gunakan `Pull and redeploy`.
 
