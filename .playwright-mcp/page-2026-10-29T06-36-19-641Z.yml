@@ -1,0 +1,79 @@
+- generic [ref=f45e4]:
+  - complementary "Navigasi utama" [ref=f45e5]:
+    - generic [ref=f45e6]:
+      - link "BMC Visitor Management" [ref=f45e7] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Braja Mukti Cakra" [ref=f45e8]
+      - generic [ref=f45e9]: VISITOR MANAGEMENT
+    - navigation [ref=f45e10]:
+      - paragraph [ref=f45e11]: Workspace
+      - link "Dasbor" [ref=f45e12] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Perusahaan" [ref=f45e18] [cursor=pointer]:
+        - /url: /companies
+      - link "Pengunjung" [ref=f45e22] [cursor=pointer]:
+        - /url: /visitors
+      - link "Kunjungan" [ref=f45e27] [cursor=pointer]:
+        - /url: /visits
+      - link "Di Dalam" [ref=f45e31] [cursor=pointer]:
+        - /url: /visits/active
+      - paragraph [ref=f45e35]: Security — BMC Online
+      - link "Ringkasan" [ref=f45e36] [cursor=pointer]:
+        - /url: /security/dashboard
+      - link "Tugas Luar" [ref=f45e42] [cursor=pointer]:
+        - /url: /security/tugas-luar
+      - link "Izin" [ref=f45e46] [cursor=pointer]:
+        - /url: /security/izin
+      - link "Kembali" [ref=f45e51] [cursor=pointer]:
+        - /url: /security/kembali
+      - paragraph [ref=f45e54]: Administrasi
+      - link "Konten Safety" [ref=f45e55] [cursor=pointer]:
+        - /url: /safety-inductions/manage
+      - link "Laporan" [ref=f45e59] [cursor=pointer]:
+        - /url: /reports
+    - generic [ref=f45e63]:
+      - generic [ref=f45e64]:
+        - generic [ref=f45e65]: S
+        - generic [ref=f45e66]:
+          - strong [ref=f45e67]: Security User
+          - generic [ref=f45e68]: SECURITY
+      - button "Keluar" [ref=f45e69] [cursor=pointer]
+  - main [ref=f45e73]:
+    - generic [ref=f45e75]:
+      - generic [ref=f45e76]:
+        - generic [ref=f45e77]:
+          - paragraph [ref=f45e78]: Operasional Security
+          - heading "Izin Karyawan" [level=1] [ref=f45e79]
+          - paragraph [ref=f45e80]: Daftar karyawan yang terdaftar izin hari ini.
+        - generic [ref=f45e81]:
+          - button "Aktif Hari Ini" [ref=f45e82] [cursor=pointer]
+          - button "Laporan Riwayat" [ref=f45e83] [cursor=pointer]
+      - table [ref=f45e85]:
+        - rowgroup [ref=f45e86]:
+          - row [ref=f45e87]:
+            - columnheader "Karyawan" [ref=f45e88]
+            - columnheader "Jenis" [ref=f45e89]
+            - columnheader "Keperluan" [ref=f45e90]
+            - columnheader "Waktu Izin" [ref=f45e91]
+        - rowgroup [ref=f45e92]:
+          - row [ref=f45e93]:
+            - 'cell "SYUKUR KURNIAWAN NIP: 0251" [ref=f45e94]':
+              - strong [ref=f45e95]: SYUKUR KURNIAWAN
+              - generic [ref=f45e96]: "NIP: 0251"
+            - cell "Meninggalnya Istri/ Suami, Anaka, Orang Tua/ Mertua (Wilayah Jabodetabek)" [ref=f45e97]
+            - cell "meninggal dan dimakamkan di wilayah jabodetabek, mertua dari karyawan." [ref=f45e99]
+            - cell "Sehari Penuh" [ref=f45e100]
+          - row [ref=f45e101]:
+            - 'cell "PEMADA ASNA PUTRA NIP: 5489" [ref=f45e102]':
+              - strong [ref=f45e103]: PEMADA ASNA PUTRA
+              - generic [ref=f45e104]: "NIP: 5489"
+            - cell "Istri Sah Melahirkan" [ref=f45e105]
+            - cell "Istri melahirkan" [ref=f45e107]
+            - cell "Sehari Penuh" [ref=f45e108]
+          - row [ref=f45e109]:
+            - 'cell "ARDICO HUTAURUK NIP: 0238" [ref=f45e110]':
+              - strong [ref=f45e111]: ARDICO HUTAURUK
+              - generic [ref=f45e112]: "NIP: 0238"
+            - cell "Dispensasi" [ref=f45e113]
+            - cell "Besuk orang sakit" [ref=f45e115]
+            - cell "10:40 - 14:00" [ref=f45e116]

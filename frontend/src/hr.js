@@ -8,6 +8,13 @@ export function vehicleLabel(value) {
   return VEHICLE_OPTIONS.find(([type]) => type === String(value || '').trim().toUpperCase())?.[1] || String(value || '').trim()
 }
 
+export function driverDisplayName(item) {
+  const nip = String(item?.driverNIP || '').trim()
+  if (!nip || nip === String(item?.nip || '').trim()) return String(item?.nama || '').trim() || nip
+  const member = (Array.isArray(item?.members) ? item.members : []).find((value) => String(value?.nip || '').trim() === nip)
+  return String(member?.name || nip).trim()
+}
+
 export function validateLogin(identifier, password) {
   const errors = {}
   if (!identifier.trim()) errors.identifier = 'NIP wajib diisi'

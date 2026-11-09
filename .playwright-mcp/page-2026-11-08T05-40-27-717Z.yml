@@ -1,0 +1,201 @@
+- generic [ref=e55]:
+  - complementary [ref=e56]:
+    - link "BMC Online HC Management" [ref=e57] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=e58]:
+        - text: BMC Online
+        - generic [ref=e59]: HC Management
+    - generic [ref=e60]: Menu utama
+    - navigation "Menu utama" [ref=e61]:
+      - link "Dashboard" [ref=e62] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Cuti" [ref=e69] [cursor=pointer]:
+        - /url: /cuti
+      - link "Izin" [ref=e74] [cursor=pointer]:
+        - /url: /izin
+      - link "Cuti Khusus" [ref=e79] [cursor=pointer]:
+        - /url: /cuti-khusus
+      - link "Tugas Luar" [ref=e84] [cursor=pointer]:
+        - /url: /tugas-luar
+      - link "Approval Group" [ref=e89] [cursor=pointer]:
+        - /url: /approval/group
+      - generic [ref=e99]:
+        - text: Perjalanan Dinas
+        - generic [ref=e100]: Coming soon
+      - link "My Profile" [ref=e101] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=e106]:
+      - strong [ref=e107]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=e108]:
+      - generic [ref=e109]: L
+      - generic [ref=e110]:
+        - strong [ref=e111]: LAZZIAN AL FALAH
+        - generic [ref=e112]: Programmer
+      - button "Keluar" [ref=e113] [cursor=pointer]
+  - generic [ref=e116]:
+    - banner [ref=e117]:
+      - textbox "Cari pengajuan" [ref=e123]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L LAZZIAN AL FALAH ⌄" [ref=e125] [cursor=pointer]:
+        - generic [ref=e126]: L
+        - generic [ref=e127]: LAZZIAN AL FALAH
+        - generic [ref=e128]: ⌄
+    - main [ref=e384]:
+      - region [ref=e385]:
+        - generic [ref=e387]:
+          - paragraph [ref=e388]: Pengajuan
+          - heading "Tugas Luar" [level=1] [ref=e389]
+          - paragraph [ref=e390]: Isi detail tugas luar untuk dikirim kepada atasan.
+        - generic [ref=e391]:
+          - group "Jenis Tugas Luar" [ref=e392]:
+            - generic [ref=e394]:
+              - generic [ref=e395] [cursor=pointer]:
+                - radio "Mandiri" [ref=e396]
+                - generic [ref=e397]: Mandiri
+              - generic [ref=e398] [cursor=pointer]:
+                - radio "Group" [checked] [ref=e399]
+                - generic [ref=e400]: Group
+          - generic [ref=e541]:
+            - generic [ref=e542]:
+              - text: Cari anggota berdasarkan nama atau NIP
+              - textbox "Cari anggota berdasarkan nama atau NIP" [ref=e543]:
+                - /placeholder: Ketik minimal 2 karakter
+            - generic [ref=e550]:
+              - text: "5452"
+              - button "Hapus NIP 5452" [ref=e551] [cursor=pointer]: ×
+          - generic [ref=e401]:
+            - generic [ref=e402]:
+              - text: Tanggal keluar
+              - textbox "Tanggal keluar" [ref=e408]:
+                - /placeholder: YYYY-MM-DD
+                - text: 2026-11-08
+            - generic [ref=e409]:
+              - text: Jam keluar
+              - generic [ref=e411]:
+                - textbox "Jam keluar" [ref=e415]:
+                  - /placeholder: HH:MM
+                  - text: 12:39
+                - button "Buka pilihan jam" [ref=e416] [cursor=pointer]
+            - generic [ref=e419]:
+              - text: Tujuan
+              - textbox "Tujuan" [ref=e420]:
+                - /placeholder: "Contoh: Kunjungan kantor cabang"
+            - generic [ref=e421]:
+              - text: Tugas / keperluan
+              - textbox "Tugas / keperluan" [ref=e422]:
+                - /placeholder: Jelaskan tugas yang dilakukan
+            - group "Kendaraan" [ref=e423]:
+              - generic [ref=e425]:
+                - generic [ref=e426] [cursor=pointer]:
+                  - radio "Lain Lain" [checked] [ref=e427]
+                  - generic [ref=e428]: Lain Lain
+                - generic [ref=e429] [cursor=pointer]:
+                  - radio "PesanOnline" [ref=e430]
+                  - generic [ref=e431]: PesanOnline
+                - generic [ref=e432] [cursor=pointer]:
+                  - radio "Mobil Operasional" [ref=e433]
+                  - generic [ref=e434]: Mobil Operasional
+                - generic [ref=e435] [cursor=pointer]:
+                  - radio "Motor Operasional" [ref=e436]
+                  - generic [ref=e437]: Motor Operasional
+            - generic [ref=e438]:
+              - text: Atasan
+              - button "Atasan" [ref=e440] [cursor=pointer]:
+                - generic [ref=e441]: Pilih atasan
+          - button "Kirim pengajuan group" [ref=e544] [cursor=pointer]
+        - generic [ref=e445]:
+          - generic [ref=e446]:
+            - generic [ref=e447]:
+              - paragraph [ref=e448]: Riwayat
+              - heading "Pengajuan tugas luar" [level=2] [ref=e449]
+            - generic [ref=e450]: 11 data
+          - generic [ref=e451]:
+            - article [ref=e452]:
+              - generic [ref=e453]:
+                - strong [ref=e454]: tes
+                - generic [ref=e455]: G.TL-86F5AD.1
+              - generic [ref=e456]:
+                - strong [ref=e457]: tes
+                - generic [ref=e458]: 8 Nov 2026
+              - generic [ref=e459]: Menunggu
+            - article [ref=e460]:
+              - generic [ref=e461]:
+                - strong [ref=e462]: training autodesk
+                - generic [ref=e463]: G.TL-E834B6.1
+              - generic [ref=e464]:
+                - strong [ref=e465]: training autodesk
+                - generic [ref=e466]: 8 Nov 2026
+              - generic [ref=e467]: Menunggu
+            - article [ref=e468]:
+              - generic [ref=e469]:
+                - strong [ref=e470]: PT Testing Sedunia
+                - generic [ref=e471]: G.TL-C5BDEF.1
+              - generic [ref=e472]:
+                - strong [ref=e473]: tes
+                - generic [ref=e474]: 8 Nov 2026
+              - generic [ref=e475]: Menunggu
+            - article [ref=e476]:
+              - generic [ref=e477]:
+                - strong [ref=e478]: ngetes cuy
+                - generic [ref=e479]: G.TL-3C91D9.1
+              - generic [ref=e480]:
+                - strong [ref=e481]: ngetes cuy
+                - generic [ref=e482]: 8 Nov 2026
+              - generic [ref=e483]: Menunggu
+            - article [ref=e484]:
+              - generic [ref=e485]:
+                - strong [ref=e486]: ngetes
+                - generic [ref=e487]: G.TL-D0BA2C.1
+              - generic [ref=e488]:
+                - strong [ref=e489]: ngetes
+                - generic [ref=e490]: 8 Nov 2026
+              - generic [ref=e491]: Menunggu
+            - article [ref=e492]:
+              - generic [ref=e493]:
+                - strong [ref=e494]: ngetes
+                - generic [ref=e495]: G.TL-C98F2F.1
+              - generic [ref=e496]:
+                - strong [ref=e497]: ngetes
+                - generic [ref=e498]: 8 Nov 2026
+              - generic [ref=e499]: Menunggu
+            - article [ref=e500]:
+              - generic [ref=e501]:
+                - strong [ref=e502]: PT UNTUK TES
+                - generic [ref=e503]: G.TL-56953C.1
+              - generic [ref=e504]:
+                - strong [ref=e505]: tes
+                - generic [ref=e506]: 8 Nov 2026
+              - generic [ref=e507]: Menunggu
+            - article [ref=e508]:
+              - generic [ref=e509]:
+                - strong [ref=e510]: PT Testing Sedunia
+                - generic [ref=e511]: G.TL-C0A469.1
+              - generic [ref=e512]:
+                - strong [ref=e513]: ngetes
+                - generic [ref=e514]: 8 Nov 2026
+              - generic [ref=e515]: Menunggu
+            - article [ref=e516]:
+              - generic [ref=e517]:
+                - strong [ref=e518]: PT Bakrie Autoparts
+                - generic [ref=e519]: T.0377.179392951392
+              - generic [ref=e520]:
+                - strong [ref=e521]: Meeting
+                - generic [ref=e522]: 6 Nov 2026 · PesanOnline
+              - generic [ref=e523]: Disetujui
+            - article [ref=e524]:
+              - generic [ref=e525]:
+                - strong [ref=e526]: pt
+                - generic [ref=e527]: G.TL-F4E9D5.1
+              - generic [ref=e528]:
+                - strong [ref=e529]: pt
+                - generic [ref=e530]: 6 Nov 2026
+              - generic [ref=e531]: Menunggu
+            - article [ref=e532]:
+              - generic [ref=e533]:
+                - strong [ref=e534]: PT Tes
+                - generic [ref=e535]: G.TL-C3F177.1
+              - generic [ref=e536]:
+                - strong [ref=e537]: Tes
+                - generic [ref=e538]: 6 Nov 2026
+              - generic [ref=e539]: Menunggu

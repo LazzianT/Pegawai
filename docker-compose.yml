@@ -3,8 +3,38 @@ name: pegawai
 services:
   frontend:
     build:
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "${FRONTEND_PORT:-3013}:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      PORT: 47213
+      DB_SERVER: ${DB_SERVER:-}
+      DB_DATABASE: ${DB_DATABASE:-}
+      DB_USER: ${DB_USER:-}
+      DB_PASSWORD: ${DB_PASSWORD:-}
+      DB_PORT: ${DB_PORT:-1433}
+      DB_ENCRYPT: ${DB_ENCRYPT:-false}
+      JWT_SECRET: ${JWT_SECRET:-}
+      JWT_EXPIRES: ${JWT_EXPIRES:-0}
+      WA_API_URL: ${WA_API_URL:-}
+      WA_TEST_PHONE: ${WA_TEST_PHONE:-}
+      WA_TRAVEL_QA_PHONE: ${WA_TRAVEL_QA_PHONE:-}
+      WA_TRAVEL_TEST_NIP: ${WA_TRAVEL_TEST_NIP:-}
+      WA_TRAVEL_TEST_PHONE: ${WA_TRAVEL_TEST_PHONE:-}
+      WA_VEHICLE_MANAGER_PHONE: ${WA_VEHICLE_MANAGER_PHONE:-}
+      WA_VEHICLE_MANAGER_NIPS: ${WA_VEHICLE_MANAGER_NIPS:-}
+      EMPLOYEE_PORTAL_URL: ${EMPLOYEE_PORTAL_URL:-}
+      SECURITY_QR_BASE_URL: ${SECURITY_QR_BASE_URL:-}
+      VEHICLE_APPROVAL_TOKEN_SECRET: ${VEHICLE_APPROVAL_TOKEN_SECRET:-}
+    expose:
+      - "47213"
     restart: unless-stopped

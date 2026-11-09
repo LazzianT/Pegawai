@@ -1,0 +1,141 @@
+- generic [ref=e3]:
+  - complementary "Navigasi utama" [ref=e4]:
+    - generic [ref=e5]:
+      - link "BMC Visitor Management" [ref=e6] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Braja Mukti Cakra" [ref=e7]
+      - generic [ref=e8]: VISITOR MANAGEMENT
+    - navigation [ref=e9]:
+      - paragraph [ref=e10]: Workspace
+      - link "Dasbor" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Perusahaan" [ref=e17] [cursor=pointer]:
+        - /url: /companies
+      - link "Pengunjung" [ref=e21] [cursor=pointer]:
+        - /url: /visitors
+      - link "Kunjungan" [ref=e26] [cursor=pointer]:
+        - /url: /visits
+      - link "Di Dalam" [ref=e30] [cursor=pointer]:
+        - /url: /visits/active
+      - paragraph [ref=e34]: Security — BMC Online
+      - link "Ringkasan" [ref=e35] [cursor=pointer]:
+        - /url: /security/dashboard
+      - link "Tugas Luar" [ref=e41] [cursor=pointer]:
+        - /url: /security/tugas-luar
+      - link "Izin" [ref=e45] [cursor=pointer]:
+        - /url: /security/izin
+      - link "Kembali" [ref=e50] [cursor=pointer]:
+        - /url: /security/kembali
+      - paragraph [ref=e53]: Administrasi
+      - link "Konten Safety" [ref=e54] [cursor=pointer]:
+        - /url: /safety-inductions/manage
+      - link "Laporan" [ref=e58] [cursor=pointer]:
+        - /url: /reports
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]: S
+        - generic [ref=e65]:
+          - strong [ref=e66]: Security User
+          - generic [ref=e67]: SECURITY
+      - button "Keluar" [ref=e68] [cursor=pointer]
+  - main [ref=e72]:
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - paragraph [ref=e77]: Operasional Security
+          - heading "Tugas Luar (Dinas)" [level=1] [ref=e78]
+          - paragraph [ref=e79]: Karyawan yang sedang berada di luar area kantor.
+        - generic [ref=e80]:
+          - button "Aktif Hari Ini" [ref=e81] [cursor=pointer]
+          - button "Laporan Riwayat" [ref=e82] [cursor=pointer]
+          - button "Scan QR" [active] [ref=e83] [cursor=pointer]
+      - table [ref=e85]:
+        - rowgroup [ref=e86]:
+          - row [ref=e87]:
+            - columnheader "Status" [ref=e88]
+            - columnheader "Karyawan" [ref=e89]
+            - columnheader "Tujuan & Keperluan" [ref=e90]
+            - columnheader "Jam Berangkat" [ref=e91]
+            - columnheader "Aksi" [ref=e92]
+          - row [ref=e93]:
+            - columnheader "Jam Surat" [ref=e94]
+            - columnheader "Jam Aktual" [ref=e95]
+        - rowgroup [ref=e96]:
+          - row [ref=e97]:
+            - cell "Akan Tugas Luar" [ref=e98]
+            - 'cell "DESMIAR SUSANTY NIP: 0169" [ref=e100]':
+              - strong [ref=e101]: DESMIAR SUSANTY
+              - generic [ref=e102]: "NIP: 0169"
+            - cell "Trial Tugas lagi Trial ulang" [ref=e103]:
+              - generic [ref=e104]: Trial Tugas lagi
+              - generic [ref=e105]: Trial ulang
+            - cell "11:27" [ref=e106]
+            - cell "-" [ref=e108]
+            - cell [ref=e110]:
+              - button "Catat Berangkat" [ref=e111] [cursor=pointer]
+          - row [ref=e112]:
+            - cell "Akan Tugas Luar" [ref=e113]
+            - 'cell "LAZZIAN AL FALAH NIP: 0377" [ref=e115]':
+              - strong [ref=e116]: LAZZIAN AL FALAH
+              - generic [ref=e117]: "NIP: 0377"
+            - cell "tes tes" [ref=e118]:
+              - generic [ref=e119]: tes
+              - generic [ref=e120]: tes
+            - cell "10:36" [ref=e121]
+            - cell "-" [ref=e123]
+            - cell [ref=e125]:
+              - button "Catat Berangkat" [ref=e126] [cursor=pointer]
+          - row [ref=e127]:
+            - cell "Akan Tugas Luar" [ref=e128]
+            - 'cell "DESMIAR SUSANTY NIP: 0169" [ref=e130]':
+              - strong [ref=e131]: DESMIAR SUSANTY
+              - generic [ref=e132]: "NIP: 0169"
+            - cell "Trial Tugas Luar Trial Web Tugas Luar" [ref=e133]:
+              - generic [ref=e134]: Trial Tugas Luar
+              - generic [ref=e135]: Trial Web Tugas Luar
+            - cell "08:14" [ref=e136]
+            - cell "-" [ref=e138]
+            - cell [ref=e140]:
+              - button "Catat Berangkat" [ref=e141] [cursor=pointer]
+          - row [ref=e142]:
+            - cell "Akan Tugas Luar" [ref=e143]
+            - 'cell "HABIBI WIDAYANTO NIP: 5614" [ref=e145]':
+              - strong [ref=e146]: HABIBI WIDAYANTO
+              - generic [ref=e147]: "NIP: 5614"
+            - cell "hajsi tugassku" [ref=e148]:
+              - generic [ref=e149]: hajsi
+              - generic [ref=e150]: tugassku
+            - cell "09:53" [ref=e151]
+            - cell "-" [ref=e153]
+            - cell [ref=e155]:
+              - button "Catat Berangkat" [ref=e156] [cursor=pointer]
+          - row [ref=e157]:
+            - cell "Akan Tugas Luar" [ref=e158]
+            - 'cell "LAZZIAN AL FALAH NIP: 0377" [ref=e160]':
+              - strong [ref=e161]: LAZZIAN AL FALAH
+              - generic [ref=e162]: "NIP: 0377"
+            - cell "PT Baru meeting" [ref=e163]:
+              - generic [ref=e164]: PT Baru
+              - generic [ref=e165]: meeting
+            - cell "13:29" [ref=e166]
+            - cell "-" [ref=e168]
+            - cell [ref=e170]:
+              - button "Catat Berangkat" [ref=e171] [cursor=pointer]
+          - row [ref=e172]:
+            - cell "Sedang Tugas Luar" [ref=e173]
+            - 'cell "LAZZIAN AL FALAH NIP: 0377" [ref=e175]':
+              - strong [ref=e176]: LAZZIAN AL FALAH
+              - generic [ref=e177]: "NIP: 0377"
+            - cell "PT ABC Meeting dengan Customer" [ref=e178]:
+              - generic [ref=e179]: PT ABC
+              - generic [ref=e180]: Meeting dengan Customer
+            - cell "13:30" [ref=e181]
+            - cell "11:27" [ref=e183]
+            - cell [ref=e185]:
+              - button "Catat Kembali" [ref=e186] [cursor=pointer]
+      - dialog [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]:
+            - heading "Scan QR karyawan" [level=3] [ref=e190]
+            - button "Tutup" [ref=e191] [cursor=pointer]
+          - alert [ref=e193]: Peramban ini belum mendukung pemindaian QR kamera.

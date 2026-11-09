@@ -1,0 +1,1 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-11-08-travel-whatsapp-approval-message.md

@@ -1,0 +1,40 @@
+- generic [ref=f5e4]:
+  - banner [ref=f5e5]:
+    - link "BMC Online beranda" [ref=f5e6] [cursor=pointer]:
+      - /url: "#top"
+      - text: BMC Online
+    - button "Mulai Sekarang" [ref=f5e7] [cursor=pointer]
+  - main [ref=f5e8]:
+    - region [ref=f5e9]:
+      - paragraph [ref=f5e10]: Lebih mudah, lebih teratur
+      - heading [level=1] [ref=f5e11]:
+        - text: Kelola pengajuan HC
+        - strong [ref=f5e12]: dalam Satu Tempat.
+      - paragraph [ref=f5e13]: Ajukan, pantau, dan kelola semua permohonan kapan saja, di mana saja. Proses lebih cepat, transparan, dan mudah dipantau.
+      - generic [ref=f5e14]:
+        - generic [ref=f5e15]: Pengajuan mudah
+        - generic [ref=f5e20]: Status transparan
+        - generic [ref=f5e25]: Notifikasi tepat waktu
+    - region [ref=f5e29]:
+      - generic [ref=f5e30]:
+        - heading "Selamat Datang" [level=2] [ref=f5e31]
+        - paragraph [ref=f5e32]: Masuk untuk mengelola pengajuan cuti, izin, dan tugas luar Anda.
+        - generic [ref=f5e33]:
+          - generic [ref=f5e34]: NIP
+          - textbox "NIP" [ref=f5e37]:
+            - /placeholder: Masukkan NIP Anda
+        - generic [ref=f5e38]:
+          - generic [ref=f5e39]: Password
+          - generic [ref=f5e40]:
+            - textbox "Password" [ref=f5e42]:
+              - /placeholder: Tanggal Lahir Anda (ddmmyy)
+            - button "Tampilkan password" [ref=f5e43] [cursor=pointer]: Tampilkan
+        - generic [ref=f5e44]:
+          - generic [ref=f5e45]:
+            - checkbox "Ingat saya" [ref=f5e46]
+            - text: Ingat saya
+          - generic [ref=f5e47]: Lupa password?
+        - button "Masuk →" [ref=f5e48] [cursor=pointer]
+        - paragraph [ref=f5e49]:
+          - text: Belum punya akun?
+          - strong [ref=f5e50]: Hubungi Admin

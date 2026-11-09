@@ -1,0 +1,287 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - img "Logo BMC" [ref=e5]
+        - text: BMC
+        - generic [ref=e6]: Online
+      - generic [ref=e7]: Tutorial Tugas Luar
+    - generic [ref=e8]:
+      - img "Logo BMC" [ref=e9]
+      - generic [ref=e10]: Panduan pengguna
+      - heading "Tugas luar, lebih teratur." [level=1] [ref=e11]: Tugas luar,lebih teratur.
+      - paragraph [ref=e12]: Panduan sederhana dari pengajuan, persetujuan, sampai pencatatan keberangkatan dan kepulangan.
+      - generic [ref=e13]: Urutan prosesAjukan → Atasan memeriksa → Pengelola Kendaraan memeriksa → Scan QR.
+    - generic [ref=e16]:
+      - img "Form Tugas Luar" [ref=e17]
+      - generic [ref=e18]: Form Tugas Luar
+    - generic [ref=e19]: "01"
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - img "Logo BMC" [ref=e23]
+        - text: BMC
+        - generic [ref=e24]: Online
+      - generic [ref=e25]: Mulai
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]: 01 / Mulai pengajuan
+        - heading "Isi data tugas luar." [level=2] [ref=e29]: Isi datatugas luar.
+        - paragraph [ref=e30]: Pilih menu Tugas Luar, lalu isi informasi kegiatan yang akan dilakukan.
+      - generic [ref=e31]: "01"
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - list [ref=e34]:
+          - listitem [ref=e35]:
+            - generic [ref=e36]:
+              - generic [ref=e37]: Buka menu Tugas Luar
+              - text: Pilih Tugas Luar dari menu pengajuan.
+          - listitem [ref=e38]:
+            - generic [ref=e39]:
+              - generic [ref=e40]: Isi waktu keluar
+              - text: Masukkan tanggal dan jam saat mulai berangkat.
+          - listitem [ref=e41]:
+            - generic [ref=e42]:
+              - generic [ref=e43]: Isi tujuan dan tugas
+              - text: Tuliskan lokasi serta pekerjaan yang dilakukan.
+          - listitem [ref=e44]:
+            - generic [ref=e45]:
+              - generic [ref=e46]: Pilih kendaraan
+              - text: Pilih jenis kendaraan dan nomor plat bila menggunakan kendaraan operasional.
+          - listitem [ref=e47]:
+            - generic [ref=e48]:
+              - generic [ref=e49]: Pilih atasan
+              - text: Pilih atasan yang akan memeriksa pengajuan.
+        - generic [ref=e50]: Periksa kembali sebelum mengirimPastikan tujuan, waktu, kendaraan, dan atasan sudah benar.
+      - figure "Form pengajuan Tugas Luar." [ref=e51]:
+        - img "Form pengajuan Tugas Luar" [ref=e52]
+    - generic [ref=e54]: "02"
+  - generic [ref=e55]:
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - img "Logo BMC" [ref=e58]
+        - text: BMC
+        - generic [ref=e59]: Online
+      - generic [ref=e60]: Kirim
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - generic [ref=e63]: 02 / Kirim pengajuan
+        - heading "Kirim untuk diperiksa." [level=2] [ref=e64]: Kirim untukdiperiksa.
+        - paragraph [ref=e65]: Setelah semua data lengkap, tekan tombol Kirim Pengajuan.
+      - generic [ref=e66]: "02"
+    - generic [ref=e67]:
+      - figure "Nomor dan status pengajuan dapat dipantau di dashboard." [ref=e68]:
+        - img "Riwayat pengajuan Tugas Luar" [ref=e69]
+      - generic [ref=e71]:
+        - list [ref=e72]:
+          - listitem [ref=e73]:
+            - generic [ref=e74]:
+              - generic [ref=e75]: Tekan Kirim Pengajuan
+              - text: Pengajuan akan tersimpan setelah berhasil dikirim.
+          - listitem [ref=e76]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: Simpan nomor pengajuan
+              - text: Nomor ini membantu saat memeriksa status atau menghubungi admin.
+          - listitem [ref=e79]:
+            - generic [ref=e80]:
+              - generic [ref=e81]: Tunggu pemeriksaan
+              - text: Jangan mengirim ulang jika status masih menunggu.
+        - generic [ref=e82]:
+          - strong [ref=e83]: Menunggu
+          - generic [ref=e84]: Pengajuan sudah tersimpan dan masih diproses.
+        - generic [ref=e85]: Jika gagal terkirimPeriksa pesan yang muncul, perbaiki data yang diminta, lalu kirim kembali.
+    - generic [ref=e86]: "03"
+  - generic [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]:
+        - img "Logo BMC" [ref=e90]
+        - text: BMC
+        - generic [ref=e91]: Online
+      - generic [ref=e92]: Atasan
+    - generic [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]: 03 / Pemeriksaan atasan
+        - heading "Atasan memeriksa." [level=2] [ref=e96]: Atasanmemeriksa.
+        - paragraph [ref=e97]: Atasan melihat rincian tugas luar sebelum memberikan keputusan.
+      - generic [ref=e98]: "03"
+    - generic [ref=e99]:
+      - generic [ref=e100]:
+        - list [ref=e101]:
+          - listitem [ref=e102]:
+            - generic [ref=e103]:
+              - generic [ref=e104]: Atasan membuka pengajuan
+              - text: Atasan memeriksa pemohon, tujuan, keperluan, tanggal, dan ID pengajuan.
+          - listitem [ref=e105]:
+            - generic [ref=e106]:
+              - generic [ref=e107]: Atasan memilih keputusan
+              - text: Atasan dapat menyetujui atau menolak pengajuan.
+          - listitem [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e110]: Hasil terlihat di riwayat
+              - text: User dapat memantau perubahan status di aplikasi.
+        - generic [ref=e111]:
+          - strong [ref=e112]: Disetujui
+          - generic [ref=e113]: Pengajuan dapat diteruskan ke pemeriksaan kendaraan.
+        - generic [ref=e114]:
+          - strong [ref=e115]: Ditolak
+          - generic [ref=e116]: Pengajuan berhenti dan perlu diperiksa kembali bersama admin atau atasan.
+      - figure "Atasan memeriksa pengajuan Tugas Luar." [ref=e117]:
+        - img "Halaman pemeriksaan atasan" [ref=e118]
+    - generic [ref=e120]: "04"
+  - generic [ref=e121]:
+    - generic [ref=e122]:
+      - generic [ref=e123]:
+        - img "Logo BMC" [ref=e124]
+        - text: BMC
+        - generic [ref=e125]: Online
+      - generic [ref=e126]: Kendaraan
+    - generic [ref=e127]:
+      - generic [ref=e128]:
+        - generic [ref=e129]: 04 / Pengelola kendaraan
+        - heading "Kendaraan diperiksa." [level=2] [ref=e130]: Kendaraandiperiksa.
+        - paragraph [ref=e131]: Untuk penggunaan kendaraan operasional, Pengelola Kendaraan memeriksa dan menentukan kendaraan yang digunakan.
+      - generic [ref=e132]: "04"
+    - generic [ref=e133]:
+      - figure "Pengelola Kendaraan memilih kendaraan dan nomor plat." [ref=e134]:
+        - img "Halaman approval Pengelola Kendaraan" [ref=e135]
+      - generic [ref=e137]:
+        - list [ref=e138]:
+          - listitem [ref=e139]:
+            - generic [ref=e140]:
+              - generic [ref=e141]: Pengelola Kendaraan membuka pengajuan
+              - text: Pengajuan yang sudah disetujui atasan masuk ke daftar pemeriksaan.
+          - listitem [ref=e142]:
+            - generic [ref=e143]:
+              - generic [ref=e144]: Memeriksa ketersediaan
+              - text: Pengelola memilih kendaraan yang tersedia.
+          - listitem [ref=e145]:
+            - generic [ref=e146]:
+              - generic [ref=e147]: Menentukan nomor plat
+              - text: Untuk kendaraan operasional, nomor plat dipilih sebelum disetujui.
+          - listitem [ref=e148]:
+            - generic [ref=e149]:
+              - generic [ref=e150]: Memberikan keputusan
+              - text: Pengelola menyetujui atau menolak penggunaan kendaraan.
+        - generic [ref=e151]: Jika ditolakUser perlu menghubungi pihak terkait untuk mengetahui pilihan kendaraan atau langkah berikutnya.
+    - generic [ref=e152]: "05"
+  - generic [ref=e153]:
+    - generic [ref=e154]:
+      - generic [ref=e155]:
+        - img "Logo BMC" [ref=e156]
+        - text: BMC
+        - generic [ref=e157]: Online
+      - generic [ref=e158]: Berangkat
+    - generic [ref=e159]:
+      - generic [ref=e160]:
+        - generic [ref=e161]: 05 / Scan keberangkatan
+        - heading "Scan QR saat berangkat." [level=2] [ref=e162]: Scan QRsaat berangkat.
+        - paragraph [ref=e163]: Setelah pengajuan disetujui, tunjukkan QR kepada petugas Security sebelum meninggalkan kantor.
+      - generic [ref=e164]: "05"
+    - generic [ref=e165]:
+      - generic [ref=e166]:
+        - list [ref=e167]:
+          - listitem [ref=e168]:
+            - generic [ref=e169]:
+              - generic [ref=e170]: Buka QR Tugas Luar
+              - text: Buka QR dari pengajuan Tugas Luar yang sudah disetujui.
+          - listitem [ref=e171]:
+            - generic [ref=e172]:
+              - generic [ref=e173]: Datang ke Security
+              - text: Tunjukkan QR pada layar ponsel kepada petugas.
+          - listitem [ref=e174]:
+            - generic [ref=e175]:
+              - generic [ref=e176]: Tunggu pemindaian
+              - text: Petugas memindai QR untuk mencatat keberangkatan.
+        - generic [ref=e177]: Jangan berangkat sebelum scanPastikan pencatatan berhasil sebelum memulai perjalanan.
+      - figure "QR ditunjukkan kepada Security saat keberangkatan." [ref=e178]:
+        - img "QR Tugas Luar sebelum berangkat" [ref=e179]
+    - generic [ref=e181]: "06"
+  - generic [ref=e182]:
+    - generic [ref=e183]:
+      - generic [ref=e184]:
+        - img "Logo BMC" [ref=e185]
+        - text: BMC
+        - generic [ref=e186]: Online
+      - generic [ref=e187]: Kembali
+    - generic [ref=e188]:
+      - generic [ref=e189]:
+        - generic [ref=e190]: 06 / Scan kepulangan
+        - heading "Scan lagi saat kembali." [level=2] [ref=e191]: Scan lagisaat kembali.
+        - paragraph [ref=e192]: Setelah tugas selesai dan kembali ke kantor, tunjukkan QR yang sama kepada Security.
+      - generic [ref=e193]: "06"
+    - generic [ref=e194]:
+      - figure "Status berubah setelah kepulangan tercatat." [ref=e195]:
+        - img "QR Tugas Luar setelah kembali" [ref=e196]
+      - generic [ref=e198]:
+        - list [ref=e199]:
+          - listitem [ref=e200]:
+            - generic [ref=e201]:
+              - generic [ref=e202]: Kembali ke kantor
+              - text: Datang ke Security setelah menyelesaikan tugas.
+          - listitem [ref=e203]:
+            - generic [ref=e204]:
+              - generic [ref=e205]: Tunjukkan QR yang sama
+              - text: Gunakan QR pengajuan Tugas Luar.
+          - listitem [ref=e206]:
+            - generic [ref=e207]:
+              - generic [ref=e208]: Pastikan kepulangan tercatat
+              - text: Layar akan menunjukkan bahwa tugas luar telah selesai.
+        - generic [ref=e209]:
+          - strong [ref=e210]: Sudah kembali
+          - generic [ref=e211]: Kepulangan tercatat pada sistem.
+    - generic [ref=e212]: "07"
+  - generic [ref=e213]:
+    - generic [ref=e214]:
+      - generic [ref=e215]:
+        - img "Logo BMC" [ref=e216]
+        - text: BMC
+        - generic [ref=e217]: Online
+      - generic [ref=e218]: Ringkasan
+    - generic [ref=e219]:
+      - generic [ref=e220]:
+        - generic [ref=e221]: 07 / Ringkasan
+        - heading "Pantau sampai selesai." [level=2] [ref=e222]: Pantau sampaiselesai.
+        - paragraph [ref=e223]: Gunakan dashboard untuk memastikan seluruh proses sudah berjalan.
+      - generic [ref=e224]: "07"
+    - figure "Contoh pengajuan Tugas Luar pada aktivitas dashboard." [ref=e225]:
+      - img "Riwayat Tugas Luar di dashboard" [ref=e226]
+    - generic [ref=e228]:
+      - generic [ref=e229]: 1Ajukan Tugas Luar
+      - generic [ref=e230]: 2Tunggu persetujuan atasan
+      - generic [ref=e231]: 3Tunggu persetujuan kendaraan
+      - generic [ref=e232]: 4Scan saat berangkat dan kembali
+    - generic [ref=e233]: Butuh bantuan?Sampaikan nomor pengajuan kepada admin HC agar proses dapat ditelusuri.
+    - generic [ref=e234]: "08"
+  - generic [ref=e235]:
+    - generic [ref=e236]:
+      - generic [ref=e237]:
+        - img "Logo BMC" [ref=e238]
+        - text: BMC
+        - generic [ref=e239]: Online
+      - generic [ref=e240]: Akses portal
+    - generic [ref=e241]:
+      - generic [ref=e242]:
+        - generic [ref=e243]: 08 / Akses portal BMC Online
+        - heading "Akses portal lebih cepat." [level=2] [ref=e244]: Akses portallebih cepat.
+        - paragraph [ref=e245]: Gunakan QR code berikut untuk membuka portal BMC Online.
+      - generic [ref=e246]: "08"
+    - generic [ref=e247]:
+      - figure "Scan QR code untuk membuka portal." [ref=e248]:
+        - img "QR code portal BMC Online" [ref=e249]
+      - generic [ref=e251]:
+        - list [ref=e252]:
+          - listitem [ref=e253]:
+            - generic [ref=e254]:
+              - generic [ref=e255]: Scan QR code
+              - text: Gunakan kamera ponsel untuk memindai QR code.
+          - listitem [ref=e256]:
+            - generic [ref=e257]:
+              - generic [ref=e258]: Buka portal
+              - text: Buka tautan yang muncul di layar ponsel.
+          - listitem [ref=e259]:
+            - generic [ref=e260]:
+              - generic [ref=e261]: Login lalu pilih menu Tugas Luar
+              - text: Masuk ke akun Anda, lalu buka menu Tugas Luar.
+        - generic [ref=e262]: Alamat portalhttps://employee-portal.bmc.co.id
+        - generic [ref=e263]: Jaga keamanan akunJangan membagikan kredensial akun kepada orang lain.
+    - generic [ref=e264]: "09"

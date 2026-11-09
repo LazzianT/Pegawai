@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { groupApprovalTransition, groupApproverNips, groupStatusAfterApproval, groupVehicleTransition, validateGroupMembers, autoCloseTravelGroups } from './travelGroupModel.js'
+import { formatTravelApprovalMessage, formatTravelApprovedMessage } from '../services/waService.js'
 
 assert.deepEqual(groupApproverNips([
   { approverNIP: 'A', departID: '1' },
@@ -11,6 +12,7 @@ assert.equal(groupStatusAfterApproval({ approved: 1, required: 2, rejected: 0 })
 assert.equal(groupStatusAfterApproval({ approved: 1, required: 2, rejected: 1 }), 'REVISION')
 assert.equal(groupStatusAfterApproval({ approved: 2, required: 2, rejected: 0 }), 'VEHICLE_PENDING')
 assert.deepEqual(groupApprovalTransition([{ statusId: 3 }, { statusId: 3 }]), { groupStatus: 'VEHICLE_PENDING', vehicleApproval: true })
+assert.deepEqual(groupApprovalTransition([{ StatusId: 3 }, { StatusId: 3 }]), { groupStatus: 'VEHICLE_PENDING', vehicleApproval: true })
 assert.deepEqual(groupApprovalTransition([{ statusId: 3 }, { statusId: 4 }]), { groupStatus: 'REVISION', vehicleApproval: false })
 assert.deepEqual(groupVehicleTransition('approve'), { groupStatus: 'APPROVED', qr: true })
 assert.deepEqual(groupVehicleTransition('reject'), { groupStatus: 'REVISION', qr: false })
@@ -31,6 +33,21 @@ assert.match(source, /async function addDirectGroupMember/)
 assert.match(source, /createVehicleApprovalToken\('__ATASAN_QUEUE__'/)
 assert.match(source, /formatTravelApprovalMessage/)
 assert.match(source, /formatTravelApprovalMessage\(\{/)
+assert.match(source, /if \(transition\.vehicleApproval\) \{[\s\S]*formatTravelApprovalMessage\(\{/)
+assert.match(source, /createVehicleApprovalToken\(`G\.\$\{code\}\.\$\{version\}`, nip\)/)
+assert.match(source, /DriverMode = CASE WHEN @Status = 'APPROVED'/)
+assert.match(source, /DriverName = CASE WHEN @Status = 'APPROVED'/)
+assert.match(source, /sendWaToNIP\(/)
+assert.match(source, /g\.CreatorNIP/)
+assert.match(source, /FROM hris_Travel_Group_Approval a INNER JOIN hris_Travel_Group g/)
+assert.match(source, /INNER JOIN hris_Travel_Group g ON g\.GroupCode = a\.GroupCode\r?\n    INNER JOIN hris_Travel_Group_Version v/)
+assert.match(source, /const recipient = members\.find\(/)
+assert.match(source, /const qrBaseUrl = SECURITY_QR_BASE_URL \|\| EMPLOYEE_PORTAL_URL/)
+assert.match(source, /\/travel\/groups\/qr\/\$\{encodeURIComponent\(code\)\}\/\$\{encodeURIComponent\(first\.QrToken\)\}/)
+assert.match(formatTravelApprovedMessage({ recipientName: 'Ani', members: [{ name: 'Ani', nip: '0377' }], tujuan: 'Kantor', keperluan: 'Rapat', vehicle: 'OFFICE', vehiclePlate: 'B 2405 KRM', driver: 'Budi', qrLink: '' }), /Kendaraan yang digunakan: Mobil Operasional\nNomor kendaraan: B 2405 KRM\nSopir: Budi/)
+assert.match(source, /\/approval\/kendaraan\/\$\{encodeURIComponent\(token\)\}/)
+assert.match(formatTravelApprovalMessage({ approverName: 'Budi', members: [{ name: 'Ani', nip: '0377' }], tujuan: 'Kantor', keperluan: 'Rapat', vehicle: 'OFFICE', driver: '0377', approvalLink: 'http://localhost:5174/approval/kendaraan/token' }), /Yang berangkat:\n1\. Ani \(0377\)/)
+assert.match(formatTravelApprovalMessage({ approverName: 'Budi', members: [], tujuan: '', keperluan: '', vehicle: 'ONLINE', driver: '', approvalLink: '' }), /Kendaraan yang digunakan: PesanOnline/)
 assert.match(source, /ORDER BY JobSeq DESC/)
 assert.match(source, /Status = 'ACTIVE'/)
 assert.match(source, /hris_Travel_Group WITH \(UPDLOCK, HOLDLOCK\).*JoinOpen = 1/s)

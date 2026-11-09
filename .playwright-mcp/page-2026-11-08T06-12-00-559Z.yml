@@ -1,0 +1,370 @@
+- main [ref=f6e3]:
+  - generic [ref=f6e4]:
+    - generic [ref=f6e6]:
+      - link "BMC Online Approval Tugas Luar" [ref=f6e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f6e8]:
+          - text: BMC Online
+          - generic [ref=f6e9]: Approval Tugas Luar
+      - generic [ref=f6e10]: Portal atasan
+    - generic [ref=f6e11]:
+      - generic [ref=f6e12]:
+        - paragraph [ref=f6e13]: Monitoring approval
+        - heading "Daftar Tugas Luar" [level=1] [ref=f6e14]
+        - paragraph [ref=f6e15]: Periksa pengajuan yang masih menunggu persetujuan Anda.
+      - strong [ref=f6e16]:
+        - text: "15"
+        - generic [ref=f6e17]: menunggu
+    - tablist "Status tugas luar" [ref=f6e18]:
+      - tab "Menunggu Persetujuan 15" [selected] [ref=f6e19] [cursor=pointer]:
+        - text: Menunggu Persetujuan
+        - generic [ref=f6e20]: "15"
+      - tab "Disetujui 4" [ref=f6e21] [cursor=pointer]:
+        - text: Disetujui
+        - generic [ref=f6e22]: "4"
+      - tab "Ditolak 2" [ref=f6e23] [cursor=pointer]:
+        - text: Ditolak
+        - generic [ref=f6e24]: "2"
+      - tab "Semua 21" [ref=f6e25] [cursor=pointer]:
+        - text: Semua
+        - generic [ref=f6e26]: "21"
+    - generic [ref=f6e27]:
+      - article [ref=f6e28]:
+        - generic [ref=f6e29]:
+          - generic [ref=f6e30]:
+            - text: Tugas luar
+            - heading "Shangri-La Jakarta" [level=2] [ref=f6e31]
+          - generic [ref=f6e32]: Menunggu
+        - generic [ref=f6e33]:
+          - generic [ref=f6e34]:
+            - term [ref=f6e35]: Pemohon
+            - definition [ref=f6e36]: WIJI PURWANTO
+          - generic [ref=f6e37]:
+            - term [ref=f6e38]: Keperluan
+            - definition [ref=f6e39]: The New era of cyber resilience AWS
+          - generic [ref=f6e40]:
+            - term [ref=f6e41]: Tanggal
+            - definition [ref=f6e42]: 4 Nov 2026
+          - generic [ref=f6e43]:
+            - term [ref=f6e44]: ID pengajuan
+            - definition [ref=f6e45]: T.0202.179375763398
+          - generic [ref=f6e46]:
+            - term [ref=f6e47]: Diproses oleh
+            - definition [ref=f6e48]: BONI GAMAWAN
+        - generic [ref=f6e49]:
+          - button "Tolak" [ref=f6e50] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e51] [cursor=pointer]
+      - article [ref=f6e52]:
+        - generic [ref=f6e53]:
+          - generic [ref=f6e54]:
+            - text: Tugas luar
+            - heading "Lotus Ballroom Lt.1, Shangri-La Hotel, Jakarta" [level=2] [ref=f6e55]
+          - generic [ref=f6e56]: Menunggu
+        - generic [ref=f6e57]:
+          - generic [ref=f6e58]:
+            - term [ref=f6e59]: Pemohon
+            - definition [ref=f6e60]: GAOSA YUSUP
+          - generic [ref=f6e61]:
+            - term [ref=f6e62]: Keperluan
+            - definition [ref=f6e63]: The New Era of Cyber Resilience
+          - generic [ref=f6e64]:
+            - term [ref=f6e65]: Tanggal
+            - definition [ref=f6e66]: 4 Nov 2026
+          - generic [ref=f6e67]:
+            - term [ref=f6e68]: ID pengajuan
+            - definition [ref=f6e69]: T.0362.179375711210
+          - generic [ref=f6e70]:
+            - term [ref=f6e71]: Diproses oleh
+            - definition [ref=f6e72]: BONI GAMAWAN
+        - generic [ref=f6e73]:
+          - button "Tolak" [ref=f6e74] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e75] [cursor=pointer]
+      - article [ref=f6e76]:
+        - generic [ref=f6e77]:
+          - generic [ref=f6e78]:
+            - text: Tugas luar
+            - heading "Shangri-La Jakarta" [level=2] [ref=f6e79]
+          - generic [ref=f6e80]: Menunggu
+        - generic [ref=f6e81]:
+          - generic [ref=f6e82]:
+            - term [ref=f6e83]: Pemohon
+            - definition [ref=f6e84]: GAOSA YUSUP
+          - generic [ref=f6e85]:
+            - term [ref=f6e86]: Keperluan
+            - definition [ref=f6e87]: The new era of cyber resilience AWS
+          - generic [ref=f6e88]:
+            - term [ref=f6e89]: Tanggal
+            - definition [ref=f6e90]: 4 Nov 2026
+          - generic [ref=f6e91]:
+            - term [ref=f6e92]: ID pengajuan
+            - definition [ref=f6e93]: T.0362.179375633855
+          - generic [ref=f6e94]:
+            - term [ref=f6e95]: Diproses oleh
+            - definition [ref=f6e96]: BONI GAMAWAN
+        - generic [ref=f6e97]:
+          - button "Tolak" [ref=f6e98] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e99] [cursor=pointer]
+      - article [ref=f6e100]:
+        - generic [ref=f6e101]:
+          - generic [ref=f6e102]:
+            - text: Tugas luar
+            - heading "pt baru" [level=2] [ref=f6e103]
+          - generic [ref=f6e104]: Menunggu
+        - generic [ref=f6e105]:
+          - generic [ref=f6e106]:
+            - term [ref=f6e107]: Pemohon
+            - definition [ref=f6e108]: LAZZIAN AL FALAH
+          - generic [ref=f6e109]:
+            - term [ref=f6e110]: Keperluan
+            - definition [ref=f6e111]: keperluan
+          - generic [ref=f6e112]:
+            - term [ref=f6e113]: Tanggal
+            - definition [ref=f6e114]: 8 Nov 2026
+          - generic [ref=f6e115]:
+            - term [ref=f6e116]: ID pengajuan
+            - definition [ref=f6e117]: G.TL-1B2111.1
+        - generic [ref=f6e118]:
+          - button "Tolak" [ref=f6e119] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e120] [cursor=pointer]
+      - article [ref=f6e121]:
+        - generic [ref=f6e122]:
+          - generic [ref=f6e123]:
+            - text: Tugas luar
+            - heading "ngetes cuy" [level=2] [ref=f6e124]
+          - generic [ref=f6e125]: Menunggu
+        - generic [ref=f6e126]:
+          - generic [ref=f6e127]:
+            - term [ref=f6e128]: Pemohon
+            - definition [ref=f6e129]: LAZZIAN AL FALAH
+          - generic [ref=f6e130]:
+            - term [ref=f6e131]: Keperluan
+            - definition [ref=f6e132]: ngetes cuy
+          - generic [ref=f6e133]:
+            - term [ref=f6e134]: Tanggal
+            - definition [ref=f6e135]: 8 Nov 2026
+          - generic [ref=f6e136]:
+            - term [ref=f6e137]: ID pengajuan
+            - definition [ref=f6e138]: G.TL-3C91D9.1
+        - generic [ref=f6e139]:
+          - button "Tolak" [ref=f6e140] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e141] [cursor=pointer]
+      - article [ref=f6e142]:
+        - generic [ref=f6e143]:
+          - generic [ref=f6e144]:
+            - text: Tugas luar
+            - heading "PT UNTUK TES" [level=2] [ref=f6e145]
+          - generic [ref=f6e146]: Menunggu
+        - generic [ref=f6e147]:
+          - generic [ref=f6e148]:
+            - term [ref=f6e149]: Pemohon
+            - definition [ref=f6e150]: LAZZIAN AL FALAH
+          - generic [ref=f6e151]:
+            - term [ref=f6e152]: Keperluan
+            - definition [ref=f6e153]: tes
+          - generic [ref=f6e154]:
+            - term [ref=f6e155]: Tanggal
+            - definition [ref=f6e156]: 8 Nov 2026
+          - generic [ref=f6e157]:
+            - term [ref=f6e158]: ID pengajuan
+            - definition [ref=f6e159]: G.TL-56953C.1
+        - generic [ref=f6e160]:
+          - button "Tolak" [ref=f6e161] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e162] [cursor=pointer]
+      - article [ref=f6e163]:
+        - generic [ref=f6e164]:
+          - generic [ref=f6e165]:
+            - text: Tugas luar
+            - heading "tes" [level=2] [ref=f6e166]
+          - generic [ref=f6e167]: Menunggu
+        - generic [ref=f6e168]:
+          - generic [ref=f6e169]:
+            - term [ref=f6e170]: Pemohon
+            - definition [ref=f6e171]: LAZZIAN AL FALAH
+          - generic [ref=f6e172]:
+            - term [ref=f6e173]: Keperluan
+            - definition [ref=f6e174]: tes
+          - generic [ref=f6e175]:
+            - term [ref=f6e176]: Tanggal
+            - definition [ref=f6e177]: 8 Nov 2026
+          - generic [ref=f6e178]:
+            - term [ref=f6e179]: ID pengajuan
+            - definition [ref=f6e180]: G.TL-86F5AD.1
+        - generic [ref=f6e181]:
+          - button "Tolak" [ref=f6e182] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e183] [cursor=pointer]
+      - article [ref=f6e184]:
+        - generic [ref=f6e185]:
+          - generic [ref=f6e186]:
+            - text: Tugas luar
+            - heading "PT Testing Sedunia Raya" [level=2] [ref=f6e187]
+          - generic [ref=f6e188]: Menunggu
+        - generic [ref=f6e189]:
+          - generic [ref=f6e190]:
+            - term [ref=f6e191]: Pemohon
+            - definition [ref=f6e192]: LAZZIAN AL FALAH
+          - generic [ref=f6e193]:
+            - term [ref=f6e194]: Keperluan
+            - definition [ref=f6e195]: tes
+          - generic [ref=f6e196]:
+            - term [ref=f6e197]: Tanggal
+            - definition [ref=f6e198]: 8 Nov 2026
+          - generic [ref=f6e199]:
+            - term [ref=f6e200]: ID pengajuan
+            - definition [ref=f6e201]: G.TL-B91D89.1
+        - generic [ref=f6e202]:
+          - button "Tolak" [ref=f6e203] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e204] [cursor=pointer]
+      - article [ref=f6e205]:
+        - generic [ref=f6e206]:
+          - generic [ref=f6e207]:
+            - text: Tugas luar
+            - heading "PT Testing Sedunia" [level=2] [ref=f6e208]
+          - generic [ref=f6e209]: Menunggu
+        - generic [ref=f6e210]:
+          - generic [ref=f6e211]:
+            - term [ref=f6e212]: Pemohon
+            - definition [ref=f6e213]: LAZZIAN AL FALAH
+          - generic [ref=f6e214]:
+            - term [ref=f6e215]: Keperluan
+            - definition [ref=f6e216]: ngetes
+          - generic [ref=f6e217]:
+            - term [ref=f6e218]: Tanggal
+            - definition [ref=f6e219]: 8 Nov 2026
+          - generic [ref=f6e220]:
+            - term [ref=f6e221]: ID pengajuan
+            - definition [ref=f6e222]: G.TL-C0A469.1
+        - generic [ref=f6e223]:
+          - button "Tolak" [ref=f6e224] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e225] [cursor=pointer]
+      - article [ref=f6e226]:
+        - generic [ref=f6e227]:
+          - generic [ref=f6e228]:
+            - text: Tugas luar
+            - heading "PT Testing Sedunia" [level=2] [ref=f6e229]
+          - generic [ref=f6e230]: Menunggu
+        - generic [ref=f6e231]:
+          - generic [ref=f6e232]:
+            - term [ref=f6e233]: Pemohon
+            - definition [ref=f6e234]: LAZZIAN AL FALAH
+          - generic [ref=f6e235]:
+            - term [ref=f6e236]: Keperluan
+            - definition [ref=f6e237]: tes
+          - generic [ref=f6e238]:
+            - term [ref=f6e239]: Tanggal
+            - definition [ref=f6e240]: 8 Nov 2026
+          - generic [ref=f6e241]:
+            - term [ref=f6e242]: ID pengajuan
+            - definition [ref=f6e243]: G.TL-C5BDEF.1
+        - generic [ref=f6e244]:
+          - button "Tolak" [ref=f6e245] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e246] [cursor=pointer]
+      - article [ref=f6e247]:
+        - generic [ref=f6e248]:
+          - generic [ref=f6e249]:
+            - text: Tugas luar
+            - heading "ngetes" [level=2] [ref=f6e250]
+          - generic [ref=f6e251]: Menunggu
+        - generic [ref=f6e252]:
+          - generic [ref=f6e253]:
+            - term [ref=f6e254]: Pemohon
+            - definition [ref=f6e255]: LAZZIAN AL FALAH
+          - generic [ref=f6e256]:
+            - term [ref=f6e257]: Keperluan
+            - definition [ref=f6e258]: ngetes
+          - generic [ref=f6e259]:
+            - term [ref=f6e260]: Tanggal
+            - definition [ref=f6e261]: 8 Nov 2026
+          - generic [ref=f6e262]:
+            - term [ref=f6e263]: ID pengajuan
+            - definition [ref=f6e264]: G.TL-C98F2F.1
+        - generic [ref=f6e265]:
+          - button "Tolak" [ref=f6e266] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e267] [cursor=pointer]
+      - article [ref=f6e268]:
+        - generic [ref=f6e269]:
+          - generic [ref=f6e270]:
+            - text: Tugas luar
+            - heading "test6" [level=2] [ref=f6e271]
+          - generic [ref=f6e272]: Menunggu
+        - generic [ref=f6e273]:
+          - generic [ref=f6e274]:
+            - term [ref=f6e275]: Pemohon
+            - definition [ref=f6e276]: LAZZIAN AL FALAH
+          - generic [ref=f6e277]:
+            - term [ref=f6e278]: Keperluan
+            - definition [ref=f6e279]: test6
+          - generic [ref=f6e280]:
+            - term [ref=f6e281]: Tanggal
+            - definition [ref=f6e282]: 8 Nov 2026
+          - generic [ref=f6e283]:
+            - term [ref=f6e284]: ID pengajuan
+            - definition [ref=f6e285]: G.TL-CC8F5C.1
+        - generic [ref=f6e286]:
+          - button "Tolak" [ref=f6e287] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e288] [cursor=pointer]
+      - article [ref=f6e289]:
+        - generic [ref=f6e290]:
+          - generic [ref=f6e291]:
+            - text: Tugas luar
+            - heading "ngetes" [level=2] [ref=f6e292]
+          - generic [ref=f6e293]: Menunggu
+        - generic [ref=f6e294]:
+          - generic [ref=f6e295]:
+            - term [ref=f6e296]: Pemohon
+            - definition [ref=f6e297]: LAZZIAN AL FALAH
+          - generic [ref=f6e298]:
+            - term [ref=f6e299]: Keperluan
+            - definition [ref=f6e300]: ngetes
+          - generic [ref=f6e301]:
+            - term [ref=f6e302]: Tanggal
+            - definition [ref=f6e303]: 8 Nov 2026
+          - generic [ref=f6e304]:
+            - term [ref=f6e305]: ID pengajuan
+            - definition [ref=f6e306]: G.TL-D0BA2C.1
+        - generic [ref=f6e307]:
+          - button "Tolak" [ref=f6e308] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e309] [cursor=pointer]
+      - article [ref=f6e310]:
+        - generic [ref=f6e311]:
+          - generic [ref=f6e312]:
+            - text: Tugas luar
+            - heading "training autodesk" [level=2] [ref=f6e313]
+          - generic [ref=f6e314]: Menunggu
+        - generic [ref=f6e315]:
+          - generic [ref=f6e316]:
+            - term [ref=f6e317]: Pemohon
+            - definition [ref=f6e318]: LAZZIAN AL FALAH
+          - generic [ref=f6e319]:
+            - term [ref=f6e320]: Keperluan
+            - definition [ref=f6e321]: training autodesk
+          - generic [ref=f6e322]:
+            - term [ref=f6e323]: Tanggal
+            - definition [ref=f6e324]: 8 Nov 2026
+          - generic [ref=f6e325]:
+            - term [ref=f6e326]: ID pengajuan
+            - definition [ref=f6e327]: G.TL-E834B6.1
+        - generic [ref=f6e328]:
+          - button "Tolak" [ref=f6e329] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e330] [cursor=pointer]
+      - article [ref=f6e331]:
+        - generic [ref=f6e332]:
+          - generic [ref=f6e333]:
+            - text: Tugas luar
+            - heading "pt" [level=2] [ref=f6e334]
+          - generic [ref=f6e335]: Menunggu
+        - generic [ref=f6e336]:
+          - generic [ref=f6e337]:
+            - term [ref=f6e338]: Pemohon
+            - definition [ref=f6e339]: LAZZIAN AL FALAH
+          - generic [ref=f6e340]:
+            - term [ref=f6e341]: Keperluan
+            - definition [ref=f6e342]: pt
+          - generic [ref=f6e343]:
+            - term [ref=f6e344]: Tanggal
+            - definition [ref=f6e345]: 6 Nov 2026
+          - generic [ref=f6e346]:
+            - term [ref=f6e347]: ID pengajuan
+            - definition [ref=f6e348]: G.TL-F4E9D5.1
+        - generic [ref=f6e349]:
+          - button "Tolak" [ref=f6e350] [cursor=pointer]
+          - button "Setujui pengajuan" [ref=f6e351] [cursor=pointer]

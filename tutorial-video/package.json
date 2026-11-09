@@ -1,0 +1,16 @@
+{
+  "name": "bmc-tutorial-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "auth": "node scripts/auth.mjs",
+    "capture": "node scripts/capture.mjs",
+    "narration": "node scripts/generate-narration.mjs",
+    "subtitles": "node scripts/generate-subtitles.mjs",
+    "preview": "node scripts/render.mjs preview",
+    "render": "node scripts/render.mjs final",
+    "validate": "node scripts/validate-output.mjs",
+    "check": "node scripts/self-check.mjs"
+  }
+}

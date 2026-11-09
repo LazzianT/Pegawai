@@ -121,6 +121,8 @@ async function submitTravel(NIP, { id, startDate, endDate, startTime, endTime, t
         members: [{ name: submitterName, nip: NIP }],
         tujuan,
         keperluan,
+        startDate,
+        startTime,
         vehicle: vehicleType,
         driver: driverMode === 'SELF' ? NIP : '',
         approvalLink: webLink,
@@ -254,7 +256,7 @@ async function getTravelApprovalQueueByToken(token) {
     .input('ApproverNIP', sql.VarChar, payload.nip)
     .query(`
       SELECT t.Id, t.NIP, t.StartDate, t.EndDate, t.StartTime, t.EndTime, t.Tujuan, t.Keperluan,
-             t.[Status], t.CurrentLevel, ta.StatusId, ta.UpdDate, ta.NIP AS ApproverNIP,
+             t.[Status], t.CurrentLevel, t.InpDate, ta.StatusId, ta.UpdDate, ta.NIP AS ApproverNIP,
              e.Name AS PemohonName, approver.Name AS ApproverName
       FROM hris_Travel t
       INNER JOIN hris_Travel_Approval ta ON ta.TravelId = t.Id
@@ -438,7 +440,7 @@ async function getVehicleApprovalQueueByToken(token) {
   });
 }
 
-async function approveVehicleByQueueToken(travelId, token, managerNIP, vehicleType, vehiclePlate, action, driverName = '') {
+async function approveVehicleByQueueToken(travelId, token, managerNIP, vehicleType, vehiclePlate, action, driverMode, driverName = '') {
   const rows = await getVehicleApprovalQueueByToken(token);
   const row = rows?.find((item) => item.Id === travelId);
   if (!row || row.managerStatusId !== 1) return { success: false };
@@ -446,10 +448,10 @@ async function approveVehicleByQueueToken(travelId, token, managerNIP, vehicleTy
   try { state = JSON.parse(String(row.ApprovalRemark || '')); } catch { state = null; }
   const manager = state?.tokens?.find((item) => item.nip === managerNIP && item.statusId === 1);
   if (!manager) return { success: false };
-  return approveVehicle(travelId, manager.token, managerNIP, vehicleType, vehiclePlate, action, driverName);
+  return approveVehicle(travelId, manager.token, managerNIP, vehicleType, vehiclePlate, action, driverMode, driverName);
 }
 
-async function approveVehicle(travelId, token, managerNIP, vehicleType, vehiclePlate, action, driverName = '') {
+async function approveVehicle(travelId, token, managerNIP, vehicleType, vehiclePlate, action, driverMode, driverName = '') {
   const conn = await getConnection();
   const current = await conn.request()
     .input('TravelId', sql.VarChar, travelId)
@@ -468,7 +470,8 @@ async function approveVehicle(travelId, token, managerNIP, vehicleType, vehicleP
     .input('NIP', sql.VarChar, managerNIP)
     .input('VehicleType', sql.VarChar, vehicleType)
     .input('VehiclePlate', sql.VarChar, vehiclePlate || null)
-    .input('DriverName', sql.NVarChar, driverName || null)
+    .input('DriverMode', sql.VarChar, action === 'approve' ? String(driverMode || '').trim().toUpperCase() : null)
+    .input('DriverName', sql.NVarChar, action === 'approve' ? (driverName || null) : null)
     .input('StatusId', sql.Int, action === 'approve' ? 3 : 4)
     .input('PreviousRemark', sql.NVarChar(sql.MAX), previousRemark)
     .input('Remark', sql.NVarChar(sql.MAX), JSON.stringify(nextState))
@@ -487,6 +490,7 @@ async function approveVehicle(travelId, token, managerNIP, vehicleType, vehicleP
       UPDATE hris_Travel
       SET VehicleType = CASE WHEN @StatusId = 3 THEN @VehicleType ELSE VehicleType END,
           VehiclePlate = CASE WHEN @StatusId = 3 THEN @VehiclePlate ELSE VehiclePlate END,
+           DriverMode = CASE WHEN @StatusId = 3 THEN @DriverMode ELSE DriverMode END,
            DriverName = CASE WHEN @StatusId = 3 THEN @DriverName ELSE DriverName END,
           [Status] = CASE WHEN @StatusId = 3 THEN 'APPROVED' ELSE 'REJECTED' END
       WHERE Id = @TravelId;
@@ -518,6 +522,8 @@ async function approveTravel(travelId, NIP, level, action, role, vehicle = {}) {
       .input('NIP', sql.VarChar, NIP)
       .input('VehicleType', sql.VarChar, vehicle.vehicleType)
       .input('VehiclePlate', sql.VarChar, vehicle.vehiclePlate || null)
+      .input('DriverMode', sql.VarChar, vehicle.driverMode || null)
+      .input('DriverName', sql.NVarChar, vehicle.driverName || null)
       .input('QrToken', sql.VarChar, qrToken)
       .query(`
         SET XACT_ABORT ON;
@@ -532,7 +538,7 @@ async function approveTravel(travelId, NIP, level, action, role, vehicle = {}) {
           RETURN;
         END
         UPDATE hris_Travel
-        SET VehicleType = @VehicleType, VehiclePlate = @VehiclePlate, [Status] = 'APPROVED'
+        SET VehicleType = @VehicleType, VehiclePlate = @VehiclePlate, DriverMode = @DriverMode, DriverName = @DriverName, [Status] = 'APPROVED'
         WHERE Id = @TravelId;
         UPDATE hris_Travel_Approval
         SET Remark = @QrToken
@@ -607,8 +613,11 @@ async function approveTravel(travelId, NIP, level, action, role, vehicle = {}) {
             members: [{ name: row.PemohonName || row.NIP, nip: row.NIP }],
             tujuan: row.Tujuan,
             keperluan: row.Keperluan,
+            startDate: row.StartDate,
+            startTime: row.StartTime,
             vehicle: row.VehicleType,
             driver: row.DriverMode === 'SELF' ? row.DriverNIP : row.DriverName,
+            vehiclePlate: row.VehiclePlate,
             approvalLink,
           });
           await sendWa({ no: recipient.phone, text });

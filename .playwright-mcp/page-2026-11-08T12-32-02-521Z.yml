@@ -1,0 +1,208 @@
+- generic [ref=f7e3]:
+  - complementary [ref=f7e4]:
+    - link "BMC Online HC Management" [ref=f7e5] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=f7e6]:
+        - text: BMC Online
+        - generic [ref=f7e7]: HC Management
+    - generic [ref=f7e8]: Menu utama
+    - navigation "Menu utama" [ref=f7e9]:
+      - link "Dashboard" [ref=f7e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Cuti" [ref=f7e17] [cursor=pointer]:
+        - /url: /cuti
+      - link "Izin" [ref=f7e22] [cursor=pointer]:
+        - /url: /izin
+      - link "Cuti Khusus" [ref=f7e27] [cursor=pointer]:
+        - /url: /cuti-khusus
+      - link "Tugas Luar" [ref=f7e32] [cursor=pointer]:
+        - /url: /tugas-luar
+      - link "Approval Group" [ref=f7e37] [cursor=pointer]:
+        - /url: /approval/group
+      - generic [ref=f7e47]:
+        - text: Perjalanan Dinas
+        - generic [ref=f7e48]: Coming soon
+      - link "My Profile" [ref=f7e49] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=f7e54]:
+      - strong [ref=f7e55]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=f7e56]:
+      - generic [ref=f7e57]: L
+      - generic [ref=f7e58]:
+        - strong [ref=f7e59]: LAZZIAN AL FALAH
+        - generic [ref=f7e60]: Programmer
+      - button "Keluar" [ref=f7e61] [cursor=pointer]
+  - generic [ref=f7e64]:
+    - banner [ref=f7e65]:
+      - button "Buka menu" [ref=f7e66] [cursor=pointer]
+      - textbox "Cari pengajuan" [ref=f7e74]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L" [ref=f7e76] [cursor=pointer]
+    - main [ref=f7e78]:
+      - generic [ref=f7e79]:
+        - generic [ref=f7e80]:
+          - paragraph [ref=f7e81]: Minggu, 8 November 2026
+          - heading "Selamat malam, Lazzian Al Falah!" [level=1] [ref=f7e82]
+          - paragraph [ref=f7e83]: Kelola pengajuan cuti, izin, cuti khusus, dan tugas luar dengan mudah.
+        - button "Ajukan baru" [ref=f7e85] [cursor=pointer]
+      - region "Ringkasan pengajuan" [ref=f7e88]:
+        - button "Cuti 9 5 menunggu persetujuan" [ref=f7e89] [cursor=pointer]:
+          - generic [ref=f7e94]: Cuti
+          - strong [ref=f7e95]: "9"
+          - generic [ref=f7e96]: 5 menunggu persetujuan
+        - button "Izin 4 4 menunggu persetujuan" [ref=f7e97] [cursor=pointer]:
+          - generic [ref=f7e102]: Izin
+          - strong [ref=f7e103]: "4"
+          - generic [ref=f7e104]: 4 menunggu persetujuan
+        - button "Cuti Khusus 1 1 menunggu persetujuan" [ref=f7e105] [cursor=pointer]:
+          - generic [ref=f7e110]: Cuti Khusus
+          - strong [ref=f7e111]: "1"
+          - generic [ref=f7e112]: 1 menunggu persetujuan
+        - button "Tugas Luar 16 15 menunggu persetujuan" [ref=f7e113] [cursor=pointer]:
+          - generic [ref=f7e118]: Tugas Luar
+          - strong [ref=f7e119]: "16"
+          - generic [ref=f7e120]: 15 menunggu persetujuan
+      - generic [ref=f7e121]:
+        - generic [ref=f7e122]:
+          - generic [ref=f7e123]:
+            - generic [ref=f7e124]:
+              - paragraph [ref=f7e125]: Aktivitas
+              - heading "Pengajuan terbaru" [level=2] [ref=f7e126]
+            - generic [ref=f7e127]: 8 data
+          - generic [ref=f7e128]:
+            - button "Lihat detail G.TL-B19BB5.1" [ref=f7e129] [cursor=pointer]:
+              - generic [ref=f7e135]:
+                - strong [ref=f7e136]: Tugas Luar
+                - generic [ref=f7e137]: G.TL-B19BB5.1
+              - generic [ref=f7e138]:
+                - strong [ref=f7e139]: tes10
+                - generic [ref=f7e140]: 8 Nov 2026
+              - generic [ref=f7e141]: Menunggu
+            - button "Lihat detail G.TL-B91D89.1" [ref=f7e142] [cursor=pointer]:
+              - generic [ref=f7e148]:
+                - strong [ref=f7e149]: Tugas Luar
+                - generic [ref=f7e150]: G.TL-B91D89.1
+              - generic [ref=f7e151]:
+                - strong [ref=f7e152]: PT Testing Sedunia Raya
+                - generic [ref=f7e153]: 8 Nov 2026
+              - generic [ref=f7e154]: Menunggu
+            - button "Lihat detail G.TL-1B2111.1" [ref=f7e155] [cursor=pointer]:
+              - generic [ref=f7e161]:
+                - strong [ref=f7e162]: Tugas Luar
+                - generic [ref=f7e163]: G.TL-1B2111.1
+              - generic [ref=f7e164]:
+                - strong [ref=f7e165]: pt baru
+                - generic [ref=f7e166]: 8 Nov 2026
+              - generic [ref=f7e167]: Menunggu
+            - button "Lihat detail G.TL-CC8F5C.1" [ref=f7e168] [cursor=pointer]:
+              - generic [ref=f7e174]:
+                - strong [ref=f7e175]: Tugas Luar
+                - generic [ref=f7e176]: G.TL-CC8F5C.1
+              - generic [ref=f7e177]:
+                - strong [ref=f7e178]: test6
+                - generic [ref=f7e179]: 8 Nov 2026
+              - generic [ref=f7e180]: Menunggu
+            - button "Lihat detail G.TL-C0461F.1" [ref=f7e181] [cursor=pointer]:
+              - generic [ref=f7e187]:
+                - strong [ref=f7e188]: Tugas Luar
+                - generic [ref=f7e189]: G.TL-C0461F.1
+              - generic [ref=f7e190]:
+                - strong [ref=f7e191]: test5
+                - generic [ref=f7e192]: 8 Nov 2026
+              - generic [ref=f7e193]: Menunggu
+            - button "Lihat detail G.TL-86F5AD.1" [ref=f7e194] [cursor=pointer]:
+              - generic [ref=f7e200]:
+                - strong [ref=f7e201]: Tugas Luar
+                - generic [ref=f7e202]: G.TL-86F5AD.1
+              - generic [ref=f7e203]:
+                - strong [ref=f7e204]: tes
+                - generic [ref=f7e205]: 8 Nov 2026
+              - generic [ref=f7e206]: Menunggu
+            - button "Lihat detail G.TL-E834B6.1" [ref=f7e207] [cursor=pointer]:
+              - generic [ref=f7e213]:
+                - strong [ref=f7e214]: Tugas Luar
+                - generic [ref=f7e215]: G.TL-E834B6.1
+              - generic [ref=f7e216]:
+                - strong [ref=f7e217]: training autodesk
+                - generic [ref=f7e218]: 8 Nov 2026
+              - generic [ref=f7e219]: Menunggu
+            - button "Lihat detail G.TL-C5BDEF.1" [ref=f7e220] [cursor=pointer]:
+              - generic [ref=f7e226]:
+                - strong [ref=f7e227]: Tugas Luar
+                - generic [ref=f7e228]: G.TL-C5BDEF.1
+              - generic [ref=f7e229]:
+                - strong [ref=f7e230]: PT Testing Sedunia
+                - generic [ref=f7e231]: 8 Nov 2026
+              - generic [ref=f7e232]: Menunggu
+        - generic [ref=f7e233]:
+          - generic [ref=f7e234]:
+            - generic [ref=f7e235]:
+              - paragraph [ref=f7e236]: Agenda
+              - heading "November 2026" [level=2] [ref=f7e237]
+            - generic [ref=f7e238]:
+              - button "Bulan sebelumnya" [ref=f7e239] [cursor=pointer]
+              - button "Bulan berikutnya" [ref=f7e242] [cursor=pointer]
+          - generic [ref=f7e245]:
+            - generic [ref=f7e246]: Sen
+            - generic [ref=f7e247]: Sel
+            - generic [ref=f7e248]: Rab
+            - generic [ref=f7e249]: Kam
+            - generic [ref=f7e250]: Jum
+            - generic [ref=f7e251]: Sab
+            - generic [ref=f7e252]: Min
+          - generic [ref=f7e253]:
+            - generic [ref=f7e260]: "1"
+            - generic [ref=f7e261]: "2"
+            - generic [ref=f7e262]: "3"
+            - generic [ref=f7e263]: "4"
+            - generic [ref=f7e264]: "5"
+            - generic "Tugas Luar" [ref=f7e265]: "6"
+            - generic [ref=f7e267]: "7"
+            - generic "Tugas Luar" [ref=f7e268]: "8"
+            - generic [ref=f7e270]: "9"
+            - generic [ref=f7e271]: "10"
+            - generic [ref=f7e272]: "11"
+            - generic [ref=f7e273]: "12"
+            - generic [ref=f7e274]: "13"
+            - generic [ref=f7e275]: "14"
+            - generic [ref=f7e276]: "15"
+            - generic [ref=f7e277]: "16"
+            - generic [ref=f7e278]: "17"
+            - generic [ref=f7e279]: "18"
+            - generic [ref=f7e280]: "19"
+            - generic [ref=f7e281]: "20"
+            - generic [ref=f7e282]: "21"
+            - generic [ref=f7e283]: "22"
+            - generic [ref=f7e284]: "23"
+            - generic [ref=f7e285]: "24"
+            - generic [ref=f7e286]: "25"
+            - generic [ref=f7e287]: "26"
+            - generic [ref=f7e288]: "27"
+            - generic [ref=f7e289]: "28"
+            - generic [ref=f7e290]: "29"
+            - generic [ref=f7e291]: "30"
+          - generic [ref=f7e292]:
+            - generic [ref=f7e293]: Cuti
+            - generic [ref=f7e295]: Izin
+            - generic [ref=f7e297]: Cuti Khusus
+            - generic [ref=f7e299]: Tugas Luar
+      - generic [ref=f7e301]:
+        - generic [ref=f7e302]:
+          - generic [ref=f7e304]:
+            - paragraph [ref=f7e305]: Ringkasan
+            - heading "Status pengajuan" [level=2] [ref=f7e306]
+          - generic [ref=f7e307]:
+            - generic [ref=f7e308]: Menunggu
+            - strong [ref=f7e311]: "25"
+          - generic [ref=f7e312]:
+            - generic [ref=f7e313]: Disetujui
+            - strong [ref=f7e316]: "5"
+          - generic [ref=f7e317]:
+            - generic [ref=f7e318]: Ditolak
+            - strong [ref=f7e321]: "0"
+        - generic [ref=f7e322]:
+          - paragraph [ref=f7e323]: Saldo cuti
+          - heading "6 hari" [level=2] [ref=f7e324]
+          - paragraph [ref=f7e325]: Sisa saldo cuti reguler yang tersedia.
+          - generic [ref=f7e326]: Data dari server · Quota 9 hari

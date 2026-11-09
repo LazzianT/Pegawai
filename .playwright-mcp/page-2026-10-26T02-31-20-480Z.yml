@@ -1,0 +1,198 @@
+- generic [ref=f8e3]:
+  - complementary [ref=f8e4]:
+    - link "BMC Online HC Management" [ref=f8e5] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=f8e6]:
+        - text: BMC Online
+        - generic [ref=f8e7]: HC Management
+    - generic [ref=f8e8]: Menu utama
+    - navigation "Menu utama" [ref=f8e9]:
+      - link [ref=f8e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link [ref=f8e17] [cursor=pointer]:
+        - /url: /cuti
+      - link [ref=f8e22] [cursor=pointer]:
+        - /url: /izin
+      - link [ref=f8e27] [cursor=pointer]:
+        - /url: /cuti-besar
+      - link [ref=f8e32] [cursor=pointer]:
+        - /url: /tugas-luar
+      - generic [ref=f8e42]:
+        - text: Perjalanan Dinas
+        - generic [ref=f8e43]: Coming soon
+      - link [ref=f8e44] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=f8e49]:
+      - strong [ref=f8e50]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=f8e51]:
+      - generic [ref=f8e52]: L
+      - generic [ref=f8e53]:
+        - strong [ref=f8e54]: LAZZIAN AL FALAH
+        - generic [ref=f8e55]: Programmer
+      - button "Keluar" [ref=f8e56] [cursor=pointer]
+  - generic [ref=f8e59]:
+    - banner [ref=f8e60]:
+      - button "Buka menu" [ref=f8e61] [cursor=pointer]
+      - textbox "Cari pengajuan" [ref=f8e69]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L" [ref=f8e71] [cursor=pointer]
+    - main [ref=f8e73]:
+      - region [ref=f8e74]:
+        - generic [ref=f8e75]:
+          - paragraph [ref=f8e76]: Pengajuan
+          - heading "Cuti" [level=1] [ref=f8e77]
+          - paragraph [ref=f8e78]: Pilih tanggal cuti, isi keterangan, lalu kirim kepada atasan.
+        - generic [ref=f8e79]:
+          - generic [ref=f8e80]:
+            - generic [ref=f8e81]:
+              - generic [ref=f8e82]: Saldo cuti
+              - strong [ref=f8e83]: 6 hari
+              - generic [ref=f8e84]: Sisa cuti tahunan Anda
+            - generic [ref=f8e85]:
+              - text: Jenis cuti
+              - generic [ref=f8e86]: Cuti tahunan
+            - generic [ref=f8e88]:
+              - generic [ref=f8e89]:
+                - text: Pilih tanggal
+                - generic [ref=f8e90]: "0 hari dipilih · Sisa saldo: 6 hari"
+              - generic [ref=f8e91]:
+                - generic [ref=f8e92]:
+                  - button "Bulan sebelumnya" [ref=f8e93] [cursor=pointer]: ‹
+                  - strong [ref=f8e94]: Oktober 2026
+                  - button "Bulan berikutnya" [ref=f8e95] [cursor=pointer]: ›
+                - generic [ref=f8e96]:
+                  - generic [ref=f8e97]: Sen
+                  - generic [ref=f8e98]: Sel
+                  - generic [ref=f8e99]: Rab
+                  - generic [ref=f8e100]: Kam
+                  - generic [ref=f8e101]: Jum
+                  - generic [ref=f8e102]: Sab
+                  - generic [ref=f8e103]: Min
+                - generic [ref=f8e104]:
+                  - button "1" [disabled] [ref=f8e108]
+                  - button "2" [disabled] [ref=f8e109]
+                  - button "3" [disabled] [ref=f8e110]
+                  - button "4" [disabled] [ref=f8e111]
+                  - button "5" [disabled] [ref=f8e112]
+                  - button "6" [disabled] [ref=f8e113]
+                  - button "7" [disabled] [ref=f8e114]
+                  - button "8" [disabled] [ref=f8e115]
+                  - button "9" [disabled] [ref=f8e116]
+                  - button "10" [disabled] [ref=f8e117]
+                  - button "11" [disabled] [ref=f8e118]
+                  - button "12" [disabled] [ref=f8e119]
+                  - button "13" [disabled] [ref=f8e120]
+                  - button "14" [disabled] [ref=f8e121]
+                  - button "15" [disabled] [ref=f8e122]
+                  - button "16" [disabled] [ref=f8e123]
+                  - button "17" [disabled] [ref=f8e124]
+                  - button "18" [disabled] [ref=f8e125]
+                  - button "19" [disabled] [ref=f8e126]
+                  - button "20" [disabled] [ref=f8e127]
+                  - button "21" [disabled] [ref=f8e128]
+                  - button "22" [disabled] [ref=f8e129]
+                  - button "23" [disabled] [ref=f8e130]
+                  - button "24" [disabled] [ref=f8e131]
+                  - button "25" [disabled] [ref=f8e132]
+                  - button "26" [disabled] [ref=f8e133]
+                  - button "27" [disabled] [ref=f8e134]
+                  - button "28" [disabled] [ref=f8e135]
+                  - button "29" [disabled] [ref=f8e136]
+                  - button "30" [disabled] [ref=f8e137]
+                  - button "31" [disabled] [ref=f8e138]
+            - generic [ref=f8e139]:
+              - text: Keterangan
+              - textbox "Keterangan" [ref=f8e140]:
+                - /placeholder: Jelaskan keterangan cuti
+            - generic [ref=f8e141]:
+              - text: Atasan
+              - button "Atasan" [ref=f8e143] [cursor=pointer]:
+                - generic [ref=f8e144]: Pilih atasan
+                - generic [ref=f8e145]: ⌄
+          - button "Kirim pengajuan" [ref=f8e146] [cursor=pointer]
+        - generic [ref=f8e147]:
+          - generic [ref=f8e148]:
+            - generic [ref=f8e149]:
+              - paragraph [ref=f8e150]: Riwayat
+              - heading "Pengajuan cuti" [level=2] [ref=f8e151]
+            - generic [ref=f8e152]: 9 data
+          - generic [ref=f8e153]:
+            - article [ref=f8e154]:
+              - generic [ref=f8e155]:
+                - strong [ref=f8e156]: Cuti Tahunan
+                - generic [ref=f8e157]: C.0377.179098669461
+              - generic [ref=f8e158]:
+                - strong [ref=f8e159]: testing
+                - generic [ref=f8e160]: 2026-10-12
+              - generic [ref=f8e161]: Propose
+            - article [ref=f8e162]:
+              - generic [ref=f8e163]:
+                - strong [ref=f8e164]: Cuti Tahunan
+                - generic [ref=f8e165]: C.0377.178943588583
+              - generic [ref=f8e166]:
+                - strong [ref=f8e167]: "-"
+                - generic [ref=f8e168]: 2026-09-22
+              - generic [ref=f8e169]: Reject
+            - article [ref=f8e170]:
+              - generic [ref=f8e171]:
+                - strong [ref=f8e172]: Cuti Tahunan
+                - generic [ref=f8e173]: C.0377.178909980489
+              - generic [ref=f8e174]:
+                - strong [ref=f8e175]: "-"
+                - generic [ref=f8e176]: 2026-09-18
+              - generic [ref=f8e177]: Reject
+            - article [ref=f8e178]:
+              - generic [ref=f8e179]:
+                - strong [ref=f8e180]: Cuti Tahunan
+                - generic [ref=f8e181]: C.0377.1788506508
+              - generic [ref=f8e182]:
+                - strong [ref=f8e183]: test
+                - generic [ref=f8e184]: 2026-09-11
+              - generic [ref=f8e185]: Reject
+            - article [ref=f8e186]:
+              - generic [ref=f8e187]:
+                - strong [ref=f8e188]: Cuti Tahunan
+                - generic [ref=f8e189]: C.0377.1783875600
+              - generic [ref=f8e190]:
+                - strong [ref=f8e191]: Ujian Pengendalian Mutu di kampus
+                - generic [ref=f8e192]: 2026-07-23, 2026-07-27
+              - generic [ref=f8e193]: Approved
+            - article [ref=f8e194]:
+              - generic [ref=f8e195]:
+                - strong [ref=f8e196]: Cuti Tahunan
+                - generic [ref=f8e197]: C.0377.1780333200
+              - generic [ref=f8e198]:
+                - strong [ref=f8e199]: UAS paket extension di kampus
+                - generic [ref=f8e200]: 2026-06-06
+              - generic [ref=f8e201]: Approved
+            - article [ref=f8e202]:
+              - generic [ref=f8e203]:
+                - strong [ref=f8e204]: Cuti Tahunan
+                - generic [ref=f8e205]: C.0377.1778173200
+              - generic [ref=f8e206]:
+                - strong [ref=f8e207]: berobat demam dari semalam
+                - generic [ref=f8e208]: 2026-05-08
+              - generic [ref=f8e209]: Approved
+            - article [ref=f8e210]:
+              - generic [ref=f8e211]:
+                - strong [ref=f8e212]: Cuti Tahunan
+                - generic [ref=f8e213]: C.0377.1776618000
+              - generic [ref=f8e214]:
+                - strong [ref=f8e215]: tes
+                - generic [ref=f8e216]: 2026-04-28
+              - generic [ref=f8e217]: Reject
+            - article [ref=f8e218]:
+              - generic [ref=f8e219]:
+                - strong [ref=f8e220]: Cuti Tahunan
+                - generic [ref=f8e221]: C.0377.1768669200
+              - generic [ref=f8e222]:
+                - strong [ref=f8e223]: Ujian Pengendalian Mutu di Kampus
+                - generic [ref=f8e224]: 2026-01-20
+              - generic [ref=f8e225]: Approved
+    - dialog [ref=f8e226]:
+      - generic [ref=f8e227]:
+        - paragraph [ref=f8e228]: BMC Online
+        - heading "Hallo, Lazzian Al Falah!" [level=2] [ref=f8e229]
+        - paragraph [ref=f8e230]: Ini adalah aplikasi administrasi keperluan karyawan. Ajukan, pantau, dan kelola kebutuhan HC Anda dengan lebih mudah.
+        - button "Lihat panduan" [ref=f8e231] [cursor=pointer]

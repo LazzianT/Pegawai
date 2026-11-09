@@ -16,12 +16,20 @@ function travelRecipient(NIP, fallback) {
   return testNIP && testPhone && String(NIP).trim() === testNIP ? testPhone : fallback;
 }
 
-function formatTravelApprovalMessage({ approverName, members, tujuan, keperluan, vehicle, driver, approvalLink }) {
+function formatTravelApprovalMessage({ approverName, members, tujuan, keperluan, vehicle, startDate, startTime, driver, approvalLink }) {
   const value = (input) => String(input || '').trim() || '-';
+  const time = startTime ? String(startTime).slice(0, 5) : '';
   const people = (Array.isArray(members) ? members : []).map((member, index) => `${index + 1}. ${value(member?.name ?? member?.Name)} (${value(member?.nip ?? member?.NIP)})`).join('\n') || '1. -';
   const link = String(approvalLink || '').trim();
   const vehicleLabel = VEHICLE_LABELS[String(vehicle || '').trim().toUpperCase()] || vehicle;
-  return `*Employee Portal BMC*\n\nDear *${value(approverName)}*,\n\nTerdapat permintaan approval Tugas Luar dengan detail berikut:\n\nYang berangkat:\n${people}\n\nTujuan: ${value(tujuan)}\nKeperluan: ${value(keperluan)}\nKendaraan yang digunakan: ${value(vehicleLabel)}\nSopir: ${value(driver)}${link ? `\n\nMohon lakukan persetujuan melalui link berikut:\n${link}` : ''}`;
+  return `*Employee Portal BMC*\n\nDear *${value(approverName)}*,\n\nTerdapat permintaan approval Tugas Luar dengan detail berikut:\n\nYang berangkat:\n${people}\n\nTanggal mulai: ${value(startDate)}\nJam mulai: ${time || '-'}\nTujuan: ${value(tujuan)}\nKeperluan: ${value(keperluan)}\nKendaraan yang digunakan: ${value(vehicleLabel)}\nSopir: ${value(driver)}${link ? `\n\nMohon lakukan persetujuan melalui link berikut:\n${link}` : ''}`;
+}
+
+function formatTravelApprovedMessage({ recipientName, members, tujuan, keperluan, vehicle, vehiclePlate, driver, qrLink }) {
+  const value = (input) => String(input || '').trim() || '-';
+  const people = (Array.isArray(members) ? members : []).map((member, index) => `${index + 1}. ${value(member?.name ?? member?.Name)} (${value(member?.nip ?? member?.NIP)})`).join('\n') || '1. -';
+  const vehicleLabel = VEHICLE_LABELS[String(vehicle || '').trim().toUpperCase()] || vehicle;
+  return `*Employee Portal BMC*\n\nDear *${value(recipientName)}*,\n\nPengajuan Tugas Luar Anda telah disetujui.\n\nYang berangkat:\n${people}\n\nTujuan: ${value(tujuan)}\nKeperluan: ${value(keperluan)}\nKendaraan yang digunakan: ${value(vehicleLabel)}\nNomor kendaraan: ${value(vehiclePlate)}\nSopir: ${value(driver)}${qrLink ? `\n\nQR untuk Security: ${qrLink}` : ''}`;
 }
 
 function needsVehicleManagerApproval(vehicleType) {
@@ -111,4 +119,4 @@ async function sendTravelWaToNIP(NIP, text) {
   }
 }
 
-module.exports = { sendWa, sendWaToNIP, sendTravelWaToNIP, formatTravelApprovalMessage, travelRecipient, needsVehicleManagerApproval, mapVehicleManagerRecipients, getVehicleManagerRecipients, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL, SECURITY_QR_BASE_URL };
+module.exports = { sendWa, sendWaToNIP, sendTravelWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, travelRecipient, needsVehicleManagerApproval, mapVehicleManagerRecipients, getVehicleManagerRecipients, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL, SECURITY_QR_BASE_URL };

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 process.env.WA_TRAVEL_TEST_NIP = '0377'
 process.env.WA_TRAVEL_TEST_PHONE = '081200000001'
 process.env.WA_TRAVEL_QA_PHONE = '081200000002'
-const { travelRecipient, sendTravelWaToNIP, formatTravelApprovalMessage, needsVehicleManagerApproval, mapVehicleManagerRecipients } = await import('./waService.js')
+const { travelRecipient, sendTravelWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, needsVehicleManagerApproval, mapVehicleManagerRecipients } = await import('./waService.js')
 
 assert.equal(needsVehicleManagerApproval('ONLINE'), true)
 assert.equal(needsVehicleManagerApproval('OFFICE'), true)
@@ -23,6 +23,8 @@ const message = formatTravelApprovalMessage({
   tujuan: 'Kantor pusat',
   keperluan: 'Rapat',
   vehicle: 'MOTOR',
+  startDate: '2026-11-09',
+  startTime: '08:30',
   driver: 'Budi Supir',
   approvalLink: 'https://portal.test/approval',
 })
@@ -32,12 +34,17 @@ assert.match(message, /Yang berangkat:/)
 assert.match(message, /Nama Karyawan \(0377\)/)
 assert.match(message, /Tujuan: Kantor pusat/)
 assert.match(message, /Keperluan: Rapat/)
+assert.match(message, /Tanggal mulai: 2026-11-09/)
+assert.match(message, /Jam mulai: 08:30/)
 assert.match(message, /Kendaraan yang digunakan: Motor Operasional/)
 for (const [vehicle, label] of [['OFFICE', 'Mobil Operasional'], ['ONLINE', 'PesanOnline'], ['PRIVATE', 'Lain Lain']]) {
   assert.match(formatTravelApprovalMessage({ vehicle, approverName: '', members: [], tujuan: '', keperluan: '', driver: '', approvalLink: '' }), new RegExp(`Kendaraan yang digunakan: ${label}`))
 }
 assert.match(message, /Sopir: Budi Supir/)
 assert.match(message, /https:\/\/portal\.test\/approval/)
+const approvedMessage = formatTravelApprovedMessage({ recipientName: 'Nama Karyawan', members: [{ name: 'Nama Karyawan', nip: '0377' }], tujuan: 'Kantor pusat', keperluan: 'Rapat', vehicle: 'OFFICE', vehiclePlate: 'B 2405 KRM', driver: 'Budi Supir', qrLink: 'https://portal.test/travel/qr/ABC/token' })
+assert.match(approvedMessage, /Nomor kendaraan: B 2405 KRM/)
+assert.match(approvedMessage, /QR untuk Security: https:\/\/portal\.test\/travel\/qr\/ABC\/token/)
 
 const groupMessage = formatTravelApprovalMessage({
   approverName: '',

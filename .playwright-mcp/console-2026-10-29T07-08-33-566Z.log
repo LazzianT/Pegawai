@@ -1,0 +1,48 @@
+[    6267ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://app.bmc.co.id/wms/:0
+[   16478ms] ReferenceError: loadTrendChart is not defined
+    at HTMLDocument.<anonymous> (http://app.bmc.co.id/wms/dashboard:871:9)
+[   16483ms] [LOG] init_daterangepicker @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1570
+[   16487ms] [LOG] init_daterangepicker_right @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1645
+[   16488ms] [LOG] init_daterangepicker_single_call @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1725
+[   16488ms] [LOG] init_daterangepicker_reservation @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1759
+[   16489ms] [LOG] run_charts  typeof [function] @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1960
+[   16489ms] [LOG] init_charts @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1964
+[   16491ms] [LOG] run_datatables @ http://app.bmc.co.id/wms/assets/build/js/custom.js:2481
+[   16491ms] [LOG] init_DataTables @ http://app.bmc.co.id/wms/assets/build/js/custom.js:2484
+[   16493ms] [LOG] init_chart_doughnut @ http://app.bmc.co.id/wms/assets/build/js/custom.js:683
+[   16494ms] [LOG] init_PNotify @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1837
+[   16494ms] [LOG] init_compose @ http://app.bmc.co.id/wms/assets/build/js/custom.js:2366
+[   16495ms] [LOG] run_customtabs @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1845
+[   18988ms] TypeError: Cannot read properties of undefined (reading 'length')
+    at t.Controller.onHover (http://app.bmc.co.id/wms/dashboard:1204:38)
+    at t.Controller.eventHandler (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:2853)
+    at t.Controller.<anonymous> (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:2230)
+    at a.<computed> (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:16639)
+[   18990ms] TypeError: Cannot read properties of undefined (reading 'length')
+    at t.Controller.onHover (http://app.bmc.co.id/wms/dashboard:1204:38)
+    at t.Controller.eventHandler (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:2853)
+    at t.Controller.<anonymous> (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:2230)
+    at a.<computed> (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:16639)
+[   18991ms] TypeError: Cannot read properties of undefined (reading 'length')
+    at t.Controller.onHover (http://app.bmc.co.id/wms/dashboard:1204:38)
+    at t.Controller.eventHandler (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:2853)
+    at t.Controller.<anonymous> (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:2230)
+    at a.<computed> (http://app.bmc.co.id/wms/assets/Chart.js/dist/Chart.min.js:12:16639)
+[   26665ms] [LOG] init_daterangepicker @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1570
+[   26666ms] [LOG] init_daterangepicker_right @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1645
+[   26667ms] [LOG] init_daterangepicker_single_call @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1725
+[   26667ms] [LOG] init_daterangepicker_reservation @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1759
+[   26667ms] [LOG] run_charts  typeof [function] @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1960
+[   26667ms] [LOG] init_charts @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1964
+[   26668ms] [LOG] run_datatables @ http://app.bmc.co.id/wms/assets/build/js/custom.js:2481
+[   26668ms] [LOG] init_DataTables @ http://app.bmc.co.id/wms/assets/build/js/custom.js:2484
+[   26668ms] [LOG] init_chart_doughnut @ http://app.bmc.co.id/wms/assets/build/js/custom.js:683
+[   26669ms] [LOG] init_PNotify @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1837
+[   26669ms] [LOG] init_compose @ http://app.bmc.co.id/wms/assets/build/js/custom.js:2366
+[   26669ms] [LOG] run_customtabs @ http://app.bmc.co.id/wms/assets/build/js/custom.js:1845
+[   30392ms] [WARNING] SweetAlert2: Unknown parameter "timerProgressBar" @ http://app.bmc.co.id/wms/assets/build/js/sweetalert/dist/sweetalert2.all.min.js:0
+[   36449ms] [LOG] FEEDBACK {RA0A00001: Object, RA0A00003: Object, RA0A00004: Object, RA0A00006: Object, RA0A00007: Object} @ http://app.bmc.co.id/wms/reports/reportsStockrawmatPeriode:1186
+[ 1432151ms] [WARNING] SweetAlert2: Unknown parameter "timerProgressBar" @ http://app.bmc.co.id/wms/assets/build/js/sweetalert/dist/sweetalert2.all.min.js:0
+[ 1435353ms] [LOG] FEEDBACK {RA0A00001: Object, RA0A00003: Object, RA0A00004: Object, RA0A00006: Object, RA0A00007: Object} @ http://app.bmc.co.id/wms/reports/reportsStockrawmatPeriode:1186
+[ 1483860ms] [WARNING] SweetAlert2: Unknown parameter "timerProgressBar" @ http://app.bmc.co.id/wms/assets/build/js/sweetalert/dist/sweetalert2.all.min.js:0
+[ 1486462ms] [LOG] FEEDBACK {RA0A00001: Object, RA0A00003: Object, RA0A00004: Object, RA0A00006: Object, RA0A00007: Object} @ http://app.bmc.co.id/wms/reports/reportsStockrawmatPeriode:1186

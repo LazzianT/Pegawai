@@ -1,0 +1,213 @@
+- generic [ref=f7e3]:
+  - complementary [ref=f7e4]:
+    - link "BMC Online HC Management" [ref=f7e5] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=f7e6]:
+        - text: BMC Online
+        - generic [ref=f7e7]: HC Management
+    - generic [ref=f7e8]: Menu utama
+    - navigation "Menu utama" [ref=f7e9]:
+      - link [ref=f7e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link [ref=f7e17] [cursor=pointer]:
+        - /url: /cuti
+      - link [ref=f7e22] [cursor=pointer]:
+        - /url: /izin
+      - link [ref=f7e27] [cursor=pointer]:
+        - /url: /cuti-besar
+      - link [ref=f7e32] [cursor=pointer]:
+        - /url: /tugas-luar
+      - generic [ref=f7e42]:
+        - text: Perjalanan Dinas
+        - generic [ref=f7e43]: Coming soon
+      - link [ref=f7e44] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=f7e49]:
+      - strong [ref=f7e50]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=f7e51]:
+      - generic [ref=f7e52]: L
+      - generic [ref=f7e53]:
+        - strong [ref=f7e54]: LAZZIAN AL FALAH
+        - generic [ref=f7e55]: Programmer
+      - button "Keluar" [ref=f7e56] [cursor=pointer]
+  - generic [ref=f7e59]:
+    - banner [ref=f7e60]:
+      - button "Buka menu" [ref=f7e61] [cursor=pointer]
+      - textbox "Cari pengajuan" [ref=f7e69]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L" [ref=f7e71] [cursor=pointer]
+    - main [ref=f7e73]:
+      - generic [ref=f7e74]:
+        - generic [ref=f7e75]:
+          - paragraph [ref=f7e76]: Senin, 26 Oktober 2026
+          - heading "Selamat pagi, Lazzian Al Falah!" [level=1] [ref=f7e77]
+          - paragraph [ref=f7e78]: Kelola pengajuan cuti, izin, cuti besar, dan tugas luar dengan mudah.
+        - button "Ajukan baru" [ref=f7e80] [cursor=pointer]
+      - region "Ringkasan pengajuan" [ref=f7e83]:
+        - button "Cuti 9 5 menunggu persetujuan" [ref=f7e84] [cursor=pointer]:
+          - generic [ref=f7e89]: Cuti
+          - strong [ref=f7e90]: "9"
+          - generic [ref=f7e91]: 5 menunggu persetujuan
+        - button "Izin 4 4 menunggu persetujuan" [ref=f7e92] [cursor=pointer]:
+          - generic [ref=f7e97]: Izin
+          - strong [ref=f7e98]: "4"
+          - generic [ref=f7e99]: 4 menunggu persetujuan
+        - button "Cuti Besar 0 Belum ada pengajuan" [ref=f7e100] [cursor=pointer]:
+          - generic [ref=f7e105]: Cuti Besar
+          - strong [ref=f7e106]: "0"
+          - generic [ref=f7e107]: Belum ada pengajuan
+        - button "Tugas Luar 17 5 menunggu persetujuan" [ref=f7e108] [cursor=pointer]:
+          - generic [ref=f7e113]: Tugas Luar
+          - strong [ref=f7e114]: "17"
+          - generic [ref=f7e115]: 5 menunggu persetujuan
+      - generic [ref=f7e116]:
+        - generic [ref=f7e117]:
+          - generic [ref=f7e118]:
+            - generic [ref=f7e119]:
+              - paragraph [ref=f7e120]: Aktivitas
+              - heading "Pengajuan terbaru" [level=2] [ref=f7e121]
+            - generic [ref=f7e122]: 8 data
+          - generic [ref=f7e123]:
+            - button "Lihat detail T.0377.179256239198" [ref=f7e124] [cursor=pointer]:
+              - generic [ref=f7e130]:
+                - strong [ref=f7e131]: Tugas Luar
+                - generic [ref=f7e132]: T.0377.179256239198
+              - generic [ref=f7e133]:
+                - strong [ref=f7e134]: PT NGETES
+                - generic [ref=f7e135]: 21 Okt 2026
+              - generic [ref=f7e136]: Menunggu
+            - button "Lihat detail T.0377.179256230626" [ref=f7e137] [cursor=pointer]:
+              - generic [ref=f7e143]:
+                - strong [ref=f7e144]: Tugas Luar
+                - generic [ref=f7e145]: T.0377.179256230626
+              - generic [ref=f7e146]:
+                - strong [ref=f7e147]: PT UNTUK TES
+                - generic [ref=f7e148]: 21 Okt 2026
+              - generic [ref=f7e149]: Menunggu
+            - button "Lihat detail T.0377.179255782689" [ref=f7e150] [cursor=pointer]:
+              - generic [ref=f7e156]:
+                - strong [ref=f7e157]: Tugas Luar
+                - generic [ref=f7e158]: T.0377.179255782689
+              - generic [ref=f7e159]:
+                - strong [ref=f7e160]: PT Halo
+                - generic [ref=f7e161]: 21 Okt 2026
+              - generic [ref=f7e162]: Menunggu
+            - button "Lihat detail T.0377.179248468843" [ref=f7e163] [cursor=pointer]:
+              - generic [ref=f7e169]:
+                - strong [ref=f7e170]: Tugas Luar
+                - generic [ref=f7e171]: T.0377.179248468843
+              - generic [ref=f7e172]:
+                - strong [ref=f7e173]: pt baru
+                - generic [ref=f7e174]: 20 Okt 2026
+              - generic [ref=f7e175]: Menunggu
+            - button "Lihat detail C.0377.179098669461" [ref=f7e176] [cursor=pointer]:
+              - generic [ref=f7e182]:
+                - strong [ref=f7e183]: Cuti
+                - generic [ref=f7e184]: C.0377.179098669461
+              - generic [ref=f7e185]:
+                - strong [ref=f7e186]: Cuti Tahunan
+                - generic [ref=f7e187]: 12 Okt 2026
+              - generic [ref=f7e188]: Menunggu
+            - button "Lihat detail T.0377.179098715665" [ref=f7e189] [cursor=pointer]:
+              - generic [ref=f7e195]:
+                - strong [ref=f7e196]: Tugas Luar
+                - generic [ref=f7e197]: T.0377.179098715665
+              - generic [ref=f7e198]:
+                - strong [ref=f7e199]: jauh
+                - generic [ref=f7e200]: 3 Okt 2026
+              - generic [ref=f7e201]: Menunggu
+            - button "Lihat detail IZ.0377.179098709998" [ref=f7e202] [cursor=pointer]:
+              - generic [ref=f7e208]:
+                - strong [ref=f7e209]: Izin
+                - generic [ref=f7e210]: IZ.0377.179098709998
+              - generic [ref=f7e211]:
+                - strong [ref=f7e212]: Sakit
+                - generic [ref=f7e213]: 3 Okt 2026
+              - generic [ref=f7e214]: Menunggu
+            - button "Lihat detail T.0377.179022419333" [ref=f7e215] [cursor=pointer]:
+              - generic [ref=f7e221]:
+                - strong [ref=f7e222]: Tugas Luar
+                - generic [ref=f7e223]: T.0377.179022419333
+              - generic [ref=f7e224]:
+                - strong [ref=f7e225]: PT Baru
+                - generic [ref=f7e226]: 24 Sep 2026
+              - generic [ref=f7e227]: Disetujui
+        - generic [ref=f7e228]:
+          - generic [ref=f7e229]:
+            - generic [ref=f7e230]:
+              - paragraph [ref=f7e231]: Agenda
+              - heading "Oktober 2026" [level=2] [ref=f7e232]
+            - generic [ref=f7e233]:
+              - button "Bulan sebelumnya" [ref=f7e234] [cursor=pointer]
+              - button "Bulan berikutnya" [ref=f7e237] [cursor=pointer]
+          - generic [ref=f7e240]:
+            - generic [ref=f7e241]: Sen
+            - generic [ref=f7e242]: Sel
+            - generic [ref=f7e243]: Rab
+            - generic [ref=f7e244]: Kam
+            - generic [ref=f7e245]: Jum
+            - generic [ref=f7e246]: Sab
+            - generic [ref=f7e247]: Min
+          - generic [ref=f7e248]:
+            - generic [ref=f7e252]: "1"
+            - generic [ref=f7e253]: "2"
+            - generic "Izin" [ref=f7e254]: "3"
+            - generic [ref=f7e256]: "4"
+            - generic [ref=f7e257]: "5"
+            - generic [ref=f7e258]: "6"
+            - generic [ref=f7e259]: "7"
+            - generic [ref=f7e260]: "8"
+            - generic [ref=f7e261]: "9"
+            - generic [ref=f7e262]: "10"
+            - generic [ref=f7e263]: "11"
+            - generic "Cuti" [ref=f7e264]: "12"
+            - generic [ref=f7e266]: "13"
+            - generic [ref=f7e267]: "14"
+            - generic [ref=f7e268]: "15"
+            - generic [ref=f7e269]: "16"
+            - generic [ref=f7e270]: "17"
+            - generic [ref=f7e271]: "18"
+            - generic [ref=f7e272]: "19"
+            - generic "Tugas Luar" [ref=f7e273]: "20"
+            - generic "Tugas Luar" [ref=f7e275]: "21"
+            - generic [ref=f7e277]: "22"
+            - generic [ref=f7e278]: "23"
+            - generic [ref=f7e279]: "24"
+            - generic [ref=f7e280]: "25"
+            - generic [ref=f7e281]: "26"
+            - generic [ref=f7e282]: "27"
+            - generic [ref=f7e283]: "28"
+            - generic [ref=f7e284]: "29"
+            - generic [ref=f7e285]: "30"
+            - generic [ref=f7e286]: "31"
+          - generic [ref=f7e287]:
+            - generic [ref=f7e288]: Cuti
+            - generic [ref=f7e290]: Izin
+            - generic [ref=f7e292]: Cuti Besar
+            - generic [ref=f7e294]: Tugas Luar
+      - generic [ref=f7e296]:
+        - generic [ref=f7e297]:
+          - generic [ref=f7e299]:
+            - paragraph [ref=f7e300]: Ringkasan
+            - heading "Status pengajuan" [level=2] [ref=f7e301]
+          - generic [ref=f7e302]:
+            - generic [ref=f7e303]: Menunggu
+            - strong [ref=f7e306]: "14"
+          - generic [ref=f7e307]:
+            - generic [ref=f7e308]: Disetujui
+            - strong [ref=f7e311]: "13"
+          - generic [ref=f7e312]:
+            - generic [ref=f7e313]: Ditolak
+            - strong [ref=f7e316]: "3"
+        - generic [ref=f7e317]:
+          - paragraph [ref=f7e318]: Saldo cuti
+          - heading "6 hari" [level=2] [ref=f7e319]
+          - paragraph [ref=f7e320]: Sisa saldo cuti reguler yang tersedia.
+          - generic [ref=f7e321]: Data dari server · Quota 9 hari
+    - dialog [ref=f7e322]:
+      - generic [ref=f7e323]:
+        - paragraph [ref=f7e324]: BMC Online
+        - heading "Hallo, Lazzian Al Falah!" [level=2] [ref=f7e325]
+        - paragraph [ref=f7e326]: Ini adalah aplikasi administrasi keperluan karyawan. Ajukan, pantau, dan kelola kebutuhan HC Anda dengan lebih mudah.
+        - button "Lihat panduan" [ref=f7e327] [cursor=pointer]

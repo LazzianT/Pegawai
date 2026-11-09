@@ -1,0 +1,56 @@
+- generic [ref=e552]:
+  - complementary [ref=e553]:
+    - link "BMC Online HC Management" [ref=e554] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=e555]:
+        - text: BMC Online
+        - generic [ref=e556]: HC Management
+    - generic [ref=e557]: Menu utama
+    - navigation "Menu utama" [ref=e558]:
+      - link "Dashboard" [ref=e559] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Cuti" [ref=e566] [cursor=pointer]:
+        - /url: /cuti
+      - link "Izin" [ref=e571] [cursor=pointer]:
+        - /url: /izin
+      - link "Cuti Khusus" [ref=e576] [cursor=pointer]:
+        - /url: /cuti-khusus
+      - link "Tugas Luar" [ref=e581] [cursor=pointer]:
+        - /url: /tugas-luar
+      - link "Approval Group" [active] [ref=e586] [cursor=pointer]:
+        - /url: /approval/group
+      - generic [ref=e596]:
+        - text: Perjalanan Dinas
+        - generic [ref=e597]: Coming soon
+      - link "My Profile" [ref=e598] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=e603]:
+      - strong [ref=e604]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=e605]:
+      - generic [ref=e606]: L
+      - generic [ref=e607]:
+        - strong [ref=e608]: LAZZIAN AL FALAH
+        - generic [ref=e609]: Programmer
+      - button "Keluar" [ref=e610] [cursor=pointer]
+  - generic [ref=e613]:
+    - banner [ref=e614]:
+      - textbox "Cari pengajuan" [ref=e620]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L LAZZIAN AL FALAH ⌄" [ref=e622] [cursor=pointer]:
+        - generic [ref=e623]: L
+        - generic [ref=e624]: LAZZIAN AL FALAH
+        - generic [ref=e625]: ⌄
+    - main [ref=e806]:
+      - region [ref=e807]:
+        - generic [ref=e809]:
+          - paragraph [ref=e810]: Approval
+          - heading "Approval Tugas Luar Group" [level=1] [ref=e811]
+          - paragraph [ref=e812]: Setujui satu kali untuk group dan versi anggota yang sama.
+        - generic [ref=e813]:
+          - generic [ref=e814]:
+            - generic [ref=e815]:
+              - paragraph [ref=e816]: Daftar approval
+              - heading "Menunggu persetujuan Anda" [level=2] [ref=e817]
+            - generic [ref=e818]: 0 data
+          - generic [ref=e819]: Tidak ada approval group.

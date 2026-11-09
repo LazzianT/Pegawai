@@ -1,0 +1,74 @@
+[   29742ms] [LOG] init_flot_chart @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:344
+[   29751ms] [LOG] init_InputMask @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1469
+[   29754ms] [LOG] init_JQVmap @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:622
+[   29755ms] [LOG] init_daterangepicker @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1575
+[   29757ms] [LOG] init_daterangepicker_right @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1650
+[   29757ms] [LOG] init_daterangepicker_single_call @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1730
+[   29757ms] [LOG] init_daterangepicker_reservation @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1764
+[   29758ms] [LOG] run_charts  typeof [function] @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1965
+[   29758ms] [LOG] init_charts @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1969
+[   29758ms] [LOG] init_skycons @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:664
+[   29759ms] [LOG] run_datatables @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:2486
+[   29759ms] [LOG] init_DataTables @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:2489
+[   29759ms] [LOG] init_chart_doughnut @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:688
+[   29759ms] [LOG] init_gauge [0] @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:742
+[   29759ms] [LOG] init_gauge @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:744
+[   29759ms] [LOG] init_calendar @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:2384
+[   29760ms] [LOG] init_compose @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:2371
+[   29760ms] [LOG] run_customtabs @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:1850
+[   29760ms] [LOG] init_autocomplete @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:924
+[   29780ms] [LOG] Kirim AJAX: {awal: 2026-10-26, akhir: 2026-10-26} @ https://app.bmc.co.id/webapps/eprocurement/mon_ic:842
+[   29825ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ https://app.bmc.co.id/webapps/assets/images/logo_blue.png:0
+[   34807ms] [LOG] clicked - sidebar_menu @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:72
+[   34865ms] [LOG] [Object] @ https://app.bmc.co.id/webapps/eprocurement/mon_ic:851
+[   37133ms] [LOG] clicked - sidebar_menu @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom-ppic.js:72
+[   37738ms] [LOG] init_sparklines @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37740ms] [LOG] init_flot_chart @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37748ms] [LOG] init_JQVmap @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37748ms] [LOG] init_knob @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37750ms] [LOG] init_daterangepicker @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37751ms] [LOG] init_daterangepicker_right @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37751ms] [LOG] init_daterangepicker_single_call @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37751ms] [LOG] init_daterangepicker_reservation @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37751ms] [LOG] run_charts  typeof [function] @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37751ms] [LOG] init_charts @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37752ms] [LOG] init_morris_charts @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[   37752ms] [LOG] init_skycons @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37752ms] [LOG] run_datatables @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[   37753ms] [LOG] init_DataTables @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[   37753ms] [LOG] init_chart_doughnut @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37754ms] [LOG] init_gauge [0] @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37754ms] [LOG] init_gauge @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   37754ms] [LOG] init_compose @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[   37754ms] [LOG] run_customtabs @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[   46814ms] [LOG] 082249144353 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9619
+[   46814ms] [LOG] 02187/PP/10/26 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9620
+[   58789ms] [LOG] 082249144353 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9619
+[   58789ms] [LOG] 02186/PP/10/26 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9620
+[   69834ms] [LOG] 082249144353 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9619
+[   69834ms] [LOG] 02185/PP/10/26 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9620
+[   72936ms] [LOG] 082249144353 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9619
+[   72936ms] [LOG] 02184/PP/10/26 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9620
+[  192676ms] [LOG] 082249144353 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9619
+[  192676ms] [LOG] 02179/PP/10/26 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9620
+[  197061ms] [LOG] 082249144353 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9619
+[  197061ms] [LOG] 02178/PP/10/26 @ https://app.bmc.co.id/webapps/eprocurement/ic_approve_pr:9620
+[  222419ms] [LOG] init_sparklines @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222419ms] [LOG] init_flot_chart @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222425ms] [LOG] init_JQVmap @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222425ms] [LOG] init_knob @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222426ms] [LOG] init_daterangepicker @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222427ms] [LOG] init_daterangepicker_right @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222427ms] [LOG] init_daterangepicker_single_call @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222427ms] [LOG] init_daterangepicker_reservation @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222427ms] [LOG] run_charts  typeof [function] @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222428ms] [LOG] init_charts @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222428ms] [LOG] init_morris_charts @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[  222428ms] [LOG] init_skycons @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222428ms] [LOG] run_datatables @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[  222428ms] [LOG] init_DataTables @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[  222429ms] [LOG] init_chart_doughnut @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222430ms] [LOG] init_gauge [0] @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222430ms] [LOG] init_gauge @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0
+[  222430ms] [LOG] init_compose @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:1
+[  222431ms] [LOG] run_customtabs @ https://app.bmc.co.id/webapps/assets/template/gentelella-master/build/js/custom.min.js:0

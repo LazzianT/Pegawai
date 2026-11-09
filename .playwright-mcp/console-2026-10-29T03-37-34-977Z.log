@@ -1,0 +1,10 @@
+[  227844ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://127.0.0.1:5174/node_modules/.vite/deps/chunk-HCIN4FJ4.js?v=e0d8508a:21606
+[  228016ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://127.0.0.1:5174/:0
+[  228063ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5174/favicon.ico:0
+[  389535ms] [WARNING] crbug/1173575, non-JS module files deprecated. @ file:///D:/Developing/bmc-web/:231
+[  427267ms] [WARNING] crbug/1173575, non-JS module files deprecated. @ file:///D:/Developing/bmc-web/:231
+[  428826ms] [WARNING] crbug/1173575, non-JS module files deprecated. @ file:///D:/Developing/bmc-web/dist/:231
+[  477073ms] [WARNING] crbug/1173575, non-JS module files deprecated. @ file:///D:/Developing/bmc-web/:231
+[ 1749774ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://127.0.0.1:5174/node_modules/.vite/deps/chunk-HCIN4FJ4.js?v=e0d8508a:21606
+[ 1750057ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://127.0.0.1:5174/tugas-luar:0
+[ 1750077ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5174/favicon.ico:0

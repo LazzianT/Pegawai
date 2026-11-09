@@ -1,0 +1,52 @@
+- generic [ref=e3]:
+  - complementary "Navigasi utama" [ref=e4]:
+    - generic [ref=e5]:
+      - link "BMC Visitor Management" [ref=e6] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Braja Mukti Cakra" [ref=e7]
+      - generic [ref=e8]: VISITOR MANAGEMENT
+    - navigation [ref=e9]:
+      - paragraph [ref=e10]: Workspace
+      - link "Dasbor" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Perusahaan" [ref=e17] [cursor=pointer]:
+        - /url: /companies
+      - link "Pengunjung" [ref=e21] [cursor=pointer]:
+        - /url: /visitors
+      - link "Kunjungan" [ref=e26] [cursor=pointer]:
+        - /url: /visits
+      - link "Di Dalam" [ref=e30] [cursor=pointer]:
+        - /url: /visits/active
+      - paragraph [ref=e34]: Security — BMC Online
+      - link "Ringkasan" [ref=e35] [cursor=pointer]:
+        - /url: /security/dashboard
+      - link "Tugas Luar" [ref=e41] [cursor=pointer]:
+        - /url: /security/tugas-luar
+      - link "Izin" [ref=e45] [cursor=pointer]:
+        - /url: /security/izin
+      - link "Kembali" [ref=e50] [cursor=pointer]:
+        - /url: /security/kembali
+      - paragraph [ref=e53]: Administrasi
+      - link "Konten Safety" [ref=e54] [cursor=pointer]:
+        - /url: /safety-inductions/manage
+      - link "Laporan" [ref=e58] [cursor=pointer]:
+        - /url: /reports
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]: S
+        - generic [ref=e65]:
+          - strong [ref=e66]: Security User
+          - generic [ref=e67]: SECURITY
+      - button "Keluar" [ref=e68] [cursor=pointer]
+  - main [ref=e72]:
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - paragraph [ref=e77]: Operasional Security
+          - heading "Tugas Luar (Dinas)" [level=1] [ref=e78]
+          - paragraph [ref=e79]: Karyawan yang sedang berada di luar area kantor.
+        - generic [ref=e80]:
+          - button "Aktif Hari Ini" [ref=e81] [cursor=pointer]
+          - button "Laporan Riwayat" [ref=e82] [cursor=pointer]
+          - button "Scan QR" [ref=e83] [cursor=pointer]
+      - generic [ref=e84]: Memuat data tugas luar...

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { getConnection, sql } = require('../config/db');
-const { sendTravelWaToNIP, sendWaToNIP, formatTravelApprovalMessage, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL } = require('../services/waService');
+const { sendTravelWaToNIP, sendWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL, SECURITY_QR_BASE_URL } = require('../services/waService');
 const { createVehicleApprovalToken } = require('../services/vehicleApprovalToken');
 
 function validateGroupMembers(values) {
@@ -22,8 +22,8 @@ function groupStatusAfterApproval({ approved, required, rejected }) {
 
 function groupApprovalTransition(approvals) {
   const rows = Array.isArray(approvals) ? approvals : []
-  const approved = rows.filter((row) => Number(row.statusId) === 3).length
-  const rejected = rows.filter((row) => Number(row.statusId) === 4).length
+  const approved = rows.filter((row) => Number(row.statusId ?? row.StatusId) === 3).length
+  const rejected = rows.filter((row) => Number(row.statusId ?? row.StatusId) === 4).length
   const groupStatus = groupStatusAfterApproval({ approved, required: rows.length, rejected })
   return { groupStatus, vehicleApproval: groupStatus === 'VEHICLE_PENDING' }
 }
@@ -217,6 +217,8 @@ async function submitGroup(code, actorNIP, input = {}) {
           members: members.recordset,
           tujuan: current.Tujuan,
           keperluan: current.Tugas,
+          startDate: current.ExitDate,
+          startTime: current.ExitTime,
           vehicle: current.VehicleType,
           driver: input.driverMode === 'SELF' ? input.driverNIP : '',
           approvalLink,
@@ -231,7 +233,7 @@ async function submitGroup(code, actorNIP, input = {}) {
 async function getGroupApprovalQueue(approverNIP) {
   const conn = await getConnection();
   const result = await conn.request().input('ApproverNIP', sql.VarChar, approverNIP).query(`
-    SELECT a.GroupCode, a.VersionNo, a.ApproverNIP, a.StatusId, a.UpdatedAt,
+    SELECT a.GroupCode, a.VersionNo, a.ApproverNIP, a.StatusId, a.UpdatedAt, v.CreatedAt,
            g.Status AS GroupStatus, v.ExitDate, v.ExitTime, v.Tujuan, v.Tugas, v.DriverMode, v.DriverNIP, v.DriverName, v.AutoClosedAt,
            m.NIP AS MemberNIP, e.Name AS MemberName
     FROM hris_Travel_Group_Approval a
@@ -246,7 +248,7 @@ async function getGroupApprovalQueue(approverNIP) {
   const groups = new Map();
   for (const row of result.recordset) {
     const key = `${row.GroupCode}:${row.VersionNo}`;
-    const item = groups.get(key) || { id: `G.${row.GroupCode}.${row.VersionNo}`, groupCode: row.GroupCode, groupVersion: row.VersionNo, nip: row.MemberNIP, nama: row.MemberName || row.MemberNIP, tujuan: row.Tujuan, alasan: row.Tugas, tanggalMulai: row.ExitDate, jamMulai: row.ExitTime, driverMode: row.DriverMode, driverNIP: row.DriverNIP, driverName: row.DriverName, autoClosedAt: row.AutoClosedAt, statusId: row.StatusId, status: row.GroupStatus, updates: row.StatusId === 3 ? 'Approved' : row.StatusId === 4 ? 'Rejected' : 'Propose', members: [] };
+    const item = groups.get(key) || { id: `G.${row.GroupCode}.${row.VersionNo}`, groupCode: row.GroupCode, groupVersion: row.VersionNo, nip: row.MemberNIP, nama: row.MemberName || row.MemberNIP, tujuan: row.Tujuan, alasan: row.Tugas, tanggalMulai: row.ExitDate, jamMulai: row.ExitTime, driverMode: row.DriverMode, driverNIP: row.DriverNIP, driverName: row.DriverName, autoClosedAt: row.AutoClosedAt, createdAt: row.CreatedAt, statusId: row.StatusId, status: row.GroupStatus, updates: row.StatusId === 3 ? 'Approved' : row.StatusId === 4 ? 'Rejected' : 'Propose', members: [] };
     item.members.push({ nip: row.MemberNIP, name: row.MemberName || row.MemberNIP });
     groups.set(key, item);
   }
@@ -260,7 +262,7 @@ async function getGroupVehicleApprovals() {
            v.ExitDate, v.ExitTime, v.Tujuan, v.Tugas, v.VehicleType, v.VehiclePlate, v.DriverMode, v.DriverNIP, v.DriverName, v.AutoClosedAt,
            m.NIP AS MemberNIP, e.Name AS MemberName
     FROM hris_Travel_Group_Approval a
-    INNER JOIN hris_Travel_Group g ON g.GroupCode = a.GroupCode AND g.Status = 'VEHICLE_PENDING'
+    INNER JOIN hris_Travel_Group g ON g.GroupCode = a.GroupCode
     INNER JOIN hris_Travel_Group_Version v ON v.GroupCode = a.GroupCode AND v.VersionNo = a.VersionNo
     INNER JOIN hris_Travel_Group_Member m ON m.GroupCode = a.GroupCode AND m.VersionNo = a.VersionNo AND m.Status = 'ACTIVE'
     LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP
@@ -275,6 +277,29 @@ async function getGroupVehicleApprovals() {
     groups.set(key, item);
   }
   return [...groups.values()];
+}
+
+async function getGroupVehicleApprovalByToken(code, version) {
+  const conn = await getConnection();
+  const result = await conn.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).query(`
+    SELECT a.GroupCode, a.VersionNo, a.StatusId, a.UpdatedAt,
+           v.ExitDate, v.ExitTime, v.Tujuan, v.Tugas, v.VehicleType, v.VehiclePlate, v.DriverMode, v.DriverNIP, v.DriverName, v.AutoClosedAt,
+           m.NIP AS MemberNIP, e.Name AS MemberName
+    FROM hris_Travel_Group_Approval a
+    INNER JOIN hris_Travel_Group g ON g.GroupCode = a.GroupCode
+    INNER JOIN hris_Travel_Group_Version v ON v.GroupCode = a.GroupCode AND v.VersionNo = a.VersionNo
+    INNER JOIN hris_Travel_Group_Member m ON m.GroupCode = a.GroupCode AND m.VersionNo = a.VersionNo AND m.Status = 'ACTIVE'
+    LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP
+    WHERE a.GroupCode = @Code AND a.VersionNo = @VersionNo AND a.ApprovalType = 'KENDARAAN' AND a.ApproverNIP = 'GROUP'
+    ORDER BY m.NIP
+  `);
+  const groups = new Map();
+  for (const row of result.recordset) {
+    const item = groups.get(row.GroupCode) || { id: `G.${row.GroupCode}.${row.VersionNo}`, groupCode: row.GroupCode, groupVersion: row.VersionNo, nip: row.MemberNIP, nama: row.MemberName || row.MemberNIP, tujuan: row.Tujuan, alasan: row.Tugas, tanggalMulai: row.ExitDate, jamMulai: row.ExitTime, vehicleType: row.VehicleType, vehiclePlate: row.VehiclePlate, driverMode: row.DriverMode, driverNIP: row.DriverNIP, driverName: row.DriverName, autoClosedAt: row.AutoClosedAt, status: 'pending', approvalStatus: row.StatusId === 3 ? 'approved' : row.StatusId === 4 ? 'rejected' : 'waiting', statusId: row.StatusId, members: [] };
+    item.members.push({ nip: row.MemberNIP, name: row.MemberName || row.MemberNIP });
+    groups.set(row.GroupCode, item);
+  }
+  return groups.values().next().value || null;
 }
 
 async function getMyGroups(actorNIP) {
@@ -361,19 +386,33 @@ async function approveGroup(code, version, approverNIP, action) {
     await tx.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).input('Status', sql.VarChar, transition.groupStatus).query(`UPDATE hris_Travel_Group SET Status = @Status, UpdatedAt = GETDATE() WHERE GroupCode = @Code; UPDATE hris_Travel_Group_Version SET Status = @Status WHERE GroupCode = @Code AND VersionNo = @VersionNo`);
     if (transition.vehicleApproval) await tx.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).query(`IF NOT EXISTS (SELECT 1 FROM hris_Travel_Group_Approval WHERE GroupCode = @Code AND VersionNo = @VersionNo AND ApprovalType = 'KENDARAAN') INSERT INTO hris_Travel_Group_Approval (GroupCode, VersionNo, ApprovalType, ApproverNIP, StatusId) VALUES (@Code, @VersionNo, 'KENDARAAN', 'GROUP', 1)`);
     await tx.commit();
-    if (transition.vehicleApproval) for (const nip of VEHICLE_MANAGER_NIPS) {
-      try { await sendWaToNIP(nip, `Pengajuan Tugas Luar group ${code} menunggu approval kendaraan.`); } catch {}
+    if (transition.vehicleApproval) {
+      const details = await conn.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).query(`SELECT TOP 1 v.Tujuan, v.Tugas, v.ExitDate, v.ExitTime, v.VehicleType, v.DriverMode, v.DriverNIP, v.DriverName FROM hris_Travel_Group_Version v WHERE v.GroupCode = @Code AND v.VersionNo = @VersionNo`);
+      const members = await conn.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).query(`SELECT m.NIP, e.Name FROM hris_Travel_Group_Member m LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP WHERE m.GroupCode = @Code AND m.VersionNo = @VersionNo AND m.Status = 'ACTIVE' ORDER BY m.NIP`);
+      const row = details.recordset[0];
+      for (const nip of VEHICLE_MANAGER_NIPS) {
+        try {
+          const token = createVehicleApprovalToken(`G.${code}.${version}`, nip);
+          const approvalLink = EMPLOYEE_PORTAL_URL ? `${EMPLOYEE_PORTAL_URL}/approval/kendaraan/${encodeURIComponent(token)}` : '';
+          const text = formatTravelApprovalMessage({ approverName: '{Name}', members: members.recordset, tujuan: row?.Tujuan, keperluan: row?.Tugas, startDate: row?.ExitDate, startTime: row?.ExitTime, vehicle: row?.VehicleType, driver: row?.DriverMode === 'SELF' ? row.DriverNIP : row?.DriverName, approvalLink });
+          await sendTravelWaToNIP(nip, text);
+        } catch {}
+      }
     }
     return { success: true, groupStatus: transition.groupStatus, vehicleApproval: transition.vehicleApproval };
   } catch (error) { try { await tx.rollback(); } catch {} throw error; }
 }
 
-async function approveGroupVehicle(code, version, approverNIP, action, vehicleType, vehiclePlate, driverName = '') {
+async function approveGroupVehicle(code, version, approverNIP, action, vehicleType, vehiclePlate, driverMode, driverName = '') {
   const type = String(vehicleType || '').trim().toUpperCase();
+  const mode = String(driverMode || '').trim().toUpperCase();
+  const driver = String(driverName || '').trim();
   const plate = String(vehiclePlate || '').trim().toUpperCase();
   if (action === 'approve' && !['PRIVATE', 'ONLINE', 'OFFICE', 'MOTOR'].includes(type)) throw new Error('Jenis kendaraan wajib dipilih');
   if (action === 'approve' && ['OFFICE', 'MOTOR'].includes(type) && !plate) throw new Error('Nomor plat kendaraan wajib diisi');
-  if (String(driverName || '').trim().length > 200) throw new Error('Nama supir maksimal 200 karakter');
+  if (action === 'approve' && ['OFFICE', 'MOTOR'].includes(type) && !['SELF', 'DRIVER'].includes(mode)) throw new Error('Cara berkendara wajib dipilih');
+  if (action === 'approve' && mode === 'DRIVER' && !driver) throw new Error('Nama supir wajib diisi');
+  if (driver.length > 200) throw new Error('Nama supir maksimal 200 karakter');
   const conn = await getConnection();
   const tx = new sql.Transaction(conn);
   await tx.begin();
@@ -384,8 +423,21 @@ async function approveGroupVehicle(code, version, approverNIP, action, vehicleTy
     if (result.recordset[0]?.Updated !== 1) throw new Error('Approval kendaraan tidak ditemukan atau sudah diproses');
     const status = action === 'approve' ? 'APPROVED' : 'REVISION';
      const qrToken = action === 'approve' ? crypto.randomBytes(24).toString('hex') : null;
-     await tx.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).input('Status', sql.VarChar, status).input('VehicleType', sql.VarChar, type).input('VehiclePlate', sql.VarChar, plate || null).input('DriverName', sql.NVarChar, String(driverName || '').trim() || null).input('QrToken', sql.VarChar, qrToken).query(`UPDATE hris_Travel_Group SET Status = @Status, UpdatedAt = GETDATE() WHERE GroupCode = @Code; UPDATE hris_Travel_Group_Version SET Status = @Status, VehicleType = CASE WHEN @Status = 'APPROVED' THEN @VehicleType ELSE VehicleType END, VehiclePlate = CASE WHEN @Status = 'APPROVED' THEN @VehiclePlate ELSE VehiclePlate END, DriverName = CASE WHEN @Status = 'APPROVED' THEN @DriverName ELSE DriverName END, QrToken = CASE WHEN @Status = 'APPROVED' THEN @QrToken ELSE NULL END, DepartureAt = NULL WHERE GroupCode = @Code AND VersionNo = @VersionNo`);
+     await tx.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).input('Status', sql.VarChar, status).input('VehicleType', sql.VarChar, type).input('VehiclePlate', sql.VarChar, plate || null).input('DriverMode', sql.VarChar, action === 'approve' ? mode : null).input('DriverName', sql.NVarChar, action === 'approve' ? (driver || null) : null).input('QrToken', sql.VarChar, qrToken).query(`UPDATE hris_Travel_Group SET Status = @Status, UpdatedAt = GETDATE() WHERE GroupCode = @Code; UPDATE hris_Travel_Group_Version SET Status = @Status, VehicleType = CASE WHEN @Status = 'APPROVED' THEN @VehicleType ELSE VehicleType END, VehiclePlate = CASE WHEN @Status = 'APPROVED' THEN @VehiclePlate ELSE VehiclePlate END, DriverMode = CASE WHEN @Status = 'APPROVED' THEN @DriverMode ELSE DriverMode END, DriverName = CASE WHEN @Status = 'APPROVED' THEN @DriverName ELSE DriverName END, QrToken = CASE WHEN @Status = 'APPROVED' THEN @QrToken ELSE NULL END, DepartureAt = NULL WHERE GroupCode = @Code AND VersionNo = @VersionNo`);
     await tx.commit();
+    if (action === 'approve') {
+      const detail = await conn.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).query(`SELECT g.CreatorNIP, v.Tujuan, v.Tugas, v.ExitDate, v.ExitTime, v.VehicleType, v.VehiclePlate, v.DriverMode, v.DriverNIP, v.DriverName, v.QrToken, m.NIP, e.Name FROM hris_Travel_Group g INNER JOIN hris_Travel_Group_Version v ON v.GroupCode = g.GroupCode INNER JOIN hris_Travel_Group_Member m ON m.GroupCode = v.GroupCode AND m.VersionNo = v.VersionNo AND m.Status = 'ACTIVE' LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP WHERE v.GroupCode = @Code AND v.VersionNo = @VersionNo ORDER BY m.NIP`);
+      const first = detail.recordset[0];
+      const members = detail.recordset.map((row) => ({ nip: row.NIP, name: row.Name || row.NIP }));
+      const qrBaseUrl = SECURITY_QR_BASE_URL || EMPLOYEE_PORTAL_URL;
+       const qrLink = first?.QrToken && qrBaseUrl ? `${qrBaseUrl}/travel/groups/qr/${encodeURIComponent(code)}/${encodeURIComponent(first.QrToken)}` : '';
+      const recipient = members.find((member) => member.nip === first?.CreatorNIP) || members[0];
+      if (recipient) {
+        try {
+          await sendWaToNIP(recipient.nip, formatTravelApprovedMessage({ recipientName: recipient.name, members, tujuan: first?.Tujuan, keperluan: first?.Tugas, startDate: first?.ExitDate, startTime: first?.ExitTime, vehicle: first?.VehicleType, vehiclePlate: first?.VehiclePlate, driver: first?.DriverMode === 'SELF' ? first.DriverNIP : first?.DriverName, qrLink }));
+        } catch (error) { console.error('[WA] group travel approval notification error:', error.message); }
+      }
+    }
     return { success: true, groupStatus: status, qr: action === 'approve' };
   } catch (error) { try { await tx.rollback(); } catch {} throw error; }
 }
@@ -454,4 +506,4 @@ async function confirmJoin(code, actorNIP) {
   }
 }
 
-module.exports = { validateGroupMembers, groupApproverNips, groupStatusAfterApproval, groupApprovalTransition, groupVehicleTransition, searchGroupEmployees, createGroup, autoCloseTravelGroups, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, approveGroup, approveGroupVehicle };
+module.exports = { validateGroupMembers, groupApproverNips, groupStatusAfterApproval, groupApprovalTransition, groupVehicleTransition, searchGroupEmployees, createGroup, autoCloseTravelGroups, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, getGroupVehicleApprovalByToken, approveGroup, approveGroupVehicle };

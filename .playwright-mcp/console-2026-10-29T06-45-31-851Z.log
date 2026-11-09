@@ -1,0 +1,4 @@
+[   55818ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.19.25.29:3003/api/auth/me:0
+[ 1004905ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://security.bmc.co.id/api/auth/me:0
+[ 1009458ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://security.bmc.co.id/api/auth/me:0
+[ 1158694ms] [ERROR] Failed to load resource: the server responded with a status of 503 (Service Unavailable) @ https://security.bmc.co.id/api/security/overview:0

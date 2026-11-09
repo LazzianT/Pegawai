@@ -1,0 +1,217 @@
+- generic [ref=f12e3]:
+  - complementary [ref=f12e4]:
+    - link "BMC Online HC Management" [ref=f12e5] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=f12e6]:
+        - text: BMC Online
+        - generic [ref=f12e7]: HC Management
+    - generic [ref=f12e8]: Menu utama
+    - navigation "Menu utama" [ref=f12e9]:
+      - link [ref=f12e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link [ref=f12e17] [cursor=pointer]:
+        - /url: /cuti
+      - link [ref=f12e22] [cursor=pointer]:
+        - /url: /izin
+      - link [ref=f12e27] [cursor=pointer]:
+        - /url: /cuti-besar
+      - link [ref=f12e32] [cursor=pointer]:
+        - /url: /tugas-luar
+      - generic [ref=f12e42]:
+        - text: Perjalanan Dinas
+        - generic [ref=f12e43]: Coming soon
+      - link [ref=f12e44] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=f12e49]:
+      - strong [ref=f12e50]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=f12e51]:
+      - generic [ref=f12e52]: L
+      - generic [ref=f12e53]:
+        - strong [ref=f12e54]: LAZZIAN AL FALAH
+        - generic [ref=f12e55]: Programmer
+      - button "Keluar" [ref=f12e56] [cursor=pointer]
+  - generic [ref=f12e59]:
+    - banner [ref=f12e60]:
+      - button "Buka menu" [ref=f12e61] [cursor=pointer]
+      - textbox "Cari pengajuan" [ref=f12e69]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L" [ref=f12e71] [cursor=pointer]
+    - main [ref=f12e73]:
+      - region [ref=f12e74]:
+        - generic [ref=f12e76]:
+          - paragraph [ref=f12e77]: Pengajuan
+          - heading "Tugas Luar" [level=1] [ref=f12e78]
+          - paragraph [ref=f12e79]: Isi detail tugas luar untuk dikirim kepada atasan.
+        - generic [ref=f12e80]:
+          - generic [ref=f12e81]:
+            - generic [ref=f12e82]:
+              - text: Tanggal keluar
+              - generic [ref=f12e84]:
+                - textbox "Tanggal keluar" [ref=f12e88]:
+                  - /placeholder: YYYY-MM-DD
+                  - text: 2026-10-26
+                - button "Buka kalender" [ref=f12e89] [cursor=pointer]
+            - generic [ref=f12e92]:
+              - text: Jam keluar
+              - generic [ref=f12e94]:
+                - textbox "Jam keluar" [ref=f12e98]:
+                  - /placeholder: HH:MM
+                  - text: 09:31
+                - button "Buka pilihan jam" [ref=f12e99] [cursor=pointer]
+            - generic [ref=f12e102]:
+              - text: Tujuan
+              - textbox "Tujuan" [ref=f12e103]:
+                - /placeholder: "Contoh: Kunjungan kantor cabang"
+            - generic [ref=f12e104]:
+              - text: Tugas / keperluan
+              - textbox "Tugas / keperluan" [ref=f12e105]:
+                - /placeholder: Jelaskan tugas yang dilakukan
+            - generic [ref=f12e106]:
+              - text: Atasan
+              - button "Atasan" [ref=f12e108] [cursor=pointer]:
+                - generic [ref=f12e109]: Pilih atasan
+          - button "Kirim pengajuan" [ref=f12e112] [cursor=pointer]
+        - generic [ref=f12e113]:
+          - generic [ref=f12e114]:
+            - generic [ref=f12e115]:
+              - paragraph [ref=f12e116]: Riwayat
+              - heading "Pengajuan tugas luar" [level=2] [ref=f12e117]
+            - generic [ref=f12e118]: 17 data
+          - generic [ref=f12e119]:
+            - article [ref=f12e120]:
+              - generic [ref=f12e121]:
+                - strong [ref=f12e122]: PT NGETES
+                - generic [ref=f12e123]: T.0377.179256239198
+              - generic [ref=f12e124]:
+                - strong [ref=f12e125]: UNTUK TESTING DULU PAK
+                - generic [ref=f12e126]: 21 Okt 2026
+              - generic [ref=f12e127]: Menunggu
+            - article [ref=f12e128]:
+              - generic [ref=f12e129]:
+                - strong [ref=f12e130]: PT UNTUK TES
+                - generic [ref=f12e131]: T.0377.179256230626
+              - generic [ref=f12e132]:
+                - strong [ref=f12e133]: NGETES AJA SI PAK
+                - generic [ref=f12e134]: 21 Okt 2026
+              - generic [ref=f12e135]: Menunggu
+            - article [ref=f12e136]:
+              - generic [ref=f12e137]:
+                - strong [ref=f12e138]: PT Halo
+                - generic [ref=f12e139]: T.0377.179255782689
+              - generic [ref=f12e140]:
+                - strong [ref=f12e141]: ngetes
+                - generic [ref=f12e142]: 21 Okt 2026
+              - generic [ref=f12e143]: Menunggu
+            - article [ref=f12e144]:
+              - generic [ref=f12e145]:
+                - strong [ref=f12e146]: pt baru
+                - generic [ref=f12e147]: T.0377.179248468843
+              - generic [ref=f12e148]:
+                - strong [ref=f12e149]: ngetes
+                - generic [ref=f12e150]: 20 Okt 2026
+              - generic [ref=f12e151]: Menunggu
+            - article [ref=f12e152]:
+              - generic [ref=f12e153]:
+                - strong [ref=f12e154]: jauh
+                - generic [ref=f12e155]: T.0377.179098715665
+              - generic [ref=f12e156]:
+                - strong [ref=f12e157]: gabut
+                - generic [ref=f12e158]: 3 Okt 2026
+              - generic [ref=f12e159]: Menunggu
+            - article [ref=f12e160]:
+              - generic [ref=f12e161]:
+                - strong [ref=f12e162]: PT Baru
+                - generic [ref=f12e163]: T.0377.179022419333
+              - generic [ref=f12e164]:
+                - strong [ref=f12e165]: meeting
+                - generic [ref=f12e166]: 24 Sep 2026
+              - generic [ref=f12e167]: Disetujui
+            - article [ref=f12e168]:
+              - generic [ref=f12e169]:
+                - strong [ref=f12e170]: pt pt
+                - generic [ref=f12e171]: T.0377.179012951657
+              - generic [ref=f12e172]:
+                - strong [ref=f12e173]: gabuts
+                - generic [ref=f12e174]: 23 Sep 2026 - 23 Sep 2026
+              - generic [ref=f12e175]: Disetujui
+            - article [ref=f12e176]:
+              - generic [ref=f12e177]:
+                - strong [ref=f12e178]: pt hoho
+                - generic [ref=f12e179]: T.0377.178943921957
+              - generic [ref=f12e180]:
+                - strong [ref=f12e181]: tes
+                - generic [ref=f12e182]: 15 Sep 2026
+              - generic [ref=f12e183]: Ditolak
+            - article [ref=f12e184]:
+              - generic [ref=f12e185]:
+                - strong [ref=f12e186]: PT ABC
+                - generic [ref=f12e187]: T.0377.178910781466
+              - generic [ref=f12e188]:
+                - strong [ref=f12e189]: Meeting dengan Customer
+                - generic [ref=f12e190]: 11 Sep 2026
+              - generic [ref=f12e191]: Disetujui
+            - article [ref=f12e192]:
+              - generic [ref=f12e193]:
+                - strong [ref=f12e194]: PT BA
+                - generic [ref=f12e195]: T.0377.178902536357
+              - generic [ref=f12e196]:
+                - strong [ref=f12e197]: tes
+                - generic [ref=f12e198]: 10 Sep 2026 - 11 Sep 2026
+              - generic [ref=f12e199]: Disetujui
+            - article [ref=f12e200]:
+              - generic [ref=f12e201]:
+                - strong [ref=f12e202]: pt hu
+                - generic [ref=f12e203]: T.0377.178883892044
+              - generic [ref=f12e204]:
+                - strong [ref=f12e205]: gabut
+                - generic [ref=f12e206]: 8 Sep 2026 - 8 Sep 2026
+              - generic [ref=f12e207]: Disetujui
+            - article [ref=f12e208]:
+              - generic [ref=f12e209]:
+                - strong [ref=f12e210]: PT ByD
+                - generic [ref=f12e211]: T.0377.178883862933
+              - generic [ref=f12e212]:
+                - strong [ref=f12e213]: tes
+                - generic [ref=f12e214]: 8 Sep 2026 - 8 Sep 2026
+              - generic [ref=f12e215]: Disetujui
+            - article [ref=f12e216]:
+              - generic [ref=f12e217]:
+                - strong [ref=f12e218]: Pt pt
+                - generic [ref=f12e219]: T.0377.178883838459
+              - generic [ref=f12e220]:
+                - strong [ref=f12e221]: tes
+                - generic [ref=f12e222]: 8 Sep 2026 - 8 Sep 2026
+              - generic [ref=f12e223]: Disetujui
+            - article [ref=f12e224]:
+              - generic [ref=f12e225]:
+                - strong [ref=f12e226]: tes pt
+                - generic [ref=f12e227]: T.0377.178883822097
+              - generic [ref=f12e228]:
+                - strong [ref=f12e229]: ptpt
+                - generic [ref=f12e230]: 8 Sep 2026
+              - generic [ref=f12e231]: Ditolak
+            - article [ref=f12e232]:
+              - generic [ref=f12e233]:
+                - strong [ref=f12e234]: PT Braja
+                - generic [ref=f12e235]: T.0377.178883567026
+              - generic [ref=f12e236]:
+                - strong [ref=f12e237]: hehe
+                - generic [ref=f12e238]: 8 Sep 2026 - 8 Sep 2026
+              - generic [ref=f12e239]: Disetujui
+            - article [ref=f12e240]:
+              - generic [ref=f12e241]:
+                - strong [ref=f12e242]: PT BMC
+                - generic [ref=f12e243]: T.0377.178883539269
+              - generic [ref=f12e244]:
+                - strong [ref=f12e245]: test
+                - generic [ref=f12e246]: 8 Sep 2026
+              - generic [ref=f12e247]: Ditolak
+            - article [ref=f12e248]:
+              - generic [ref=f12e249]:
+                - strong [ref=f12e250]: PT Falah
+                - generic [ref=f12e251]: T.0377.178883502148
+              - generic [ref=f12e252]:
+                - strong [ref=f12e253]: tes
+                - generic [ref=f12e254]: 8 Sep 2026 - 8 Sep 2026
+              - generic [ref=f12e255]: Disetujui

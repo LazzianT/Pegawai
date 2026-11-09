@@ -1,5 +1,5 @@
 const { detectRole, submitTravel, getMyTravels, getTravelApprovals, getTravelQr, getQrToken, scanTravel, getTravelApprovalQueueByToken, approveTravelByQueueToken, getVehicleApprovals, getVehicleApproval, getVehicleApprovalQueueByToken, approveVehicle, approveVehicleByQueueToken, getActiveTravels, getWebApproverNIP, getTravelApprovalByToken, approveTravelByToken, approveTravel, returnTravel } = require('../models/travelModel');
-const { createGroup, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, searchGroupEmployees, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, approveGroup, approveGroupVehicle } = require('../models/travelGroupModel');
+const { createGroup, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, searchGroupEmployees, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, getGroupVehicleApprovalByToken, approveGroup, approveGroupVehicle } = require('../models/travelGroupModel');
 const { VEHICLE_MANAGER_NIPS } = require('../services/waService');
 const { verifyVehicleApprovalToken } = require('../services/vehicleApprovalToken');
 const { getTopLevel } = require('../models/cutiModel');
@@ -173,7 +173,7 @@ async function approveGroupVehicleHandler(req, res) {
   const action = String(req.body?.action || '').trim();
   if (!/^TL-[A-Z0-9]{6}$/.test(code) || !Number.isInteger(version) || version < 1) return res.status(400).json({ error: 'Group atau versi tidak valid' });
   if (!['approve', 'reject'].includes(action)) return res.status(400).json({ error: 'action harus approve atau reject' });
-  try { res.json(await approveGroupVehicle(code, version, String(req.user.id).trim(), action, req.body?.vehicleType, req.body?.vehiclePlate, req.body?.driverName)); } catch (err) { res.status(400).json({ error: err.message }); }
+  try { res.json(await approveGroupVehicle(code, version, String(req.user.id).trim(), action, req.body?.vehicleType, req.body?.vehiclePlate, req.body?.driverMode, req.body?.driverName)); } catch (err) { res.status(400).json({ error: err.message }); }
 }
 
 async function getAtasanHandler(req, res) {
@@ -268,6 +268,11 @@ async function getTravelQrHandler(req, res) {
   const token = String(req.params.token || '').trim();
   if (!/^[A-Za-z0-9._-]{1,100}$/.test(travelId) || !/^[a-f0-9]{48}$/i.test(token)) return res.status(400).json({ error: 'Link QR tidak valid' });
   try {
+    if (/^TL-[A-Z0-9]{6}$/.test(travelId)) {
+      const row = await getGroupQr(travelId, token);
+      if (!row) return res.status(404).json({ error: 'QR tidak ditemukan atau sudah tidak berlaku' });
+      return res.json({ data: { id: `G.${row.GroupCode}.${row.VersionNo}`, tujuan: String(row.Tujuan || '').trim(), tanggal: row.ExitDate, qrToken: row.QrToken, departureAt: row.DepartureAt } });
+    }
     const row = await getTravelQr(travelId, token);
     if (!row) return res.status(404).json({ error: 'QR tidak ditemukan atau sudah tidak berlaku' });
     let approval = null;
@@ -311,7 +316,7 @@ async function getTravelApprovalQueueLinkHandler(req, res) {
     const rows = await getTravelApprovalQueueByToken(token);
     if (!rows) return res.status(404).json({ error: 'Link approval tidak valid atau sudah kedaluwarsa' });
     const groupRows = await getGroupApprovalQueue(verified.nip);
-    res.json({ data: [...rows.map((row) => ({ id: row.Id, nip: row.NIP, nama: String(row.PemohonName || row.NIP).trim(), tujuan: String(row.Tujuan || '').trim(), alasan: String(row.Keperluan || '').trim(), tanggalMulai: row.StartDate, tanggalSelesai: row.EndDate, statusId: row.StatusId, processedAt: row.UpdDate, processedBy: String(row.ApproverName || row.ApproverNIP || '').trim() })), ...groupRows.map((row) => ({ id: row.id, nip: row.nip, nama: row.nama, tujuan: String(row.tujuan || '').trim(), alasan: String(row.alasan || '').trim(), tanggalMulai: row.tanggalMulai, tanggalSelesai: null, statusId: row.statusId, processedAt: null, processedBy: '', groupCode: row.groupCode, groupVersion: row.groupVersion, members: row.members || [] }))] });
+    res.json({ data: [...rows.map((row) => ({ id: row.Id, nip: row.NIP, nama: String(row.PemohonName || row.NIP).trim(), tujuan: String(row.Tujuan || '').trim(), alasan: String(row.Keperluan || '').trim(), tanggalMulai: row.StartDate, tanggalSelesai: row.EndDate, jamMulai: toTime(row.StartTime), statusId: row.StatusId, processedAt: row.UpdDate, processedBy: String(row.ApproverName || row.ApproverNIP || '').trim(), createdAt: row.InpDate })), ...groupRows.map((row) => ({ id: row.id, nip: row.nip, nama: row.nama, tujuan: String(row.tujuan || '').trim(), alasan: String(row.alasan || '').trim(), tanggalMulai: row.tanggalMulai, tanggalSelesai: null, jamMulai: row.jamMulai, statusId: row.statusId, processedAt: null, processedBy: '', createdAt: row.createdAt, groupCode: row.groupCode, groupVersion: row.groupVersion, members: row.members || [] }))].sort((left, right) => new Date(right.createdAt || 0) - new Date(left.createdAt || 0)) });
   } catch (err) { res.status(500).json({ error: err.message }); }
 }
 
@@ -400,19 +405,20 @@ async function getVehicleApprovalQueueLinkHandler(req, res) {
 
 async function approveVehicleApprovalQueueLinkHandler(req, res) {
   const token = String(req.params.token || '').trim();
-  const { action, vehicleType, vehiclePlate, driverName, travelId } = req.body || {};
+  const { action, vehicleType, vehiclePlate, driverMode, driverName, travelId } = req.body || {};
   if (!['approve', 'reject'].includes(action)) return res.status(400).json({ error: 'action harus approve atau reject' });
   if (!/^[A-Za-z0-9._-]{1,100}$/.test(String(travelId || '').trim())) return res.status(400).json({ error: 'travelId tidak valid' });
   const verified = verifyVehicleApprovalToken(token);
   if (!verified || verified.level !== 3 || !VEHICLE_MANAGER_NIPS.includes(verified.nip)) return res.status(404).json({ error: 'Link approval tidak valid atau sudah kedaluwarsa' });
   const type = String(vehicleType || '').trim().toUpperCase();
   const plate = String(vehiclePlate || '').trim().toUpperCase();
+  const mode = String(driverMode || '').trim().toUpperCase();
   const driver = String(driverName || '').trim();
   if (driver.length > 200) return res.status(400).json({ error: 'Nama supir maksimal 200 karakter' });
   if (action === 'approve' && !['PRIVATE', 'ONLINE', 'OFFICE', 'MOTOR'].includes(type)) return res.status(400).json({ error: 'Jenis kendaraan wajib dipilih' });
   if (action === 'approve' && ['OFFICE', 'MOTOR'].includes(type) && !plate) return res.status(400).json({ error: 'Nomor plat kendaraan wajib diisi' });
   try {
-    const result = await approveVehicleByQueueToken(String(travelId).trim(), token, verified.nip, type, plate, action, driver);
+    const result = await approveVehicleByQueueToken(String(travelId).trim(), token, verified.nip, type, plate, action, driverMode, driver);
     if (!result.success) return res.status(404).json({ error: 'Approval tidak ditemukan atau sudah diproses' });
     res.json({ success: true, qrToken: result.qrToken || null });
   } catch (err) { res.status(500).json({ error: err.message }); }
@@ -423,6 +429,12 @@ async function getVehicleApprovalLinkHandler(req, res) {
   const verified = verifyVehicleApprovalToken(token);
   if (!verified || !VEHICLE_MANAGER_NIPS.includes(verified.nip)) return res.status(404).json({ error: 'Link approval tidak valid atau sudah kedaluwarsa' });
   try {
+    if (verified.travelId.startsWith('G.TL-')) {
+      const match = verified.travelId.match(/^G\.(TL-[A-Z0-9]{6})\.(\d+)$/);
+      const row = match && await getGroupVehicleApprovalByToken(match[1], Number(match[2]));
+      if (!row) return res.status(404).json({ error: 'Pengajuan kendaraan tidak ditemukan' });
+      return res.json({ data: { ...row, id: row.groupCode, statusId: row.approvalStatus === 'approved' ? 3 : row.approvalStatus === 'rejected' ? 4 : 1 } });
+    }
     const row = await getVehicleApproval(verified.travelId, token);
     if (!row) return res.status(404).json({ error: 'Pengajuan kendaraan tidak ditemukan' });
     res.json({ data: { id: row.Id, nama: String(row.PemohonName || row.NIP).trim(), tujuan: String(row.Tujuan || '').trim(), alasan: String(row.Keperluan || '').trim(), tanggalMulai: row.StartDate, tanggalSelesai: row.EndDate, jamMulai: toTime(row.StartTime), vehicleType: row.VehicleType, vehiclePlate: row.VehiclePlate, driverMode: row.DriverMode, driverNIP: row.DriverNIP, driverName: row.DriverName, statusId: row.managerStatusId, processedByNIP: row.processedByNIP, processedAt: row.processedAt } });
@@ -432,17 +444,26 @@ async function getVehicleApprovalLinkHandler(req, res) {
 async function approveVehicleApprovalLinkHandler(req, res) {
   const token = String(req.params.token || '').trim();
   const verified = verifyVehicleApprovalToken(token);
-  const { action, vehicleType, vehiclePlate, driverName } = req.body || {};
+  const { action, vehicleType, vehiclePlate, driverMode, driverName } = req.body || {};
   if (!verified || !VEHICLE_MANAGER_NIPS.includes(verified.nip)) return res.status(404).json({ error: 'Link approval tidak valid atau sudah kedaluwarsa' });
   if (!['approve', 'reject'].includes(action)) return res.status(400).json({ error: 'action harus approve atau reject' });
   const type = String(vehicleType || '').trim().toUpperCase();
   const plate = String(vehiclePlate || '').trim().toUpperCase();
+  const mode = String(driverMode || '').trim().toUpperCase();
   const driver = String(driverName || '').trim();
+  const isGroup = /^G\.(TL-[A-Z0-9]{6})\.\d+$/.test(verified.travelId);
+  if (isGroup && action === 'approve' && ['OFFICE', 'MOTOR'].includes(type) && !['SELF', 'DRIVER'].includes(mode)) return res.status(400).json({ error: 'Cara berkendara wajib dipilih' });
+  if (isGroup && action === 'approve' && mode === 'DRIVER' && !driver) return res.status(400).json({ error: 'Nama supir wajib diisi' });
   if (driver.length > 200) return res.status(400).json({ error: 'Nama supir maksimal 200 karakter' });
   if (action === 'approve' && !['PRIVATE', 'ONLINE', 'OFFICE', 'MOTOR'].includes(type)) return res.status(400).json({ error: 'Jenis kendaraan wajib dipilih' });
   if (action === 'approve' && ['OFFICE', 'MOTOR'].includes(type) && !plate) return res.status(400).json({ error: 'Nomor plat kendaraan wajib diisi' });
   try {
-    const result = await approveVehicle(verified.travelId, token, verified.nip, type, plate, action, driver);
+    const groupMatch = verified.travelId.match(/^G\.(TL-[A-Z0-9]{6})\.(\d+)$/);
+    if (groupMatch) {
+      const result = await approveGroupVehicle(groupMatch[1], Number(groupMatch[2]), verified.nip, action, type, plate, mode, driver);
+      return res.json({ success: true, qrToken: result.qrToken || null });
+    }
+    const result = await approveVehicle(verified.travelId, token, verified.nip, type, plate, action, mode, driver);
     if (!result.success) return res.status(404).json({ error: 'Approval tidak ditemukan atau sudah diproses' });
     res.json({ success: true, qrToken: result.qrToken || null });
   } catch (err) { res.status(500).json({ error: err.message }); }
@@ -483,10 +504,11 @@ async function getApprovalHandler(req, res) {
       status: String(r.status || '').trim().toLowerCase(),
       updates: r.updates,
       currentLevel: 1,
+      createdAt: r.createdAt,
       groupCode: r.groupCode,
       groupVersion: r.groupVersion,
       members: r.members,
-    }))];
+    }))].sort((left, right) => new Date(right.createdAt || right.tanggalMulai || 0) - new Date(left.createdAt || left.tanggalMulai || 0));
     res.json({ data: approvals });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -494,11 +516,12 @@ async function getApprovalHandler(req, res) {
 }
 
 async function approveTravelHandler(req, res) {
-  const { id, action, vehicleType, vehiclePlate, driverName } = req.body || {};
+  const { id, action, vehicleType, vehiclePlate, driverMode, driverName } = req.body || {};
   const approvalId = String(id || '').trim();
   const approvalGroupMatch = approvalId.match(/^G\.(TL-[A-Z0-9]{6})\.(\d+)$/);
   const normalizedVehicleType = String(vehicleType || '').trim().toUpperCase();
   const normalizedVehiclePlate = ['OFFICE', 'MOTOR'].includes(normalizedVehicleType) ? String(vehiclePlate || '').trim().toUpperCase() : '';
+  const normalizedDriverMode = String(driverMode || '').trim().toUpperCase();
   const normalizedDriverName = String(driverName || '').trim();
   if (normalizedDriverName.length > 200) return res.status(400).json({ error: 'Nama supir maksimal 200 karakter' });
   if (!approvalId || !action) {
@@ -513,7 +536,9 @@ async function approveTravelHandler(req, res) {
       if (role === 'GS') {
         if (action === 'approve' && !['PRIVATE', 'ONLINE', 'OFFICE', 'MOTOR'].includes(normalizedVehicleType)) return res.status(400).json({ error: 'Jenis kendaraan wajib dipilih' });
         if (action === 'approve' && ['OFFICE', 'MOTOR'].includes(normalizedVehicleType) && !normalizedVehiclePlate) return res.status(400).json({ error: 'Nomor plat wajib diisi untuk kendaraan yang dipilih' });
-        const result = await approveGroupVehicle(approvalGroupMatch[1], Number(approvalGroupMatch[2]), String(req.user.id).trim(), action, normalizedVehicleType, normalizedVehiclePlate, normalizedDriverName);
+        if (action === 'approve' && ['OFFICE', 'MOTOR'].includes(normalizedVehicleType) && !['SELF', 'DRIVER'].includes(normalizedDriverMode)) return res.status(400).json({ error: 'Cara berkendara wajib dipilih' });
+        if (action === 'approve' && normalizedDriverMode === 'DRIVER' && !normalizedDriverName) return res.status(400).json({ error: 'Nama supir wajib diisi' });
+        const result = await approveGroupVehicle(approvalGroupMatch[1], Number(approvalGroupMatch[2]), String(req.user.id).trim(), action, normalizedVehicleType, normalizedVehiclePlate, normalizedDriverMode, normalizedDriverName);
         if (!result.success) return res.status(404).json({ error: 'Approval kendaraan group tidak ditemukan atau sudah diproses' });
         return res.json({ success: true });
       }
@@ -530,7 +555,7 @@ async function approveTravelHandler(req, res) {
         return res.status(400).json({ error: 'Nomor plat wajib diisi untuk kendaraan yang dipilih' });
       }
     }
-    const result = await approveTravel(approvalId, req.user.id, level, action, role, { vehicleType: normalizedVehicleType, vehiclePlate: normalizedVehiclePlate, driverName: normalizedDriverName });
+    const result = await approveTravel(approvalId, req.user.id, level, action, role, { vehicleType: normalizedVehicleType, vehiclePlate: normalizedVehiclePlate, driverMode: normalizedDriverMode, driverName: normalizedDriverName });
     if (!result.success) {
       return res.status(404).json({ error: 'Approval tidak ditemukan atau sudah diproses' });
     }

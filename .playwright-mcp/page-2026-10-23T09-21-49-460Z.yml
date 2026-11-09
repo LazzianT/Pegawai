@@ -1,0 +1,47 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - link "BMC Online beranda" [ref=e6] [cursor=pointer]:
+      - /url: "#top"
+      - text: BMC Online
+    - navigation "Navigasi utama" [ref=e7]:
+      - link "Project" [ref=e8] [cursor=pointer]:
+        - /url: "#project"
+      - link "About" [ref=e9] [cursor=pointer]:
+        - /url: "#about"
+      - link "Contact" [ref=e10] [cursor=pointer]:
+        - /url: "#contact"
+    - button "Mulai Sekarang" [ref=e11] [cursor=pointer]
+  - main [ref=e12]:
+    - region [ref=e13]:
+      - paragraph [ref=e14]: Lebih mudah, lebih teratur
+      - heading [level=1] [ref=e15]:
+        - text: Kelola pengajuan HC
+        - strong [ref=e16]: dalam Satu Tempat.
+      - paragraph [ref=e17]: Ajukan, pantau, dan kelola semua permohonan kapan saja, di mana saja. Proses lebih cepat, transparan, dan mudah dipantau.
+      - generic [ref=e18]:
+        - generic [ref=e19]: Pengajuan mudah
+        - generic [ref=e24]: Status transparan
+        - generic [ref=e29]: Notifikasi tepat waktu
+    - region [ref=e33]:
+      - generic [ref=e34]:
+        - heading "Selamat Datang" [level=2] [ref=e35]
+        - paragraph [ref=e36]: Masuk untuk mengelola pengajuan cuti, izin, dan tugas luar Anda.
+        - generic [ref=e37]:
+          - generic [ref=e38]: NIP
+          - textbox "NIP" [ref=e41]:
+            - /placeholder: Masukkan NIP Anda
+        - generic [ref=e42]:
+          - generic [ref=e43]: Password
+          - generic [ref=e44]:
+            - textbox "Password" [ref=e46]:
+              - /placeholder: Tanggal Lahir Anda (ddmmyy)
+            - button "Tampilkan password" [ref=e47] [cursor=pointer]: Tampilkan
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - checkbox "Ingat saya" [ref=e50]
+            - text: Ingat saya
+          - generic [ref=e51]: Lupa password?
+        - button "Masuk →" [ref=e52] [cursor=pointer]
+        - paragraph [ref=e53]:
+          - text: Belum punya akun?
+          - strong [ref=e54]: Hubungi Admin

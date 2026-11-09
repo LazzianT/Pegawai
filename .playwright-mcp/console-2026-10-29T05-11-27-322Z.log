@@ -1,0 +1,6 @@
+[    3313ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5175/node_modules/.vite/deps/chunk-HCIN4FJ4.js?v=82c0a6ce:21606
+[    3387ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5175/favicon.ico:0
+[    3444ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:5175/:0
+[    8877ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5175/api/user/login:0
+[ 1496464ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://employee-portal.bmc.co.id/:0
+[ 2824780ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ https://employee-portal.bmc.co.id/api/travel/submit:0

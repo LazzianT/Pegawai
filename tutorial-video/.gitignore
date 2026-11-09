@@ -1,0 +1,10 @@
+.env
+.auth
+storage-state.json
+assets/
+out/
+content/manifest.json
+content/narration/*.txt
+content/narration/*.wav
+subtitles/*.srt
+subtitles/*.vtt

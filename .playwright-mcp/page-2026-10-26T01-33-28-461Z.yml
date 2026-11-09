@@ -1,0 +1,129 @@
+- generic [ref=f1e55]:
+  - complementary [ref=f1e56]:
+    - link "BMC Online HC Management" [ref=f1e57] [cursor=pointer]:
+      - /url: /dashboard
+      - generic [ref=f1e58]:
+        - text: BMC Online
+        - generic [ref=f1e59]: HC Management
+    - generic [ref=f1e60]: Menu utama
+    - navigation "Menu utama" [ref=f1e61]:
+      - link [ref=f1e62] [cursor=pointer]:
+        - /url: /dashboard
+      - link [ref=f1e69] [cursor=pointer]:
+        - /url: /cuti
+      - link [active] [ref=f1e74] [cursor=pointer]:
+        - /url: /izin
+      - link [ref=f1e79] [cursor=pointer]:
+        - /url: /cuti-besar
+      - link [ref=f1e84] [cursor=pointer]:
+        - /url: /tugas-luar
+      - generic [ref=f1e94]:
+        - text: Perjalanan Dinas
+        - generic [ref=f1e95]: Coming soon
+      - link [ref=f1e96] [cursor=pointer]:
+        - /url: /profile
+    - generic [ref=f1e101]:
+      - strong [ref=f1e102]: Butuh bantuan?
+      - text: Hubungi admin HC untuk bantuan pengajuan.
+    - generic [ref=f1e103]:
+      - generic [ref=f1e104]: L
+      - generic [ref=f1e105]:
+        - strong [ref=f1e106]: LAZZIAN AL FALAH
+        - generic [ref=f1e107]: Programmer
+      - button "Keluar" [ref=f1e108] [cursor=pointer]
+  - generic [ref=f1e111]:
+    - banner [ref=f1e112]:
+      - textbox "Cari pengajuan" [ref=f1e118]:
+        - /placeholder: Cari pengajuan, status, atau dokumen...
+      - button "L LAZZIAN AL FALAH ⌄" [ref=f1e120] [cursor=pointer]:
+        - generic [ref=f1e121]: L
+        - generic [ref=f1e122]: LAZZIAN AL FALAH
+        - generic [ref=f1e123]: ⌄
+    - main [ref=f1e539]:
+      - region [ref=f1e540]:
+        - generic [ref=f1e541]:
+          - paragraph [ref=f1e542]: Pengajuan
+          - heading "Izin" [level=1] [ref=f1e543]
+          - paragraph [ref=f1e544]: Isi detail izin untuk dikirim kepada atasan.
+        - generic [ref=f1e545]:
+          - generic [ref=f1e546]:
+            - generic [ref=f1e547]:
+              - text: Keperluan
+              - button "Keperluan" [ref=f1e549] [cursor=pointer]:
+                - generic [ref=f1e550]: Pilih keperluan
+                - generic [ref=f1e551]: ⌄
+            - generic [ref=f1e552]:
+              - text: Tanggal mulai
+              - generic [ref=f1e554]:
+                - textbox "Tanggal keluar" [ref=f1e558]:
+                  - /placeholder: YYYY-MM-DD
+                  - text: 2026-10-26
+                - button "Buka kalender" [ref=f1e559] [cursor=pointer]
+            - generic [ref=f1e562]:
+              - text: Tanggal selesai
+              - generic [ref=f1e564]:
+                - textbox "Tanggal keluar" [ref=f1e568]:
+                  - /placeholder: YYYY-MM-DD
+                  - text: 2026-10-26
+                - button "Buka kalender" [ref=f1e569] [cursor=pointer]
+            - generic [ref=f1e572]:
+              - text: Jam mulai
+              - generic [ref=f1e574]:
+                - textbox "Jam keluar" [ref=f1e578]:
+                  - /placeholder: HH:MM
+                - button "Buka pilihan jam" [ref=f1e579] [cursor=pointer]
+            - generic [ref=f1e582]:
+              - text: Jam selesai
+              - generic [ref=f1e584]:
+                - textbox "Jam keluar" [ref=f1e588]:
+                  - /placeholder: HH:MM
+                - button "Buka pilihan jam" [ref=f1e589] [cursor=pointer]
+            - generic [ref=f1e592]:
+              - text: Keterangan
+              - textbox "Keterangan" [ref=f1e593]:
+                - /placeholder: Jelaskan keperluan izin
+            - generic [ref=f1e594]:
+              - text: Atasan
+              - button "Atasan" [ref=f1e596] [cursor=pointer]:
+                - generic [ref=f1e597]: Pilih atasan
+                - generic [ref=f1e598]: ⌄
+          - button "Kirim pengajuan" [ref=f1e599] [cursor=pointer]
+        - generic [ref=f1e600]:
+          - generic [ref=f1e601]:
+            - generic [ref=f1e602]:
+              - paragraph [ref=f1e603]: Riwayat
+              - heading "Pengajuan izin" [level=2] [ref=f1e604]
+            - generic [ref=f1e605]: 4 data
+          - generic [ref=f1e606]:
+            - article [ref=f1e607]:
+              - generic [ref=f1e608]:
+                - strong [ref=f1e609]: Sakit
+                - generic [ref=f1e610]: IZ.0377.179098709998
+              - generic [ref=f1e611]:
+                - strong [ref=f1e612]: Keterangan tidak dicantumkan
+                - generic [ref=f1e613]: 3 Okt 2026
+              - generic [ref=f1e614]: Menunggu
+            - article [ref=f1e615]:
+              - generic [ref=f1e616]:
+                - strong [ref=f1e617]: Sakit
+                - generic [ref=f1e618]: IZ.0377.178910765791
+              - generic [ref=f1e619]:
+                - strong [ref=f1e620]: sakit berobat
+                - generic [ref=f1e621]: 11 Sep 2026
+              - generic [ref=f1e622]: Menunggu
+            - article [ref=f1e623]:
+              - generic [ref=f1e624]:
+                - strong [ref=f1e625]: Sakit
+                - generic [ref=f1e626]: IZ.0377.178883910126
+              - generic [ref=f1e627]:
+                - strong [ref=f1e628]: Demam tes
+                - generic [ref=f1e629]: 8 Sep 2026
+              - generic [ref=f1e630]: Menunggu
+            - article [ref=f1e631]:
+              - generic [ref=f1e632]:
+                - strong [ref=f1e633]: Keperluan Pribadi
+                - generic [ref=f1e634]: IZ.0377.1776618000
+              - generic [ref=f1e635]:
+                - strong [ref=f1e636]: test whatsapp gateway baru
+                - generic [ref=f1e637]: 20 Apr 2026
+              - generic [ref=f1e638]: Menunggu

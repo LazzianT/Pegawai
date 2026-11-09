@@ -1,10 +1,11 @@
-# BMC Online Frontend
+# Pegawai
 
-Frontend React + Vite untuk BMC Online. Repository backend tetap terpisah di `bmc-app-backend`.
+Aplikasi BMC Online. Frontend React + Vite berada di `frontend/`; backend Express berada di `backend/`.
 
 ## Jalankan
 
 ```bash
+cd frontend
 npm install
 copy .env.example .env
 npm run dev
@@ -20,18 +21,22 @@ Portainer Stack:
 
 1. Repository: `https://github.com/LazzianT/Pegawai.git`
 2. Compose path: `docker-compose.yml`
-3. Environment variable: `VITE_API_BASE_URL=https://API_HOST/api` dan opsional `FRONTEND_PORT=3013`
+3. Environment variable frontend: `FRONTEND_PORT=3013`
+4. Environment variable backend wajib di Portainer: `DB_SERVER`, `DB_DATABASE`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`; isi variable backend lain sesuai kebutuhan. Untuk sementara arahkan WhatsApp Tugas Luar ke QA dengan `WA_TRAVEL_QA_PHONE=081977785748`.
+5. Jangan commit `backend/.env`; gunakan environment Portainer
 4. Aktifkan GitOps update atau gunakan `Pull and redeploy`.
 
-Frontend memakai `/api` same-origin. Nginx meneruskan `/api/*` ke backend `10.19.25.23:47213`; browser tidak perlu mengakses backend langsung, sehingga CORS tidak menjadi hambatan. Jika alamat backend berubah, ubah `nginx.conf`, lalu rebuild dan redeploy image.
+Frontend memakai `/api` same-origin. Nginx meneruskan `/api/*` ke service Compose `backend:47213`. Browser tidak perlu mengakses backend langsung, sehingga CORS tidak menjadi hambatan. Secret backend diisi lewat environment Portainer, bukan Git.
 
 ## Pemeriksaan
 
 ```bash
+cd frontend
 npm run check
 npm run build
 npm run build:pdf
 npm run check:pdf
+cd ..
 docker compose config
 ```
 
