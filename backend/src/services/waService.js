@@ -2,18 +2,13 @@ const { getConnection, sql } = require('../config/db');
 
 const WA_API_URL = String(process.env.WA_API_URL || '').trim();
 
-const TEST_PHONE = process.env.WA_TEST_PHONE;
 const VEHICLE_MANAGER_NIPS = [...new Set(String(process.env.WA_VEHICLE_MANAGER_NIPS || '').split(',').map((value) => value.trim()).filter(Boolean))];
 const EMPLOYEE_PORTAL_URL = String(process.env.EMPLOYEE_PORTAL_URL || '').trim().replace(/\/$/, '');
 const SECURITY_QR_BASE_URL = String(process.env.SECURITY_QR_BASE_URL || '').trim().replace(/\/$/, '');
 const VEHICLE_LABELS = { PRIVATE: 'Lain Lain', ONLINE: 'PesanOnline', OFFICE: 'Mobil Operasional', MOTOR: 'Motor Operasional' };
 
 function travelRecipient(NIP, fallback) {
-  const qaPhone = process.env.NODE_ENV === 'production' ? '' : String(process.env.WA_TRAVEL_QA_PHONE || '').trim();
-  if (qaPhone) return qaPhone;
-  const testNIP = process.env.NODE_ENV === 'production' ? '' : String(process.env.WA_TRAVEL_TEST_NIP || '').trim();
-  const testPhone = process.env.NODE_ENV === 'production' ? '' : String(process.env.WA_TRAVEL_TEST_PHONE || '').trim();
-  return testNIP && testPhone && String(NIP).trim() === testNIP ? testPhone : fallback;
+  return String(fallback || '').trim();
 }
 
 function formatTravelApprovalMessage({ approverName, members, tujuan, keperluan, vehicle, startDate, startTime, driver, approvalLink }) {
@@ -72,7 +67,7 @@ function normalizePhone(phone) {
 }
 
 async function sendWa({ no, text }) {
-  const num = normalizePhone(TEST_PHONE || no);
+  const num = normalizePhone(no);
   if (!num || !text) return;
   try {
     const res = await fetch(WA_API_URL, {

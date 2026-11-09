@@ -1,15 +1,12 @@
 import assert from 'node:assert/strict'
 
-process.env.WA_TRAVEL_TEST_NIP = '0377'
-process.env.WA_TRAVEL_TEST_PHONE = '081200000001'
-process.env.WA_TRAVEL_QA_PHONE = '081200000002'
 const { travelRecipient, sendTravelWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, needsVehicleManagerApproval, mapVehicleManagerRecipients } = await import('./waService.js')
 
 assert.equal(needsVehicleManagerApproval('ONLINE'), true)
 assert.equal(needsVehicleManagerApproval('OFFICE'), true)
 assert.equal(needsVehicleManagerApproval('PRIVATE'), true)
-assert.equal(travelRecipient('0377', '089999999999'), '081200000002')
-assert.equal(travelRecipient('0388', '089999999999'), '081200000002')
+assert.equal(travelRecipient('0377', '089999999999'), '089999999999')
+assert.equal(travelRecipient('0388', '089999999999'), '089999999999')
 assert.equal(typeof sendTravelWaToNIP, 'function')
 assert.deepEqual(mapVehicleManagerRecipients([
   { NIP: ' 1001 ', Name: ' Budi ', Phone: ' 0812 ' },
