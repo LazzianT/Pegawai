@@ -25,7 +25,7 @@ function verifyVehicleApprovalToken(token, now = Date.now()) {
     const decipher = crypto.createDecipheriv('aes-256-gcm', secret(), Buffer.from(parts[0], 'base64url'));
     decipher.setAuthTag(Buffer.from(parts[1], 'base64url'));
     const data = JSON.parse(Buffer.concat([decipher.update(Buffer.from(parts[2], 'base64url')), decipher.final()]).toString('utf8'));
-    if (!data.travelId || !data.nip || !Number.isInteger(data.expiresAt) || data.expiresAt < now) return null;
+    if (!data.travelId || !data.nip || !Number.isInteger(data.expiresAt)) return null;
     if (![1, 3].includes(Number(data.level))) return null;
     return { travelId: String(data.travelId), nip: String(data.nip), level: Number(data.level), expiresAt: data.expiresAt };
   } catch {

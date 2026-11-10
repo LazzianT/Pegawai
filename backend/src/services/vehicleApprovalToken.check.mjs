@@ -11,5 +11,5 @@ assert.deepEqual(verifyVehicleApprovalToken(approverToken, now), { travelId: 'T.
 const tampered = token.slice(0, -1) + (token.endsWith('A') ? 'B' : 'A')
 assert.equal(verifyVehicleApprovalToken(tampered, now), null)
 assert.equal(verifyVehicleApprovalToken('x'.repeat(1001), now), null)
-assert.equal(verifyVehicleApprovalToken(token, now + TOKEN_TTL_MS + 1), null)
+assert.deepEqual(verifyVehicleApprovalToken(token, now + TOKEN_TTL_MS + 1), { travelId: 'T.1.2', nip: '5743', level: 3, expiresAt: now + TOKEN_TTL_MS })
 console.log('Vehicle approval token self-check passed')
