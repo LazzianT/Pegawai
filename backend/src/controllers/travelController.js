@@ -1,5 +1,5 @@
 const { detectRole, submitTravel, getMyTravels, getTravelApprovals, getTravelQr, getQrToken, scanTravel, getTravelApprovalQueueByToken, approveTravelByQueueToken, getVehicleApprovals, getVehicleApproval, getVehicleApprovalQueueByToken, approveVehicle, approveVehicleByQueueToken, getActiveTravels, getWebApproverNIP, getTravelApprovalByToken, approveTravelByToken, approveTravel, sendTravelReminder, returnTravel } = require('../models/travelModel');
-const { createGroup, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, searchGroupEmployees, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, getGroupVehicleApprovalByToken, approveGroup, approveGroupVehicle } = require('../models/travelGroupModel');
+const { createGroup, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, searchGroupEmployees, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, getGroupVehicleApprovalByToken, sendGroupTravelReminder, approveGroup, approveGroupVehicle } = require('../models/travelGroupModel');
 const { VEHICLE_MANAGER_NIPS } = require('../services/waService');
 const { verifyVehicleApprovalToken } = require('../services/vehicleApprovalToken');
 const { getTopLevel } = require('../models/cutiModel');
@@ -239,7 +239,9 @@ async function reminderTravelHandler(req, res) {
   const travelId = String(req.body?.id || '').trim();
   if (!/^[A-Za-z0-9._-]{1,100}$/.test(travelId)) return res.status(400).json({ error: 'ID tugas luar tidak valid' });
   try {
-    const result = await sendTravelReminder(travelId, String(req.user.id).trim());
+    const result = /^G\./.test(travelId)
+      ? await sendGroupTravelReminder(travelId, String(req.user.id).trim())
+      : await sendTravelReminder(travelId, String(req.user.id).trim());
     if (result.status === 'not_found') return res.status(404).json({ error: 'Pengajuan tugas luar tidak ditemukan' });
     if (result.status === 'not_ready') return res.status(409).json({ error: 'Pengajuan sudah diproses atau belum siap diingatkan' });
     if (result.status === 'send_failed') return res.status(502).json({ error: 'WhatsApp gagal dikirim' });
