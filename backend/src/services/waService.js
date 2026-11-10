@@ -111,11 +111,12 @@ async function sendTravelWaToNIP(NIP, text) {
       .input('NIP', sql.VarChar, NIP)
       .query(`SELECT Name, Phone FROM BMC.dbo.hris_Employee WHERE NIP = @NIP`);
     const emp = result.recordset[0];
-    if (!emp || !emp.Phone) return;
+    if (!emp || !emp.Phone) return false;
     const name = String(emp.Name || NIP).trim();
-    await sendWa({ no: travelRecipient(NIP, emp.Phone), text: text.replace('*{Name}*', `*${name}*`).replace('{Name}', `*${name}*`) });
+    return sendWa({ no: travelRecipient(NIP, emp.Phone), text: text.replace('*{Name}*', `*${name}*`).replace('{Name}', `*${name}*`) });
   } catch (e) {
     console.error('[WA] sendTravelWaToNIP error:', e.message);
+    return false;
   }
 }
 

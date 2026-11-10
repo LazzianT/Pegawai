@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { groupApprovalTransition, groupApproverNips, groupStatusAfterApproval, groupVehicleTransition, validateGroupMembers, autoCloseTravelGroups } from './travelGroupModel.js'
+import { groupApprovalTransition, groupApproverNips, groupStatusAfterApproval, groupVehicleTransition, validateGroupMembers, autoCloseTravelGroups, canSendGroupTravelReminder } from './travelGroupModel.js'
 import { formatTravelApprovalMessage, formatTravelApprovedMessage } from '../services/waService.js'
 
 assert.deepEqual(groupApproverNips([
@@ -20,6 +20,10 @@ const source = readFileSync(new URL('./travelGroupModel.js', import.meta.url), '
 assert.match(source, /QrToken/)
 assert.match(source, /DepartureAt/)
 assert.equal(typeof autoCloseTravelGroups, 'function')
+assert.equal(canSendGroupTravelReminder({ groupStatus: 'PENDING', versionStatus: 'PENDING', isMember: true, approverCount: 1 }), true)
+assert.equal(canSendGroupTravelReminder({ groupStatus: 'APPROVED', versionStatus: 'APPROVED', isMember: true, approverCount: 1 }), false)
+assert.equal(canSendGroupTravelReminder({ groupStatus: 'PENDING', versionStatus: 'PENDING', isMember: false, approverCount: 1 }), false)
+assert.equal(canSendGroupTravelReminder({ groupStatus: 'PENDING', versionStatus: 'PENDING', isMember: true, approverCount: 0 }), false)
 assert.match(source, /Status = 'AUTO_CLOSED'/)
 assert.doesNotMatch(source, /SecurityTravelCheckpoints/)
 assert.match(source, /input\('CreatedBy'/)
@@ -38,6 +42,7 @@ assert.match(source, /createVehicleApprovalToken\(`G\.\$\{code\}\.\$\{version\}`
 assert.match(source, /DriverMode = CASE WHEN @Status = 'APPROVED'/)
 assert.match(source, /DriverName = CASE WHEN @Status = 'APPROVED'/)
 assert.match(source, /sendWaToNIP\(/)
+assert.match(source, /async function sendGroupTravelReminder\(/)
 assert.match(source, /g\.CreatorNIP/)
 assert.match(source, /FROM hris_Travel_Group_Approval a INNER JOIN hris_Travel_Group g/)
 assert.match(source, /INNER JOIN hris_Travel_Group g ON g\.GroupCode = a\.GroupCode\r?\n    INNER JOIN hris_Travel_Group_Version v/)

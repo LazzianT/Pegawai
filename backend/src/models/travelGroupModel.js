@@ -32,6 +32,13 @@ function groupVehicleTransition(action) {
   return action === 'approve' ? { groupStatus: 'APPROVED', qr: true } : { groupStatus: 'REVISION', qr: false }
 }
 
+function canSendGroupTravelReminder({ groupStatus, versionStatus, isMember, approverCount }) {
+  return String(groupStatus || '').trim().toUpperCase() === 'PENDING'
+    && String(versionStatus || '').trim().toUpperCase() === 'PENDING'
+    && Boolean(isMember)
+    && Number(approverCount) > 0
+}
+
 function groupCode() {
   return `TL-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
 }
@@ -253,6 +260,46 @@ async function getGroupApprovalQueue(approverNIP) {
     groups.set(key, item);
   }
   return [...groups.values()];
+}
+
+async function sendGroupTravelReminder(groupId, actorNIP) {
+  const match = String(groupId || '').trim().match(/^G\.(TL-[A-Z0-9]{6})\.(\d+)$/)
+  if (!match) return { status: 'not_found' }
+  const code = match[1]
+  const version = Number(match[2])
+  const conn = await getConnection()
+  const result = await conn.request()
+    .input('Code', sql.VarChar, code)
+    .input('VersionNo', sql.Int, version)
+    .input('ActorNIP', sql.VarChar, actorNIP)
+    .query(`
+      SELECT v.Status AS VersionStatus, g.Status AS GroupStatus, v.ExitDate, v.ExitTime, v.Tujuan, v.Tugas,
+             m.NIP AS MemberNIP, e.Name AS MemberName, a.ApproverNIP, approver.Name AS ApproverName,
+             approver.Phone AS ApproverPhone
+      FROM hris_Travel_Group g
+      INNER JOIN hris_Travel_Group_Version v ON v.GroupCode = g.GroupCode AND v.VersionNo = @VersionNo
+      INNER JOIN hris_Travel_Group_Member accessMember ON accessMember.GroupCode = g.GroupCode AND accessMember.VersionNo = v.VersionNo AND accessMember.NIP = @ActorNIP AND accessMember.Status = 'ACTIVE'
+      INNER JOIN hris_Travel_Group_Member m ON m.GroupCode = g.GroupCode AND m.VersionNo = v.VersionNo AND m.Status = 'ACTIVE'
+      INNER JOIN hris_Travel_Group_Approval a ON a.GroupCode = g.GroupCode AND a.VersionNo = v.VersionNo AND a.ApprovalType = 'ATASAN' AND a.StatusId = 1
+      LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP
+      LEFT JOIN BMC.dbo.hris_Employee approver ON approver.NIP = a.ApproverNIP
+      WHERE g.GroupCode = @Code AND v.VersionNo = (SELECT MAX(VersionNo) FROM hris_Travel_Group_Version WHERE GroupCode = @Code)
+      ORDER BY a.ApproverNIP, m.NIP
+    `)
+  const rows = result.recordset
+  const first = rows[0]
+  if (!first) return { status: 'not_found' }
+  const approvers = [...new Map(rows.map((row) => [String(row.ApproverNIP || '').trim(), row])).values()].filter((row) => row.ApproverNIP)
+  if (!canSendGroupTravelReminder({ groupStatus: first.GroupStatus, versionStatus: first.VersionStatus, isMember: true, approverCount: approvers.length })) return { status: 'not_ready' }
+  const members = [...new Map(rows.map((row) => [String(row.MemberNIP || '').trim(), { name: row.MemberName || row.MemberNIP, nip: row.MemberNIP }])).values()]
+  for (const approver of approvers) {
+    const token = createVehicleApprovalToken('__ATASAN_QUEUE__', approver.ApproverNIP, Date.now(), 1)
+    const approvalLink = EMPLOYEE_PORTAL_URL ? `${EMPLOYEE_PORTAL_URL}/approval/atasan/queue/${encodeURIComponent(token)}` : ''
+    const text = formatTravelApprovalMessage({ approverName: approver.ApproverName || approver.ApproverNIP, members, tujuan: first.Tujuan, keperluan: first.Tugas, startDate: first.ExitDate, startTime: first.ExitTime, approvalLink })
+    const sent = await sendTravelWaToNIP(approver.ApproverNIP, text)
+    if (sent === false) return { status: 'send_failed' }
+  }
+  return { status: 'sent' }
 }
 
 async function getGroupVehicleApprovals() {
@@ -506,4 +553,4 @@ async function confirmJoin(code, actorNIP) {
   }
 }
 
-module.exports = { validateGroupMembers, groupApproverNips, groupStatusAfterApproval, groupApprovalTransition, groupVehicleTransition, searchGroupEmployees, createGroup, autoCloseTravelGroups, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, getGroupVehicleApprovalByToken, approveGroup, approveGroupVehicle };
+module.exports = { validateGroupMembers, groupApproverNips, groupStatusAfterApproval, groupApprovalTransition, groupVehicleTransition, canSendGroupTravelReminder, searchGroupEmployees, createGroup, autoCloseTravelGroups, getGroup, getMyGroups, getGroupQr, scanGroup, requestJoin, confirmJoin, addGroupMember, addDirectGroupMember, removeGroupMember, submitGroup, reviseGroup, getGroupApprovals, getGroupApprovalQueue, getGroupVehicleApprovals, getGroupVehicleApprovalByToken, sendGroupTravelReminder, approveGroup, approveGroupVehicle };
