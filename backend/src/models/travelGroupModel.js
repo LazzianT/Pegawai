@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { getConnection, sql } = require('../config/db');
-const { sendTravelWaToNIP, sendWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL, SECURITY_QR_BASE_URL } = require('../services/waService');
+const { sendTravelWaToNIP, sendWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL } = require('../services/waService');
 const { createVehicleApprovalToken } = require('../services/vehicleApprovalToken');
 
 function validateGroupMembers(values) {
@@ -476,8 +476,7 @@ async function approveGroupVehicle(code, version, approverNIP, action, vehicleTy
       const detail = await conn.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, version).query(`SELECT g.CreatorNIP, v.Tujuan, v.Tugas, v.ExitDate, v.ExitTime, v.VehicleType, v.VehiclePlate, v.DriverMode, v.DriverNIP, v.DriverName, v.QrToken, m.NIP, e.Name FROM hris_Travel_Group g INNER JOIN hris_Travel_Group_Version v ON v.GroupCode = g.GroupCode INNER JOIN hris_Travel_Group_Member m ON m.GroupCode = v.GroupCode AND m.VersionNo = v.VersionNo AND m.Status = 'ACTIVE' LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP WHERE v.GroupCode = @Code AND v.VersionNo = @VersionNo ORDER BY m.NIP`);
       const first = detail.recordset[0];
       const members = detail.recordset.map((row) => ({ nip: row.NIP, name: row.Name || row.NIP }));
-      const qrBaseUrl = SECURITY_QR_BASE_URL || EMPLOYEE_PORTAL_URL;
-       const qrLink = first?.QrToken && qrBaseUrl ? `${qrBaseUrl}/travel/groups/qr/${encodeURIComponent(code)}/${encodeURIComponent(first.QrToken)}` : '';
+       const qrLink = first?.QrToken && EMPLOYEE_PORTAL_URL ? `${EMPLOYEE_PORTAL_URL}/travel/groups/qr/${encodeURIComponent(code)}/${encodeURIComponent(first.QrToken)}` : '';
       const recipient = members.find((member) => member.nip === first?.CreatorNIP) || members[0];
       if (recipient) {
         try {
