@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticate } = require('../middleware/auth');
-const { getAtasanHandler, submitTravelHandler, getMyTravelsHandler, getMyGroupsHandler, getApprovalHandler, getTravelQrHandler, getTravelGroupQrHandler, scanTravelHandler, getTravelApprovalQueueLinkHandler, approveTravelApprovalQueueLinkHandler, getTravelApprovalLinkHandler, approveTravelApprovalLinkHandler, getVehicleApprovalHandler, getVehicleApprovalQueueLinkHandler, approveVehicleApprovalQueueLinkHandler, getVehicleApprovalLinkHandler, approveVehicleApprovalLinkHandler, approveTravelHandler, returnTravelHandler, getActiveTravelsHandler, webApproveTravelHandler, createTravelGroupHandler, getTravelGroupHandler, joinTravelGroupHandler, confirmTravelGroupHandler, addTravelGroupMemberHandler, removeTravelGroupMemberHandler, submitTravelGroupHandler, reviseTravelGroupHandler, getTravelGroupApprovalsHandler, approveTravelGroupHandler, getGroupApprovalHandler, getGroupVehicleApprovalHandler, approveGroupVehicleHandler, searchTravelGroupEmployeesHandler, addDirectTravelGroupMemberHandler } = require('../controllers/travelController');
+const { getAtasanHandler, submitTravelHandler, reminderTravelHandler, getMyTravelsHandler, getMyGroupsHandler, getApprovalHandler, getTravelQrHandler, getTravelGroupQrHandler, scanTravelHandler, getTravelApprovalQueueLinkHandler, approveTravelApprovalQueueLinkHandler, getTravelApprovalLinkHandler, approveTravelApprovalLinkHandler, getVehicleApprovalHandler, getVehicleApprovalQueueLinkHandler, approveVehicleApprovalQueueLinkHandler, getVehicleApprovalLinkHandler, approveVehicleApprovalLinkHandler, approveTravelHandler, returnTravelHandler, getActiveTravelsHandler, webApproveTravelHandler, createTravelGroupHandler, getTravelGroupHandler, joinTravelGroupHandler, confirmTravelGroupHandler, addTravelGroupMemberHandler, removeTravelGroupMemberHandler, submitTravelGroupHandler, reviseTravelGroupHandler, getTravelGroupApprovalsHandler, approveTravelGroupHandler, getGroupApprovalHandler, getGroupVehicleApprovalHandler, approveGroupVehicleHandler, searchTravelGroupEmployeesHandler, addDirectTravelGroupMemberHandler } = require('../controllers/travelController');
 
 const router = express.Router();
 
@@ -37,6 +37,7 @@ router.post('/groups/:code/submit', submitTravelGroupHandler);
 router.post('/groups/:code/revise', reviseTravelGroupHandler);
 router.get('/groups/:code/approvals', getTravelGroupApprovalsHandler);
 router.post('/groups/:code/approvals', approveTravelGroupHandler);
+router.post('/reminder', reminderTravelHandler);
 router.get('/transaksi', getMyTravelsHandler);
 router.get('/approval', getApprovalHandler);
 router.get('/approval/kendaraan', getVehicleApprovalHandler);

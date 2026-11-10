@@ -68,7 +68,7 @@ function normalizePhone(phone) {
 
 async function sendWa({ no, text }) {
   const num = normalizePhone(no);
-  if (!num || !text) return;
+  if (!num || !text) return false;
   try {
     const res = await fetch(WA_API_URL, {
       method: 'POST',
@@ -76,9 +76,14 @@ async function sendWa({ no, text }) {
       body: JSON.stringify({ no: num, text }),
       signal: AbortSignal.timeout(30000),
     });
-    if (!res.ok) console.error('[WA] status:', res.status);
+    if (!res.ok) {
+      console.error('[WA] status:', res.status);
+      return false;
+    }
+    return true;
   } catch (e) {
     console.error('[WA] error:', e.message);
+    return false;
   }
 }
 

@@ -8,6 +8,7 @@ assert.equal(needsVehicleManagerApproval('PRIVATE'), true)
 assert.equal(travelRecipient('0377', '089999999999'), '089999999999')
 assert.equal(travelRecipient('0388', '089999999999'), '089999999999')
 assert.equal(typeof sendTravelWaToNIP, 'function')
+assert.equal(typeof (await import('./waService.js')).sendWa, 'function')
 assert.deepEqual(mapVehicleManagerRecipients([
   { NIP: ' 1001 ', Name: ' Budi ', Phone: ' 0812 ' },
   { NIP: '1002', Name: 'Sari', Phone: '' },
