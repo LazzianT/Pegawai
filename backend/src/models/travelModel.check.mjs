@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { syncVehicleApprovalTokens, plannedTravelDateTime, isTravelQrAvailable, isTravelQrReadable, autoCloseTravels } from './travelModel.js';
+import { syncVehicleApprovalTokens, plannedTravelDateTime, isTravelQrAvailable, isTravelQrReadable, autoCloseTravels, canSendTravelReminder } from './travelModel.js';
 
 const valid = 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef';
 const tokens = [{ nip: '1', token: 'a', statusId: 1 }, { nip: '2', token: 'b', statusId: 1 }, { nip: '3', token: 'c', statusId: 1 }];
@@ -18,6 +18,11 @@ assert.equal(isTravelQrAvailable({ EndDate: null, Remark: JSON.stringify({ qrTok
 assert.equal(isTravelQrAvailable({ EndDate: null, CheckpointReturnedDate: '2026-11-03', Remark: JSON.stringify({ qrToken: valid }) }, valid), false);
 assert.equal(isTravelQrReadable({ EndDate: null, CheckpointReturnedDate: null, Remark: JSON.stringify({ qrToken: valid, departureAt: '2026-11-03T07:30:00.000Z' }) }, valid), true);
 assert.equal(typeof autoCloseTravels, 'function');
+assert.equal(canSendTravelReminder({ status: 'pending', isActive: 1, currentLevel: 1, approvalStatus: 1, approverNIP: '5743' }), true);
+assert.equal(canSendTravelReminder({ status: 'approved', isActive: 1, currentLevel: 1, approvalStatus: 1, approverNIP: '5743' }), false);
+assert.equal(canSendTravelReminder({ status: 'pending', isActive: 0, currentLevel: 1, approvalStatus: 1, approverNIP: '5743' }), false);
+assert.equal(canSendTravelReminder({ status: 'pending', isActive: 1, currentLevel: 1, approvalStatus: 3, approverNIP: '5743' }), false);
+assert.equal(canSendTravelReminder({ status: 'pending', isActive: 1, currentLevel: 1, approvalStatus: 1, approverNIP: '' }), false);
 const travelModelSource = readFileSync(new URL('./travelModel.js', import.meta.url), 'utf8');
 assert.match(travelModelSource, /AND \(@Level <> 1 OR NIP = @NIP\)/);
 assert.match(travelModelSource, /new sql\.Transaction\(conn\)/);

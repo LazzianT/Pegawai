@@ -30,6 +30,15 @@ function plannedTravelDateTime(date, time) {
   return `${safeDate}${safeTime ? ` ${safeTime}` : ''}`;
 }
 
+function canSendTravelReminder({ status, isActive, currentLevel, approvalStatus, approverNIP }) {
+  return String(status || '').trim().toLowerCase() === 'pending'
+    && Boolean(isActive)
+    && Number.isInteger(Number(currentLevel))
+    && Number(currentLevel) === 1
+    && Number(approvalStatus) === 1
+    && Boolean(String(approverNIP || '').trim());
+}
+
 async function detectRole(NIP) {
   const conn = await getConnection();
   const result = await conn.request()
@@ -671,6 +680,41 @@ async function returnTravel(travelId, NIP) {
   return { rowsAffected: result.rowsAffected[0] };
 }
 
+async function sendTravelReminder(travelId, ownerNIP) {
+  const conn = await getConnection();
+  const result = await conn.request()
+    .input('TravelId', sql.VarChar, travelId)
+    .input('OwnerNIP', sql.VarChar, ownerNIP)
+    .query(`
+      SELECT TOP 1 t.Id, t.NIP, t.StartDate, t.StartTime, t.Tujuan, t.Keperluan, t.VehicleType, t.DriverMode, t.DriverNIP, t.DriverName,
+             t.[Status], t.IsActive, t.CurrentLevel, ta.StatusId AS ApprovalStatus, ta.NIP AS ApproverNIP,
+             e.Name AS PemohonName, approver.Name AS ApproverName, approver.Phone AS ApproverPhone
+      FROM hris_Travel t
+      INNER JOIN hris_Travel_Approval ta ON ta.TravelId = t.Id AND ta.[Level] = t.CurrentLevel
+      LEFT JOIN hris_Employee e ON e.NIP = t.NIP
+      LEFT JOIN hris_Employee approver ON approver.NIP = ta.NIP
+      WHERE t.Id = @TravelId AND t.NIP = @OwnerNIP
+    `);
+  const row = result.recordset[0];
+  if (!row) return { status: 'not_found' };
+  if (!canSendTravelReminder(row)) return { status: 'not_ready' };
+  const approvalToken = createVehicleApprovalToken('__ATASAN_QUEUE__', row.ApproverNIP, Date.now(), 1);
+  const approvalLink = EMPLOYEE_PORTAL_URL ? `${EMPLOYEE_PORTAL_URL}/approval/atasan/queue/${encodeURIComponent(approvalToken)}` : '';
+  const text = formatTravelApprovalMessage({
+    approverName: row.ApproverName || row.ApproverNIP,
+    members: [{ name: row.PemohonName || row.NIP, nip: row.NIP }],
+    tujuan: row.Tujuan,
+    keperluan: row.Keperluan,
+    vehicle: row.VehicleType,
+    startDate: row.StartDate,
+    startTime: row.StartTime,
+    driver: row.DriverMode === 'SELF' ? row.DriverNIP : row.DriverName,
+    approvalLink,
+  });
+  if (!await sendWa({ no: row.ApproverPhone, text })) return { status: 'send_failed' };
+  return { status: 'sent' };
+}
+
 async function getActiveTravels(NIP) {
   const conn = await getConnection();
   const result = await conn.request()
@@ -686,4 +730,4 @@ async function getActiveTravels(NIP) {
   return result.recordset;
 }
 
-module.exports = { detectRole, submitTravel, autoCloseTravels, getMyTravels, getTravelApprovals, getTravelQr, getQrToken, scanTravel, getVehicleApprovals, getVehicleApproval, getVehicleApprovalQueueByToken, approveVehicle, approveVehicleByQueueToken, getActiveTravels, getWebApproverNIP, getTravelApprovalByToken, getTravelApprovalQueueByToken, approveTravelByToken, approveTravelByQueueToken, approveTravel, returnTravel, syncVehicleApprovalTokens, plannedTravelDateTime, isTravelQrAvailable, isTravelQrReadable };
+module.exports = { detectRole, submitTravel, autoCloseTravels, getMyTravels, getTravelApprovals, getTravelQr, getQrToken, scanTravel, getVehicleApprovals, getVehicleApproval, getVehicleApprovalQueueByToken, approveVehicle, approveVehicleByQueueToken, getActiveTravels, getWebApproverNIP, getTravelApprovalByToken, getTravelApprovalQueueByToken, approveTravelByToken, approveTravelByQueueToken, approveTravel, returnTravel, sendTravelReminder, syncVehicleApprovalTokens, plannedTravelDateTime, canSendTravelReminder, isTravelQrAvailable, isTravelQrReadable };
