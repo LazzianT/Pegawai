@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "node src/services/waService.check.mjs && node src/services/vehicleApprovalToken.check.mjs && node src/services/travelAutoCloseService.check.mjs && node src/models/travelModel.check.mjs && node src/models/travelGroupModel.check.mjs && node src/controllers/travelController.check.mjs"
+    "test": "node src/services/waService.check.mjs && node src/services/vehicleApprovalToken.check.mjs && node src/services/travelAutoCloseService.check.mjs && node src/models/travelApprover.check.mjs && node src/models/travelModel.check.mjs && node src/models/travelGroupModel.check.mjs && node src/controllers/travelController.check.mjs"
   },
   "keywords": [],
   "author": "",

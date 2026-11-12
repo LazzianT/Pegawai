@@ -27,6 +27,8 @@ const travelModelSource = readFileSync(new URL('./travelModel.js', import.meta.u
 assert.match(travelModelSource, /AND \(@Level <> 1 OR NIP = @NIP\)/);
 assert.match(travelModelSource, /new sql\.Transaction\(conn\)/);
 assert.doesNotMatch(travelModelSource, /appLink|Aplikasi: \$\{appLink\}/);
+assert.match(travelModelSource, /normalizeTravelApproverNIP/);
+assert.match(travelModelSource, /const normalizedAtasanNIP = normalizeTravelApproverNIP/);
 assert.match(travelModelSource, /formatTravelApprovalMessage/);
 assert.match(travelModelSource, /DriverName = CASE WHEN @StatusId = 3 THEN @DriverName ELSE DriverName END/);
 const cutiModelSource = readFileSync(new URL('./cutiModel.js', import.meta.url), 'utf8');

@@ -98,6 +98,7 @@ button:disabled { cursor: not-allowed; }
 .login-footer strong { color: var(--color-navy); }
 .toast { position: fixed; z-index: 4; right: 28px; bottom: 28px; max-width: 320px; padding: 14px 17px; border: 1px solid rgba(15,39,73,.09); border-radius: 12px; background: var(--color-primary); box-shadow: 0 12px 28px rgba(15,39,73,.14); font-size: 12px; }
 .toast.success { border-color: rgba(249,217,118,.9); }
+.employee-result.unavailable { color: var(--navy-70); opacity: .62; }
 
 @media (max-width: 900px) {
   .login-shell { padding: 0; }

@@ -8,6 +8,10 @@ assert.deepEqual(groupApproverNips([
   { approverNIP: 'A', departID: '2' },
   { approverNIP: 'B', departID: '3' },
 ]), ['A', 'B'])
+assert.deepEqual(groupApproverNips([
+  { approverNIP: '0359' },
+  { approverNIP: '0363' },
+]), ['0359'])
 assert.equal(groupStatusAfterApproval({ approved: 1, required: 2, rejected: 0 }), 'PENDING')
 assert.equal(groupStatusAfterApproval({ approved: 1, required: 2, rejected: 1 }), 'REVISION')
 assert.equal(groupStatusAfterApproval({ approved: 2, required: 2, rejected: 0 }), 'VEHICLE_PENDING')
@@ -27,12 +31,16 @@ assert.equal(canSendGroupTravelReminder({ groupStatus: 'PENDING', versionStatus:
 assert.match(source, /Status = 'AUTO_CLOSED'/)
 assert.doesNotMatch(source, /SecurityTravelCheckpoints/)
 assert.match(source, /input\('CreatedBy'/)
-assert.match(source, /a\.StatusId = 1 AND g\.Status = 'PENDING'/)
+assert.match(source, /async function getGroupApprovalQueue[\s\S]*?WHERE a\.ApprovalType = 'ATASAN' AND a\.ApproverNIP = @ApproverNIP AND a\.StatusId IN \(1, 3, 4\)/)
 assert.match(source, /a\.VersionNo = \(SELECT MAX\(VersionNo\) FROM hris_Travel_Group_Version WHERE GroupCode = a\.GroupCode\)/)
 assert.match(source, /SET XACT_ABORT ON;/)
 assert.match(source, /async function searchGroupEmployees/)
 assert.match(source, /TOP 20/)
-assert.match(source, /NIP LIKE @Query OR Name LIKE @Query/)
+assert.match(source, /e\.NIP LIKE @Query OR e\.Name LIKE @Query/)
+assert.match(source, /hris_GetTopLevel\(e\.NIP\)/)
+assert.match(source, /hasAtasan: Boolean\(row\.HasAtasan\)/)
+assert.match(source, /normalizeTravelApproverNIP/)
+assert.match(source, /approvers\.add\(normalizeTravelApproverNIP\(nip\)\)/)
 assert.match(source, /async function addDirectGroupMember/)
 assert.match(source, /createVehicleApprovalToken\('__ATASAN_QUEUE__'/)
 assert.match(source, /formatTravelApprovalMessage/)
@@ -46,6 +54,7 @@ assert.match(source, /async function sendGroupTravelReminder\(/)
 assert.match(source, /g\.CreatorNIP/)
 assert.match(source, /FROM hris_Travel_Group_Approval a INNER JOIN hris_Travel_Group g/)
 assert.match(source, /INNER JOIN hris_Travel_Group g ON g\.GroupCode = a\.GroupCode\r?\n    INNER JOIN hris_Travel_Group_Version v/)
+assert.match(source, /a\.StatusId IN \(1, 3, 4\)/)
 assert.match(source, /const recipient = members\.find\(/)
 assert.match(source, /const qrLink = first\?\.QrToken && EMPLOYEE_PORTAL_URL/)
 assert.doesNotMatch(source, /SECURITY_QR_BASE_URL/)

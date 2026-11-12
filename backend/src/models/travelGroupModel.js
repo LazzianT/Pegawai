@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { getConnection, sql } = require('../config/db');
 const { sendTravelWaToNIP, sendWaToNIP, formatTravelApprovalMessage, formatTravelApprovedMessage, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL } = require('../services/waService');
 const { createVehicleApprovalToken } = require('../services/vehicleApprovalToken');
+const { normalizeTravelApproverNIP } = require('./travelApprover');
 
 function validateGroupMembers(values) {
   const members = [...new Set((Array.isArray(values) ? values : []).map((value) => String(value || '').trim()).filter(Boolean))];
@@ -11,7 +12,7 @@ function validateGroupMembers(values) {
 }
 
 function groupApproverNips(members) {
-  return [...new Set((Array.isArray(members) ? members : []).map((member) => String(member?.approverNIP || '').trim()).filter(Boolean))];
+  return [...new Set((Array.isArray(members) ? members : []).map((member) => normalizeTravelApproverNIP(member?.approverNIP)).filter(Boolean))];
 }
 
 function groupStatusAfterApproval({ approved, required, rejected }) {
@@ -52,8 +53,8 @@ async function searchGroupEmployees(query) {
   const value = String(query || '').trim();
   if (value.length < 2) return [];
   const conn = await getConnection();
-  const result = await conn.request().input('Query', sql.NVarChar, `%${value}%`).query(`SELECT TOP 20 NIP, Name FROM BMC.dbo.hris_Employee WHERE NIP LIKE @Query OR Name LIKE @Query ORDER BY Name, NIP`);
-  return result.recordset.map((row) => ({ nip: String(row.NIP || '').trim(), name: String(row.Name || '').trim() }));
+  const result = await conn.request().input('Query', sql.NVarChar, `%${value}%`).query(`SELECT TOP 20 e.NIP, e.Name, CAST(CASE WHEN EXISTS (SELECT 1 FROM hris_GetTopLevel(e.NIP)) THEN 1 ELSE 0 END AS bit) AS HasAtasan FROM BMC.dbo.hris_Employee e WHERE e.NIP LIKE @Query OR e.Name LIKE @Query ORDER BY e.Name, e.NIP`);
+  return result.recordset.map((row) => ({ nip: String(row.NIP || '').trim(), name: String(row.Name || '').trim(), hasAtasan: Boolean(row.HasAtasan) }));
 }
 
 async function createGroup(actorNIP, payload) {
@@ -210,7 +211,7 @@ async function submitGroup(code, actorNIP, input = {}) {
     for (const member of members.recordset) {
       const nip = await approverForMember(tx, member.NIP);
       if (!nip) throw new Error(`Atasan untuk NIP ${member.NIP} tidak ditemukan`);
-      approvers.add(nip);
+      approvers.add(normalizeTravelApproverNIP(nip));
     }
     for (const nip of approvers) await tx.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, current.VersionNo).input('NIP', sql.VarChar, nip).query(`INSERT INTO hris_Travel_Group_Approval (GroupCode, VersionNo, ApprovalType, ApproverNIP, StatusId) VALUES (@Code, @VersionNo, 'ATASAN', @NIP, 1)`);
     await tx.request().input('Code', sql.VarChar, code).input('VersionNo', sql.Int, current.VersionNo).query(`UPDATE hris_Travel_Group SET Status = 'PENDING', JoinOpen = 0, UpdatedAt = GETDATE() WHERE GroupCode = @Code; UPDATE hris_Travel_Group_Version SET Status = 'PENDING' WHERE GroupCode = @Code AND VersionNo = @VersionNo`);
@@ -248,7 +249,7 @@ async function getGroupApprovalQueue(approverNIP) {
     INNER JOIN hris_Travel_Group_Version v ON v.GroupCode = a.GroupCode AND v.VersionNo = a.VersionNo
     INNER JOIN hris_Travel_Group_Member m ON m.GroupCode = a.GroupCode AND m.VersionNo = a.VersionNo AND m.Status = 'ACTIVE'
     LEFT JOIN BMC.dbo.hris_Employee e ON e.NIP = m.NIP
-    WHERE a.ApprovalType = 'ATASAN' AND a.ApproverNIP = @ApproverNIP AND a.StatusId = 1 AND g.Status = 'PENDING'
+    WHERE a.ApprovalType = 'ATASAN' AND a.ApproverNIP = @ApproverNIP AND a.StatusId IN (1, 3, 4)
        AND a.VersionNo = (SELECT MAX(VersionNo) FROM hris_Travel_Group_Version WHERE GroupCode = a.GroupCode)
      ORDER BY a.VersionNo DESC, a.GroupCode, m.NIP
   `);

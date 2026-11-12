@@ -17,7 +17,9 @@
     "build:pdf": "node ../scripts/build-pdf.mjs",
     "check:pdf": "node ../scripts/check-pdf.mjs",
     "build:pdf:tugas-luar": "node ../scripts/build-travel-pdf.mjs",
-    "check:pdf:tugas-luar": "node ../scripts/check-travel-pdf.mjs"
+    "check:pdf:tugas-luar": "node ../scripts/check-travel-pdf.mjs",
+    "build:poster:portal": "node ../scripts/build-portal-poster.mjs",
+    "check:poster:portal": "node ../scripts/check-portal-poster.mjs"
   },
   "dependencies": {
     "@fontsource/plus-jakarta-sans": "^5.3.0",

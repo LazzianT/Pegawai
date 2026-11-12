@@ -2,6 +2,7 @@ const { getConnection, sql } = require('../config/db');
 const { addNotification } = require('./notifikasiModel');
 const { sendWa, sendWaToNIP, formatTravelApprovalMessage, travelRecipient, needsVehicleManagerApproval, getVehicleManagerRecipients, VEHICLE_MANAGER_NIPS, EMPLOYEE_PORTAL_URL, SECURITY_QR_BASE_URL } = require('../services/waService');
 const { createVehicleApprovalToken, verifyVehicleApprovalToken } = require('../services/vehicleApprovalToken');
+const { normalizeTravelApproverNIP } = require('./travelApprover');
 
 // Kolom time SQL Server simpan tanpa timezone; kirim string "HH:MM:SS" biar jam apa adanya
 function syncVehicleApprovalTokens(tokens, statusId, managerNIP, processedAt) {
@@ -56,6 +57,7 @@ async function detectRole(NIP) {
 }
 
 async function submitTravel(NIP, { id, startDate, endDate, startTime, endTime, tujuan, keperluan, atasanNIP, vehicleType, vehiclePlate, driverMode, driverNIP }) {
+  const normalizedAtasanNIP = normalizeTravelApproverNIP(atasanNIP);
   const conn = await getConnection();
   const transaction = new sql.Transaction(conn);
   await transaction.begin();
@@ -81,7 +83,7 @@ async function submitTravel(NIP, { id, startDate, endDate, startTime, endTime, t
     if (result.rowsAffected[0] === 0) throw new Error('Gagal simpan');
 
     const levels = [
-      { level: 1, nip: atasanNIP },
+      { level: 1, nip: normalizedAtasanNIP },
       { level: 2, nip: null },
       { level: 3, nip: null },
     ];
@@ -108,7 +110,7 @@ async function submitTravel(NIP, { id, startDate, endDate, startTime, endTime, t
   const tglLabel = `${endDate || startDate}`;
   try {
     await addNotification({
-      NIP: atasanNIP,
+      NIP: normalizedAtasanNIP,
       Type: 'TRAVEL',
       Action: 'PENGAJUAN',
       Title: `Pengajuan Tugas Luar dari ${submitterName}`,
@@ -119,11 +121,11 @@ async function submitTravel(NIP, { id, startDate, endDate, startTime, endTime, t
   }
   try {
     const atasanRes = await conn.request()
-      .input('NIP', sql.VarChar, atasanNIP)
+      .input('NIP', sql.VarChar, normalizedAtasanNIP)
       .query(`SELECT TOP 1 Name, Phone FROM BMC.dbo.hris_Employee WHERE NIP = @NIP`);
     const atasan = atasanRes.recordset[0];
     if (atasan) {
-      const approvalToken = createVehicleApprovalToken('__ATASAN_QUEUE__', String(atasanNIP).trim(), Date.now(), 1);
+      const approvalToken = createVehicleApprovalToken('__ATASAN_QUEUE__', String(normalizedAtasanNIP).trim(), Date.now(), 1);
       const webLink = EMPLOYEE_PORTAL_URL ? `${EMPLOYEE_PORTAL_URL}/approval/atasan/queue/${encodeURIComponent(approvalToken)}` : '';
       const text = formatTravelApprovalMessage({
         approverName: atasan.Name,
